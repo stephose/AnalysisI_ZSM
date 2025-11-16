@@ -1,0 +1,143 @@
+%
+% (c) 2025 Autor, ETH Zürich
+%
+% !TEX root = main.tex
+% !TEX encoding = UTF-8
+%
+
+\section{Sequences of Real Numbers}
+
+\subsection{Convergence of Sequences}
+
+\begin{definition}{Sequences}{sequences}
+	A \textbf{sequence} is a function $a:\mathbb{N} \to \mathbb{R}$. The image $a(n)$ of $n \in \mathbb{N}$ is also written as $a_n$ and is called the $n$-th element of a. Instead of $a:\mathbb{N} \to \mathbb{R}$ one often writes $(a_n)_{n \in \mathbb{N}}, (a_n)_{n =0}^{\infty}, (a_n)_{n \geq 0}$.
+\end{definition}
+
+\begin{definition}{(Eventually) Constant Sequences}{const sequences}
+	A sequence $(x_n)_{n=0}^{\infty}$ is \textbf{constant} if $x_n = x_m \forall n,m \in \mathbb{N}$. It is \textbf{eventually constant} if there exists $N \in \mathbb{N}$ such that $x_n = x_m \forall n,m \geq N$.
+\end{definition}
+
+\begin{definition}{Convergence of Sequences}{conv sequences}
+	Let $(x_n)_{n=0}^{\infty}$ be a sequence in $\mathbb{R}$. We say that $(x_n)_{n=0}^{\infty}$ \textbf{converges} (or is \textbf{convergent}) if $\exists A \in \mathbb{R}$ such that 
+	\[
+		\forall \varepsilon > 0\; \exists N \in \mathbb{N} : |x_n - A| < \varepsilon\quad \forall n \geq N.
+	\]
+	In this case we write
+	\begin{equation}
+		\lim_{n \to \infty} x_n = A
+	\end{equation}
+	and call $A$ the \textbf{limit} of $(x_n)_{n=0}^{\infty}$.
+\end{definition}
+
+\begin{lemma}{Uniqueness of the Limit}{unique limit}
+	A convergent sequence $(x_n)_{n=0}^{\infty}$ has exactly one limit.
+\end{lemma}
+\begin{proof}
+	Let $A,B \in \mathbb{R}$ be limits of $(x_n)_{n=0}^{\infty}$. Fix $\varepsilon > 0$. Then there exists $N_A, N_B \in \mathbb{N}$ such that $|x_n -A| < \varepsilon$ for all $n \geq N_A$ and $|x_n - B| < \varepsilon$ for all $n \geq N_B$. We define $N := \operatorname{max}\{N_A, N_B\}$. Then it holds that
+	\[
+		|A - B| \leq |A - x_N| + |x_N - B| < \varepsilon + \varepsilon = 2\varepsilon.
+	\]
+	Since $\varepsilon > 0$ is arbitrary, it follows that $A = B$. \qedhere
+\end{proof}
+
+\subsection{Convergent Subsequences and Acculmulation Points}
+\begin{definition}{Subsequences}{subseq}
+	Let $(x_n)_{n=0}^{\infty}$ be a sequence. A \textbf{subsequence} is of the form $(x_{n_k})_{k=0}^{\infty}$, where $(n_k)_{k=0}^{\infty}$ is a strictly increasing sequence of non-negative integers, i.e., $n_{k+1} > n_k \; \forall k \in \mathbb{N}$.
+\end{definition}
+
+\begin{remark}
+	\label{rmk:subseq}
+	Since $n_{k+1} > n_k$ for all $k \in \mathbb{N}$ it follows by induction that $n_k \geq k$ for all $k \in \mathbb{N}$.
+\end{remark}
+\begin{proof}
+	For $k=0$ we have that $n_0 \geq 0$, because $(n_k)_{k=0}^{\infty}$ is a sequence of non-negative integers. So the condition is fulfilled.
+	For the inductive step we want to show that the condition holds for $k+1$ under the assumption that the condition is true for $k$. Because $(n_k)_{k=0}^{\infty}$ is also a strictly increasing sequence, we have that $n_{k+1} > n_k \geq k$. Additionally since $n_k \in \mathbb{N}$, we have that $n_{k+1} \geq n_k + 1$. 
+	So it follows that $n_{k+1} \geq n_k + 1 \geq k + 1$, which proofs the condition for $k+1$.\qedhere
+\end{proof}
+
+\begin{lemma}{Subsequences of Convergent Sequences are Convergent}{subseq conv}
+	Let $(x_n)_{n=0}^{\infty}$ be a sequence converging to $A \in \mathbb{R}$. Then every subsequence $(x_{n_k})_{k=0}^{\infty}$ also converges to $A$.
+\end{lemma}
+\begin{proof}
+	Let $(x_n)_{n=0}^{\infty}$ be a sequence converging to $A \in \mathbb{R}$.
+	Fix $\varepsilon > 0$.
+	Since $(x_n)_{n=0}^{\infty}$ converges to $A$, there exists $N \in \mathbb{N}$ such that $|x_n - A| < \varepsilon \; \forall n \geq N$. As by Remark \ref{rmk:subseq} we know that $n_k \geq k$ for all $k \in \mathbb{N}$.
+	Therefore for all $k \geq N$ it holds that $|x_{n_k} - A| < \varepsilon$. \qedhere
+\end{proof}
+
+\begin{definition}{Accumulation Points of Sequences}{acc pt seq}
+	Let $(x_n)_{n=0}^{\infty}$ be a sequence in $\mathbb{R}$. A point $A \in \mathbb{R}$ is an \textbf{accumulation point} of $(x_n)_{n=0}^{\infty}$ if
+	\[
+		\forall \varepsilon > 0 \; \forall N \in \mathbb{N} \; \exists n \geq N : |x_n - A| < \varepsilon.
+	\]
+\end{definition}
+
+\begin{proposition}{Subsequences and Accumulation Points}{subseq_acc_pt}
+	Let $(x_n)_{n=0}^{\infty}$ be a sequence in $\mathbb{R}$. A point $A$ is and accumulation point of $(x_n)_{n=0}^{\infty}$ if and only if there exists a convergent subsequence of $(x_n)_{n=0}^{\infty}$ with limit $A$.
+\end{proposition}
+
+\begin{corollary}{Infinitely Many Terms Near an Accumulation Point}{inf terms acc pt}
+	If $A \in \mathbb{R}$ is an accumulation point of $(x_n)_{n=0}^{\infty}$, then for every $\varepsilon > 0$ there are infinitely many n with $x_n \in (A - \varepsilon, A + \varepsilon)$.
+\end{corollary}
+\begin{proof}
+	By Proposition \ref{prop*subseq_acc_pt}, there exists a subsequence $(x_{n_k})_{k=0}^{\infty}$ with $\lim_{k \to \infty} = A$. Hence for every $\varepsilon > 0$ there exists $K$ such that $x_{n_k} \in (A - \varepsilon, A + \varepsilon)$ for all $k \geq K$, providing infinitely many elements of the sequence inside the interval $(A - \varepsilon, A + \varepsilon)$. \qedhere
+\end{proof}
+
+\begin{corollary}{Accumulation Points of Convergent Sequences}
+	A convergent sequence has exactly one accumulation point, namely its limit.
+\end{corollary}
+
+\subsection{Addition, Multiplication and Inequalities}
+\begin{proposition}{Limits and Operations}{lim_op}
+	Let $(x_n)_{n=0}^{\infty}$ and $(y_n)_{n=0}^\infty$ be sequences converging to $A, B \in \mathbb{R}$ respectively. Then:
+	\begin{enumerate}
+		\item The sequence $(x_n + y_n)_{n=0}^{\infty}$ converges to $A + B$.
+		\item The sequence $(x_ny_n)_{n=0}^{\infty}$ converges to $AB$.
+		\item Given $\alpha \in \mathbb{R}$, the sequence $(\alpha x_n)_{n=0}^{\infty}$ converges to $\alpha A$.
+		\item Suppose $x_n \neq 0$ for all $n \in \mathbb{N}$ and $A \neq 0$. Then the sequence $(x_n^{-1})_{n=0}^{\infty}$ converges to $A^{-1}$. 
+	\end{enumerate}
+\end{proposition}
+
+\begin{proposition}{Limits and Inequalities}{lim_ineq}
+	Let $(x_n)_{n=0}^{\infty}$ and $(y_n)_{n=0}^\infty$ be sequences converging to $A, B \in \mathbb{R}$ respectively.
+	\begin{enumerate}
+		\item If $A < B$, then there exists $N \in \mathbb{N}$ such that $x_n < y_n$ for all $n \geq \mathbb{N}$.
+		\item If there exists $N \in \mathbb{N}$ such that $x_n \leq y_n$ for all $n \geq N$, then $A \leq B$.
+	\end{enumerate}
+\end{proposition}
+
+\begin{remark}
+	In Propostion \ref{prop*lim_ineq} even if we assume that $x_n < y_n$ for all $n \in \mathbb{N}$, we cannot conclude that $A < B$. for example take
+	\[
+		x_n = \frac{1}{n}, \quad y_n = \frac{1}{n}.
+	\]
+	Then we have that $x_n < y_n$ for all $n \in \mathbb{N}$ but $A = B = 0$.
+\end{remark}
+
+\begin{lemma}{Sandwich Lemma}{sandwich_seq}
+	Let $(x_n)_{n=0}^{\infty}$, $(y_n)_{n=0}^{\infty}$, $(z_n)_{n=0}^{\infty}$ be sequences such that for some $N \in \mathbb{N}$, we have that
+	\[
+		x_n \leq y_n \leq z_n \quad \forall n \geq N.
+	\]
+	Suppose that both $(x_n)_{n=0}^{\infty}$ and $(z_n)_{n=0}^{\infty}$ converge to the same limit. Then $(y_n)_{n=0}^{\infty}$ also converges, and we have that
+	\[
+		\lim_{n \to \infty} x_n = \lim_{n \to \infty} y_n = \lim_{n \to \infty} z_n.
+	\]
+\end{lemma}
+
+\begin{proof}
+	Let $(x_n)_{n=0}^{\infty}$, $(y_n)_{n=0}^{\infty}$, $(z_n)_{n=0}^{\infty}$ be sequences such that for some $N_0 \in \mathbb{N}$, we have that
+	\[
+		x_n \leq y_n \leq z_n \quad \forall n \geq N_0.
+	\]
+	Additionally suppose that $(x_n)_{n=0}^{\infty}$ and $(z_n)_{n=0}^{\infty}$ converge to $A \in \mathbb{R}$. Fix $\varepsilon > 0$. Since $(x_n)_{n=0}^{\infty}$, $(z_n)_{n=0}^{\infty}$ converge to $A$ there exists $N_x, N_z \in \mathbb{N}$ such that
+	\begin{align*}
+		A - \varepsilon &< x_n < A + \varepsilon \quad \forall n \geq N_x\\
+		A - \varepsilon &< z_n < A + \varepsilon \quad \forall n_z \geq N_z.
+	\end{align*}
+	So we choose $N := \operatorname{max}\{N_0, N_x, N_z\}$. Then we have that
+	\[
+		A - \varepsilon < x_n \leq y_n \leq z_n < A + \varepsilon \quad \forall n \geq N,
+	\] 
+	which shows that $\lim_{n \to \infty} y_n = A$.\qedhere
+\end{proof}
