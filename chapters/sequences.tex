@@ -141,3 +141,78 @@
 	\] 
 	which shows that $\lim_{n \to \infty} y_n = A$.\qedhere
 \end{proof}
+
+\begin{definition}{Bounded Sequences}{bound_seq}
+	A sequence $(x_n)_{n=0}^{\infty}$ is called \textbf{bounded} if there exists a real number $M \geq 0$ such that
+	\[
+		|x_n| \leq M \quad \forall n \in \mathbb{N}.
+	\]
+\end{definition}
+
+\begin{lemma}{Convergent Sequences are Bounded}{conv_seq_bound}
+	Every convergent sequence is bounded.
+\end{lemma}
+\begin{proof}
+	Let $(x_n)_{n=0}^{\infty}$ be a sequence converging to $A \in \mathbb{R}$. Let $\varepsilon = 1$. Then, by convergence of $(x_n)_{n=0}^{\infty}$, there exists $N$ such that $|x_n - A| < 1$ for all $n \geq N$. So we have that
+	\[
+		|x_n| = |x_n - A + A| \leq |x_n - A| + |A| < 1 + |A|. 
+	\]
+	We choose
+	\[
+		M = \operatorname{max}(|x_0|, |x_1|, \hdots , |x_{N-1}|, 1 + |A|).
+	\]
+	Then $(x_n)_{n=0}^{\infty} \leq M$ for all $n \in \mathbb{N}$ as desired. \qedhere 
+\end{proof}
+
+
+\begin{definition}{Monotone Sequences}{mono_seq}
+	A sequence $(x_n)_{n=0}^{\infty}$ is called:
+	\begin{itemize}
+		\item \textbf{(monotonically) increasing} if $m > n\; \Rightarrow \; x_m \geq x_n$,
+		\item \textbf{strictly (monotonically) increasing} if $m > n \; \Rightarrow \; x_m > x_n$,
+		\item \textbf{(monotonically) decreasing} if $m > n \; \Rightarrow \; x_m \leq x_n$,
+		\item \textbf{strictly (monotonically) decreasing} if $m > n \; \Rightarrow \; x_m < x_n$.
+	\end{itemize}
+	If a sequence is decreasing or increasing we call it monotone. If a sequence is strictly increasing or strictly decreasing then we call it strictly monotone.
+\end{definition}
+
+\begin{remark}
+	An equivalent formulation of monotone sequences can be given using only successive terms:
+	\begin{itemize}
+		\item $(x_n)_{n=0}^{\infty}$ is increasing if $x_{n + 1} \geq x_n$ for all $n$,
+		\item $(x_n)_{n=0}^{\infty}$ is strictly increasing if $x_{n+1} > x_n$ for all $n$,
+		\item $(x_n)_{n=0}^{\infty}$ is decreasing if $x_{n+1} \leq x_n$ for all $n$,
+		\item $(x_n)_{n=0}^{\infty}$ is strictly decreasing if $x_{n+1} < x_n$ for all $n$.
+	\end{itemize}
+\end{remark}
+
+\begin{theorem}{Convergence of Monotone Sequences}{conv_mono_seq}
+	A monotone sequence $(x_n)_{n=0}^{\infty}$ converges if and only if it is bounded. More precisely, let $X = \{x_n\; |\; n \in \mathbb{N}\}$ denote the set of points in the sequence.
+	\begin{itemize}
+		\item If $(x_n)_{n=0}^{\infty}$ is increasing, then $\lim_{n \to \infty} x_n = \operatorname{sup}(X)$,
+		\item if $(x_n)_{n=0}^{\infty}$ decreasing, then $\lim_{n \to \infty} x_n = \operatorname{inf}(X)$.
+	\end{itemize}
+\end{theorem}
+\begin{proof}
+	If $(x_n)_{n=0}^{\infty}$ converges Lemma \ref{lem*conv_seq_bound} says that its bounded.
+	
+	Conversely, let $(x_n)_{n=0}^{\infty}$ be a bounded monotone sequence. Wlog assume that $(x_n)_{n=0}^{\infty}$ is increasing (otherwise consider $(- x_n)_{n=0}^{\infty}$). Since $(x_n)_{n=0}^{\infty}$ is bounded from above, the set $X = \{x_n\; |\; n \in \mathbb{N}\}$ has a supremum, that we'll call $A = \operatorname{sup}(X)$.
+	
+	By definiton of $A$:
+	\begin{enumerate}
+		\item[(i)] $x_n \leq A \quad \forall n \in \mathbb{N}$,
+		\item[(ii)] $\forall \varepsilon > 0$ there exists $N \in \mathbb{N}$ such that $x_N > A - \varepsilon$.
+	\end{enumerate}
+	Then, for all $n \geq N$ using (ii) and monotonicity, we have that $x_n \geq x_N > A - \varepsilon$. Then using (i), we conclude that
+	\begin{align*}
+		A - \varepsilon < x_n < A + \varepsilon \quad \forall n \geq N.
+	\end{align*}
+	\qedhere
+\end{proof}
+
+\subsection{Superior and Inferior Limits}
+
+Let $(x_n)_{n=0}^{\infty}$ be a bounded sequence. To study its behavior for large $n$ its is useful to look at its tails
+\[
+	X = \{x_k \;|\; k \geq n \} \subseteq \mathbb{R}.
+\]

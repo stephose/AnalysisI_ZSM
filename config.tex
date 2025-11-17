@@ -25,8 +25,8 @@
 \newcounter{dnscounter}[section]
 
 \newtcbtheorem[number within=section, use counter=dnscounter]{definition}{Definition}{colback=violet!5, colframe=violet!30, coltitle=black, fonttitle=\large}{def}
-\newtcbtheorem[use counter=dnscounter, number within=section]{theorem}{Theorem}{colback=blue!5, colframe=blue!25, coltitle=black, fonttitle=\large, fontupper=\itshape, label separator=*}{theo}
-\newtcbtheorem[use counter=dnscounter, number within=section]{lemma}{Lemma}{colback=blue!5, colframe=blue!25, coltitle=black, fontupper=\itshape, fonttitle=\large, label separator=*}{lem}
+\newtcbtheorem[use counter=dnscounter, number within=section]{theorem}{Theorem}{colback=yellow!5!orange!5, colframe=yellow!25!orange!25, coltitle=black, fonttitle=\large, fontupper=\itshape, label separator=*}{theo}
+\newtcbtheorem[use counter=dnscounter, number within=section]{lemma}{Lemma}{colback=yellow!5!orange!5, colframe=yellow!25!orange!25, coltitle=black, fontupper=\itshape, fonttitle=\large, label separator=*}{lem}
 \newtcbtheorem[use counter=dnscounter, number within=section]{corollary}{Corollary}{colback=olive!5, colframe=olive!30, coltitle=black, fonttitle=\large, fontupper=\itshape,label separator=*}{cor}
 \newtcbtheorem[use counter=dnscounter, number within=section]{proposition}{Proposition}{colback=olive!5, colframe=olive!30, coltitle=black, fonttitle=\large, fontupper=\itshape, label separator=*}{prop}
 
@@ -44,6 +44,8 @@
 
 \geometry{left=3cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
 
+\relpenalty=10000
+\binoppenalty=10000
 
 
 \usepackage{fancyhdr}
