@@ -214,5 +214,40 @@
 
 Let $(x_n)_{n=0}^{\infty}$ be a bounded sequence. To study its behavior for large $n$ its is useful to look at its tails
 \[
-	X = \{x_k \;|\; k \geq n \} \subseteq \mathbb{R}.
+	X_{\geq n} = \{x_k \;|\; k \geq n \} \subseteq \mathbb{R}.
 \]
+The concept of limits can be restated using the tails of a sequence, i.e., the sequence $(x_n)_{n=0}^{\infty}$ converges to $A \in \mathbb{R}$ if and only if, for every $\varepsilon > 0$ there exists $N \in \mathbb{N}$ such that $X_{N} \subseteq (A - \varepsilon, A + \varepsilon)$.
+
+However, since not every sequence has a limit we now introduce a related notion (the \textbf{superior} and \textbf{inferior limits}), which always exist for bounded sequences.
+
+For each $n \in \mathbb{N}$, define
+\[
+	s_n = \sup(X_{\geq n}) = \sup_{k\geq n}x_k, \qquad i_n = \inf(X_{\geq n}) = \inf_{k \geq n} x_k.
+\]
+Since $X_{\geq m} \subset X_{\geq n}$, whenever $m > n$, we have that
+\[
+	i_n \leq i_m \leq s_m \leq s_n \qquad \forall m > n.
+\]
+Thus, $(s_n)_{n=0}^{\infty}$ is a monotonically decreasing sequence, while $(i_n)_{n=0}^{\infty}$ is a monotonically increasing sequence.
+Moreover, since $(x_n)_{n=0}^{\infty}$ is bounded both $(s_n)_{n=0}^{\infty}$ and $(i_n)_{n=0}^{\infty}$ are bounded as well.
+Hence by Theorem \ref{theo*conv_mono_seq}, both sequences converge. Their limits will be called the \textit{superior} and the \textit{inferior limit} of $(x_n)_{n=0}^{\infty}$ respectively.
+
+Note that, since $x_n \in X_{\geq n}$, we have that
+\begin{equation}
+	\label{eq:ineq_sup_inf}
+	i_n \leq x_n \leq s_n \qquad \forall n \in \mathbb{N}.
+\end{equation}
+
+\begin{definition}{Superior and Inferior Limits}{sup_inf}
+	Let $(x_n)_{n=0}^{\infty}$ be a bounded sequence in $\mathbb{R}$. The numbers
+	\[
+		\limsup_{n \to \infty} x_n = \lim_{n \to \infty} \big(\sup_{k\geq n}x_k\big), \qquad
+		\liminf_{n \to \infty} x_n = \lim_{n \to \infty} \big(\inf_{k \geq n}x_k\big)
+	\]
+	are called the \textbf{superior} and \textbf{inferior limit} of $(x_n)_{n=0}^{\infty}$ respectively.
+	From Equation \ref{eq:ineq_sup_inf} and Proposition \ref{prop*lim_ineq}, we have
+	\[
+		\liminf_{n \to \infty} x_n \leq \limsup_{n \to \infty} x_n.
+	\]
+\end{definition}
+
