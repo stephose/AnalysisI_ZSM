@@ -76,6 +76,26 @@
 	Let $(x_n)_{n=0}^{\infty}$ be a sequence in $\mathbb{R}$. A point $A$ is and accumulation point of $(x_n)_{n=0}^{\infty}$ if and only if there exists a convergent subsequence of $(x_n)_{n=0}^{\infty}$ with limit $A$.
 \end{proposition}
 
+\begin{proof}
+	First assume that $A \in \mathbb{R}$ is an accumulation point of $(x_n)_{n=0}^{\infty}$.
+	We construct $(n_k)_{k\geq 0}$ recursively:
+	\begin{itemize}
+		\item first, apply the definition of accumulation point with $N = 1$ and $\varepsilon = 1 = 2^0$ to find $n_0 \geq 1$ with $|x_{n_0} - A| \leq 2^0$,
+		\item second, apply the definition the definition of accumulation point with $N = n_0 + 1$ and $\varepsilon = 2^{-1}$ to find $n_1 \geq n_0 + 1$ with $|x_{n_1} - A| \leq 2^{-1}$,
+		\item more in general given $n_{k-1}$, we apply the definition of accumulation point with $N = n_{k-1} + 1$ and $\varepsilon = 2^{-k}$ to find $n_k \geq n_{k-1} + 1$ with $|x_{n_k} - A| \leq 2^{-k}$.
+	\end{itemize}
+	Now given $\varepsilon > 0$ choose $N$ such that $2^{-N} < \varepsilon$. Then for all $k \geq N$ we have that
+	\[
+		|x_{n_k} - A| \leq 2^{-k} \leq 2^{-N} < \varepsilon,
+	\]
+	so $\lim_{k \to \infty} x_{n_k} = A$.
+	
+	Conversely, assume that there exists a subsequence $(x_{n_k})_{k=0}^{\infty}$ converging to $A$. Fix $\varepsilon > 0$ and $N \in \mathbb{N}$. 
+	Since $\lim_{k \to \infty} x_{n_k} = A$, there exists $N_0$ such that $|x_{n_k} - A| < \varepsilon$ for all $k \geq N_0$.
+	Hence if we choose $k = \max\{N_0, N\}$, because $n_k \geq n$ (recall Remark \ref{rmk:subseq}) we have that $n_k \geq N$ and $|x_{n_k} - A| < \varepsilon$.
+	Thus $A$ is an accumulation point. \qedhere
+\end{proof}
+
 \begin{corollary}{Infinitely Many Terms Near an Accumulation Point}{inf terms acc pt}
 	If $A \in \mathbb{R}$ is an accumulation point of $(x_n)_{n=0}^{\infty}$, then for every $\varepsilon > 0$ there are infinitely many n with $x_n \in (A - \varepsilon, A + \varepsilon)$.
 \end{corollary}
@@ -250,4 +270,38 @@ Note that, since $x_n \in X_{\geq n}$, we have that
 		\liminf_{n \to \infty} x_n \leq \limsup_{n \to \infty} x_n.
 	\]
 \end{definition}
+
+\begin{lemma}{Convergence and Superior/Inferior Limits}{conv_limsup_liminf}
+	A bounded sequence $(x_n)_{n=0}^{\infty}$ in $\mathbb{R}$ converges if and only if
+	\[
+		\limsup_{n \to \infty} x_n = \liminf_{n \to \infty} x_n.
+	\]
+\end{lemma}
+
+\begin{proof}
+	For every $n \in \mathbb{N}$, define
+	\[
+		i_n = \inf_{k \geq n} x_k, \qquad s_n = \sup_{k\geq n} x_k,
+	\]
+	and set
+	\[
+		I = \lim_{n \to \infty} i_n = \liminf_{n \to \infty} x_n, \qquad S = \lim_{n \to \infty} s_n = \limsup_{n \to \infty} x_n.
+	\]
+	
+	First suppose that $I = S$. Since $i_n \leq x_n \leq s_n$ (see Equation \ref{eq:ineq_sup_inf}), the Sandwich Lemma \ref{lem*sandwich_seq} implies that the sequence $(x_n)_{n=0}^{\infty}$ converges, and its limit equals $I = S$.
+	
+	Conversely, assume that $(x_n)_{n=0}^{\infty}$ converges to $A \in \mathbb{R}$. Given $\varepsilon > 0$, there exists $N \in \mathbb{N}$ such that
+	\[
+		A - \varepsilon < x_n < A + \varepsilon \qquad \forall n \geq N.
+	\]
+	Then for all $n \geq N$, the same inequalities holds for $i_n$ and $s_n$, i.e.,
+	\[
+		A - \varepsilon \leq i_n \leq s_n \leq A + \varepsilon.
+	\]
+	Taking limits and using Proposition \ref{prop*lim_ineq}, we obtain
+	\[
+		A - \varepsilon \leq I \leq S \leq A + \varepsilon.
+	\]
+	Since $\varepsilon > 0$ is arbitrary, it follows that $A = I = S$, which proves the result.\qedhere
+\end{proof}
 
