@@ -96,7 +96,7 @@
 	Thus $A$ is an accumulation point. \qedhere
 \end{proof}
 
-\begin{corollary}{Infinitely Many Terms Near an Accumulation Point}{inf terms acc pt}
+\begin{corollary}{Infinitely Many Terms Near an Accumulation Point}{inf_terms_acc_pt}
 	If $A \in \mathbb{R}$ is an accumulation point of $(x_n)_{n=0}^{\infty}$, then for every $\varepsilon > 0$ there are infinitely many n with $x_n \in (A - \varepsilon, A + \varepsilon)$.
 \end{corollary}
 \begin{proof}
@@ -173,15 +173,15 @@
 	Every convergent sequence is bounded.
 \end{lemma}
 \begin{proof}
-	Let $(x_n)_{n=0}^{\infty}$ be a sequence converging to $A \in \mathbb{R}$. Let $\varepsilon = 1$. Then, by convergence of $(x_n)_{n=0}^{\infty}$, there exists $N$ such that $|x_n - A| < 1$ for all $n \geq N$. So we have that
+	Let $(x_n)_{n=0}^{\infty}$ be a sequence converging to $A \in \mathbb{R}$. Let $\varepsilon = 1$. Then, by convergence of $(x_n)_{n=0}^{\infty}$, there exists $N$ such that $|x_n - A| \leq 1$ for all $n \geq N$. So we have that
 	\[
-		|x_n| = |x_n - A + A| \leq |x_n - A| + |A| < 1 + |A|. 
+		|x_n| = |x_n - A + A| \leq |x_n - A| + |A| \leq 1 + |A| \qquad \forall n \geq N. 
 	\]
 	We choose
 	\[
 		M = \operatorname{max}(|x_0|, |x_1|, \hdots , |x_{N-1}|, 1 + |A|).
 	\]
-	Then $(x_n)_{n=0}^{\infty} \leq M$ for all $n \in \mathbb{N}$ as desired. \qedhere 
+	Then $|x_n| \leq M$ for all $n \in \mathbb{N}$ as desired. \qedhere 
 \end{proof}
 
 
@@ -304,4 +304,165 @@ Note that, since $x_n \in X_{\geq n}$, we have that
 	\]
 	Since $\varepsilon > 0$ is arbitrary, it follows that $A = I = S$, which proves the result.\qedhere
 \end{proof}
+
+\begin{theorem}{Superior and Inferior Limits are Accumulation Points}{limsup_acc_pt}
+	Let $(x_n)_{n=0}^{\infty}$ be a bounded sequence and let $A = \limsup_{n \to \infty} x_n$.
+	Then $A$ is an accumulation point of $(x_n)_{n=0}^{\infty}$, and for every $\varepsilon > 0$ the following hold:
+	\begin{enumerate}
+		\item only finitely many elements satisfy $x_n \geq A + \varepsilon$;
+		\item infinitely many elements satisfy $A - \varepsilon < x_n < A + \varepsilon$.
+	\end{enumerate}
+	An analogous statement holds for the inferior limit.
+\end{theorem}
+
+\begin{proof}
+	Since the sequence $(s_n)_{n=0}^{\infty}$ is monotonically decreasing and converges to $A$, given $\varepsilon > 0$, there exists $N_0 \in \mathbb{N}$ such that
+	\begin{equation}
+		\label{eq:limsup}
+		A \leq s_n < A + \varepsilon \qquad \forall n \geq N_0.
+	\end{equation}
+	We first prove that $A$ is an accumulation point.
+	
+	Fix $N \in \mathbb{N}$ and set $N_1 = \max\{N, N_0\}$. Since $s_{N_1} = \sup_{k\geq N_1} x_k$, there exists $n_1 \geq N_1 \geq N_0$ such that
+	\[
+		s_{N_1} - \varepsilon < x_{n_1} \leq s_{N_1}.
+	\]
+	Thus, combining this bound with Equation \ref{eq:limsup} we obtain
+	\[
+		A - \varepsilon < s_{N_1} - \varepsilon < x_{n_1} \leq s_{N_1} < A + \varepsilon.
+	\]
+	This construct shows that for any $\varepsilon > 0$ and any $N \in \mathbb{N}$, there exists $n_1 \geq N$ such that $A - \varepsilon < x_{n_1} < A + \varepsilon$.
+	Thus $A$ is an accumulation point for $(x_n)_{n=0}^{\infty}$.
+	
+	We now prove$1.$ and $2.$. From Equation \ref{eq:limsup} we have $x_n < A + \varepsilon$ for all $n \geq N_0$, so only finitely many terms satisfy $x_n \geq A + \varepsilon$. This shows $1.$.
+	
+	Also since $A$ is an accumulation point, it follows from Corollary \ref{cor*inf_terms_acc_pt} that infinitely many terms of the sequence lie within any interval $(A - \varepsilon, A + \varepsilon)$. \qedhere
+\end{proof}
+
+\begin{corollary}{Bounded Sequences have Convergent Subsequences}{bound_seq_conv_subseq}
+	Every bounded sequence has at least one accumulation point and therefore possesses a convergent subsequence.
+\end{corollary}
+
+\begin{proof}
+	By Theorem \ref{theo*limsup_acc_pt}, the number
+	\[
+		A = \limsup_{n \to \infty} x_n
+	\]
+	is always an accumulation point of $(x_n)_{n=0}^{\infty}$. Moreover, by Proposition \ref{prop*subseq_acc_pt}, every accumulation point is the limit of a convergent subsequence.
+	Hence every bounded sequence admits at least one convergent subsequence. \qedhere
+\end{proof}
+
+\subsection{Cauchy Sequences}
+
+\begin{definition}{Cauchy Sequences}{cauchy_seq}
+	A sequence $(x_n)_{n=0}^{\infty}$ is called a \textbf{Cauchy sequence} if for every $\varepsilon > 0$ there exists $N \in \mathbb{N}$ such that
+	\[
+		|x_n - x_m| < \varepsilon \qquad \forall n,m \geq N.
+	\]
+\end{definition}
+
+\begin{lemma}{Cauchy Sequences are Bounded}{cauchy_seq_bound}
+	Every Cauchy sequence is bounded.
+\end{lemma}
+
+\begin{proof}
+	By definition, there exists $N \in \mathbb{N}$ such that
+	\[
+		|x_n - x_N| \leq 1 \qquad \forall n \geq N.
+	\]
+	Hence, for $n \geq N$, we have $|x_n| \leq 1 + |x_N|$.
+	Now, define
+	\[
+		M = \max\{|x_0|, |x_1|, \hdots , |x_{N-1}|, 1 + |x_N|\}.
+	\]
+	Then, $|x_n| \leq M$ for all $n \in \mathbb{N}$, so $(x_n)_{n=0}^{\infty}$ is bounded. \qedhere
+\end{proof}
+
+\begin{theorem}{Convergence and Cauchy Sequences}{conv_cauchy_seq}
+	A sequence $(x_n)_{n=0}^{\infty}$ of real numbers converges if and only if it is a Cauchy sequence.
+\end{theorem}
+
+\begin{proof}
+	Suppose first that $(x_n)_{n=0}^{\infty}$ converges to some $A \in \mathbb{R}$, and let us prove that $(x_n)_{n=0}^{\infty}$ is a Cauchy sequence.
+	
+	Given $\varepsilon > 0$, choose $N \in \mathbb{N}$ such that
+	\[
+		|x_n - A| < \frac{\varepsilon}{2} \qquad \forall n \geq N.
+	\]
+	Then for all $n,m \geq N$, we have that
+	\[
+		|x_n - x_m| \leq |x_n - A| + |x_m - A| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon,
+	\]
+	hence $(x_n)_{n=0}^{\infty}$ is a Cauchy sequence.
+	
+	Viceversa, let $(x_n)_{n=0}^{\infty}$ be a Cauchy sequence. Since it is bounded (by Lemma \ref{lem*cauchy_seq_bound}), Corollary \ref{cor*bound_seq_conv_subseq} implies that there exists a subsequence $(x_{n_k})_{k=0}^{\infty}$ converging to some $A \in \mathbb{R}$.
+	Given $\varepsilon > 0$, choose $N_0 \in \mathbb{N}$ such that
+	\[
+		|x_n - x_m| < \frac{\varepsilon}{2} \qquad \forall n,m \geq N_0,
+	\]
+	and choose $N_1 \in \mathbb{N}$ such that
+	\[
+		|x_{n_k} - A| < \frac{\varepsilon}{2} \qquad \forall k \geq N_1.
+	\]
+	Let $N = \max\{N_0, N_1\}$. Since $n_N \geq N$ (see Remark \ref{rmk:subseq}), for all $n \geq N$ we have
+	\[
+		|x_n - A| \leq |x_n - x_{n_N}| + |x_{n_N} - A| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.
+	\]
+	Thus, $(x_n)_{n=0}^{\infty}$ converges to $A$. \qedhere
+\end{proof}
+
+\subsection{Improper Limits}
+We now extend the notion of limit to allow the \textbf{improper limit values} $+\infty$ (often abbreviated as $\infty$) and $-\infty$.
+\begin{definition}{Improper Limits}{improp_lim}
+	Let $(x_n)_{n=0}^{\infty}$ be a sequence in $\mathbb{R}$. We say $(x_n)_{n=0}^{\infty}$ \textbf{diverges to} $+\infty$, and we write
+	\[
+		\lim_{n \to \infty} x_n = +\infty,
+	\]
+	if for every $M > 0$ there exists $N \in \mathbb{N}$ such that $x_n > M$ for all $n \geq N$.
+	
+	Similarly, $(x_n)_{n=0}^{\infty}$ \textbf{diverges to} $-\infty$ if for every $M > 0$ there exists $N \in \mathbb{N}$ such that $x_n < -M$ for all $n \geq N$.
+	In both cases, we say that $(x_n)_{n=0}^{\infty}$ has an \textbf{improper limit}.
+\end{definition}
+An unbounded sequence doesn't need to diverge to $+\infty$ or $-\infty$. For instance, the sequence $x_n = (-1)^{n}n$, is unbounded but neither diverges to $+\infty$ nor to $-\infty$.
+
+The notion of improper limit allows us to extend the definitions of superior and inferior limits to \textit{unbounded} sequences. If $(x_n)_{n=0}^{\infty}$ is not bounded from above, then
+\[
+	\sup_{k\geq n} x_k = +\infty \qquad \forall n\in \mathbb{N},
+\]
+and we write
+\[
+	\limsup_{n \to \infty} x_n = +\infty.
+\]
+If $(x_n)_{n=0}^{\infty}$ is bounded from above but not from below, then we define
+\[
+	\limsup_{n \to \infty} x_n = \lim_{n \to \infty} (\sup_{k\geq n} x_k),
+\]
+where the right-hand side is a real limit if the decreasing sequence $\sup_{k\geq n} x_k$ is bounded, and the improper limit $-\infty$ otherwise. The definition of the inferior limit extends analogously.
+
+\subsection{Sequences of Complex Numbers}
+Informally, a \textbf{sequence of complex numbers} is just like a sequence of real numbers, except that each term is a complex number instead of a real one. Thus, we study ordered lists $(z_0, z_1, \hdots)$, where $z_n:\mathbb{N} \to \mathbb{C}$. As in the real case, we are mainly interested in their convergence, divergence and limit behavior.
+
+To analyze sequences in $\mathbb{C}$, it is often sufficient to consider separately the corresponding sequences of real and imaginary parts in $\mathbb{R}$.
+
+\begin{definition}{Sequences of Complex Numbers}{seq_cmplx}
+	A sequence of complex numbers $(z_n)_{n=0}^{\infty}$, where
+	\[
+		z_n = x_n + i y_n,
+	\]
+	is said to \textbf{converge} to a limit $A + iB \in \mathbb{C}$ if the two sequences of real numbers $(x_n)_{n=0}^{\infty}$ and $(y_n)_{n=0}^{\infty}$ converge to $A$ and $B$, respectively. In this case, we write
+	\[
+		\lim_{n \to \infty} z_n = A + iB.
+	\]
+	We say that $(z_n)_{n=0}^{\infty}$ \textbf{diverges to} $\infty$ if the sequence of moduli $(|z_n|)_{n=0}^{\infty}$ diverges to $+\infty$, i.e.,
+	\[
+		\lim_{n \to \infty} |z_n| = \lim_{n \to \infty} \sqrt{x_n^2 + y_n^2} = +\infty.
+	\]
+\end{definition}
+
+\begin{remark}
+	As for sequences of real numbers, one can consider subsequences of sequences $\mathbb{C}$. Given a strictly increasing sequence of non-negative integers $(n_k)_{k=0}^{\infty}$, the corresponding subsequence is
+	\[
+		(z_{n_k})_{k=0}^{\infty} = (x_{n_k} + iy_{n_k})_{n=0}^{\infty}.
+	\]
+\end{remark}
 
