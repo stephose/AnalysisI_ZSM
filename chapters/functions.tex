@@ -1,0 +1,61 @@
+%
+% (c) 2025 Autor, ETH Zürich
+%
+% !TEX root = main.tex
+% !TEX encoding = UTF-8
+%
+
+\section{Functions}
+
+\begin{definition}{Functions/Maps/Transformations}{func}
+	A \textbf{function} f from a set $X$ to a set $Y$ is an assignment of an element of $Y$ to each element of $X$.
+	The element $y \in Y$ to which $x \in X$ is assigned to is denoted $f(x)$.
+	We write $f:X \to Y$ and sometimes also speak of a \textbf{map}, \textbf{mapping} or a \textbf{transformation}.
+	The set $X$ is the \textbf{domain} and the set $Y$ is the \textbf{codomain}.
+	We refer to the set $X$ as \textbf{domain} or \textbf{domain of definition}, and the set $Y$ as \textbf{domain of values} or \textbf{codomain}.
+	The set
+	\[
+		\{(x, f(x)) \;|\; x\in X\} \subseteq X \times Y
+	\] 
+	is called the \textbf{graph} of f.
+	In the context of a function $f:X \to Y$, an element of the domain of definition is also called \textbf{argument}, and an element $y = f(x) \in Y$ assumed by the function, is also called \textbf{value} of the function.
+	If $f:X \to Y$ is a function, one also writes
+	\begin{align*}
+		f:X &\to Y\\
+		x &\mapsto f(x),
+	\end{align*}
+	where $f(X)$ could be a concrete formula.
+	We pronounce ´$\mapsto$´ as ´is mapped to'.
+	Two functions $f_1:X_1 \to Y_1$ and $f_2:X_2 \to Y_2$ are said to be equal if $X_1 = X_2$, $Y_1 = Y_2$ and $f_1(x) = f_2(x) \quad \forall x \in X_1$.
+\end{definition}
+
+\begin{definition}{Injective, Surjective and Bijective Functions}{inj_func}
+	Let $f: X \to Y$ be a function. We call $f$:
+	\begin{enumerate}
+		\item \textbf{injective} (or an \textbf{injection}) if
+		\[
+			\forall x_1, x_2 \in X \,:\, x_1 \neq x_2 \Rightarrow f(x_1) \neq f(x_2);
+		\]
+		\item \textbf{surjective} (or a \textbf{sujection}) if
+		\[
+			\forall y \in Y\; \exists x \in X \,:\, f(x) = y;
+		\]
+		\item \textbf{bijective} (or a \textbf{bijection}) if $f$ is both injective and surjective.
+	\end{enumerate}
+\end{definition}
+Thus, a function $f:X \to Y$ is \textit{not} injective if there exists distinct $x_1 \neq x_2 \in X$ such that $f(x_1) = f(x_2)$, and \textit{not} surjective if there exists $y \in Y$ such that $f(x) \neq y$ for all $x \in X$.
+
+\begin{definition}{Image and Preimage of a Function}{img_func}
+	For $f:X \to Y$ and $A \subseteq X$, define the \textbf{image} of $A$ under the function $f$ as
+	\[
+		f(A) := \{y \in Y \;|\; \exists x \in X : f(x) = y\}.
+	\]
+	For $B \subseteq Y$, define the \textbf{preimage} of $B$ under the function $f$ as
+	\[
+		f^{-1}(B) := \{x \in X \;|\; f(x) \in B\}.
+	\]
+\end{definition}
+
+\begin{remark}
+	Saying that $f:X \to Y$ is surjective is equivalent to $f(X) = Y$. Equivalently, $f$ is surjective if $f^{-1}(\{y\}) \neq \emptyset$ for all $y \in Y$. 
+\end{remark}

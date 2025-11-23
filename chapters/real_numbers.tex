@@ -1,0 +1,235 @@
+%
+% (c) 2025 Autor, ETH Zürich
+%
+% !TEX root = main.tex
+% !TEX encoding = UTF-8
+%
+
+\section{The Real Numbers}
+
+\subsection{Groups, Rings, Fields}
+
+\begin{definition}{Groups}{groups}
+	A \textbf{group} is a non-empty set $G$ together with a rule (called an \textit{operation}) denoted by $\star : G \times G \to G$ that combines any two elements of G into another element of G. This operation must satisfy three conditions:
+	\begin{itemize}
+		\item \textbf{Associativity:} No matter how you place parentheses, the result is the same for all $a, b, c \in G$,
+		\[
+			(a \star b) \star c = a \star (b \star c).
+		\]
+		\item \textbf{Neutral element:} There is a special element $e \in G$ such that combining it with any $a \in G$ leaves $a$ unchanged, i.e.,
+		\[
+			\forall a \in G : a \star e = e \star a = a.
+		\]
+		\item \textbf{Inverse element:} Every $a \in G$ has a 'partner' $a^{-1} \in G$ that 'cancels it out', giving the neutral element, i.e.,
+		\[
+			a \star a^{-1} = a^{-1} \star a = e.
+		\]
+	\end{itemize}
+	Note that, in general, one does not require that $a \star b = b \star a$. If the order of the operation does not matter, i.e., $a \star b = b \star a$ for all $a, b \in G$, the group is called \textbf{commutative} or \textbf{abelian}.
+\end{definition}
+
+\begin{lemma}{Basic Properties of Groups}{properties_groups}
+	Let $(G, \star)$ be a group. Then:
+	\begin{enumerate}
+		\item The neutral element is unique.
+		\item The inverse of an element is unique.
+		\item The inverse of the inverse of an element is the element itself, namely $(a^{-1})^{-1} = a$ for all $a \in G$.
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	1. Assume that, in addition to $e \in G$, we have a second element $e'$ with the property that $e' \star a = a \star e' = a$ for all elements $a \in G$. Then, we can choose $a = e$ to obtain
+	\[
+		e \star e' = e.
+	\]
+	Similarly, since $e$ is a neutral element, we have
+	\[
+		e \star e' = e'.
+	\]
+	Combining the two identities, we get
+	\[
+		e = e \star e' = e'.
+	\]
+	This proves that $e' = e$, so we speak of \textit{the} neutral element of a group.
+	
+	2. Assume that for an element $a \in G$, there exists two elements $b, c \in G$ that are both the inverse of $a$, namely
+	\[
+		a \star b = b \star a = e, \qquad a \star c = c \star a = e.
+	\]
+	Then, using associativity, we observe that
+	\[
+		b = b \star e = b \star (a \star c) = (b \star a) \star c = e \star c = c.
+	\]
+	This proves that the inverse of an element $a$ is unique, so we can speak of \textit{the} inverse element, and the notation $a^{-1}$ makes sense.
+	
+	3. Since $a \star a^{-1} = e$, we deduce that $a$ is the inverse element of $a^{-1}$, thus
+	\begin{equation}
+		\label{eq:inverse_element}
+		(a^{-1})^{-1} = a. \qedhere
+	\end{equation}
+\end{proof}
+
+Groups capture the idea of combining elements with a single operation. But to describe the arithmetic of numbers more faithfully, we also need a second operation (as we do with addition and multiplication). This leads us to the notion of \textit{rings} and \textit{fields}.
+
+\begin{definition}{Rings and Fields}{rings_fields}
+	A \textbf{ring} is a non-empty set $R$ in which we can both 'add' and 'multiply' elements with two operations '$+$' and '$\cdot$'. Also, these two operations are compatible with each other. More precisely:
+	\begin{itemize}
+		\item $(R, +)$ is a \textbf{commutative group}, with neutral element denoted 0.
+		\item Multiplication $\cdot$ is \textbf{associative}, has a \textbf{neutral element} (usually written as 1), and \textbf{distributes over addition}, i.e.,
+		\[
+			a \cdot (b + c) = a \cdot b + a \cdot c, \qquad (b + c) \cdot a = b \cdot a + c \cdot a \qquad \forall a,b,c \in R.
+		\]
+	\end{itemize}
+	If multiplication is also commutative, we call $(R, +, \cdot)$ a \textbf{commutative ring}.
+	Note that, unlike addition, we do not require that every element has an inverse for multiplication.
+	A \textbf{field} is a special kind of commutative ring, i.e. every non-zero element has an inverse for multiplication.
+	In other words, if $(R, +, \cdot)$ is a commutative ring, then $(R, +, \cdot)$ is a field if $R \setminus \{0\}$ forms a commutative group under multiplication. Traditionally, we use the letter $F$ to denote a field. We also write $F^{\ast} = F \setminus \{0\}$ for the set of all invertible elements of $F$.
+\end{definition}
+
+\begin{lemma}{Basic Properties of Fields}{properties_fields}
+	Let $(F, +, \cdot)$ be a field and let $a,b \in F$. Then:
+	\begin{enumerate}
+		\item $0 \cdot a = a \cdot 0 = 0$.
+		\item $a \cdot (-b) = -(a \cdot b) = (-a) \cdot b$. In particular $(-1) \cdot a = -a$.
+		\item $(-a)\cdot (-b) = a \cdot b$. In particular, $(-a)^{-1} = -(a^{-1})$ whenever $a \neq 0$.
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	1. Since 0 is the neutral element for the addition, we have $0 + 0 = 0$. Hence, using distributivity, we get
+	\[
+		0 \cdot a = (0 + 0) \cdot a = (0 \cdot a) + (0 \cdot a).	
+	\]
+	Adding $-0 \cdot a$ (i.e., the inverse of $0 \cdot a$), we deduce that $0 \cdot a = 0$. The case of $a \cdot 0$ is analogous.
+	
+	2. By the distributive law,
+	\[
+		a \cdot b + a \dot (-b) = a \cdot (b + (-b)) = a \cdot 0 = 0.
+	\]
+	So $a \cdot (-b)$ is the additive inverse of $a \cdot b$, i.e., $-(a \cdot b) = a \cdot (-b)$. Taking $b = 1$ gives $-a = (-1)\cdot a$.
+	The validity of $(-a)\cdot b = -(a \cdot b)$ follows by exchanging $a$ and $b$ in the argument above.
+	
+	3. By 2. we know that $-(a \cdot b) = a \cdot (-b)$. Hence, recalling Equation \ref{eq:inverse_element},
+	\[
+		a \cdot b = -(a \cdot (-b)).
+	\]
+	On the other hand, applying 2. with $(-b)$ instead of $b$, we also have
+	\[
+		-(a \cdot (-b)) = (-a) \cdot (-b).
+	\]
+	Combining the two identities above, we conclude that $(-a)\cdot (-b) = a \cdot b$. Finally, taking $b = a^{-1}$ yields $(-a) \cdot (-(a^{-1})) = a \cdot a^{-1} = 1$, which gives the second assertion. \qedhere
+\end{proof}
+
+\subsection{Order Relation}
+
+\begin{definition}{Cartesian Product}{cart_prod}
+	Let $X$ and $Y$ be two sets. The \textbf{cartesian product} $X \times Y$ is the set of ordered pairs of elements of $X$ and $Y$, i.e.,
+	\[
+		X \times Y := \{(x, y) \;|\; x \in X, y \in Y\}.
+	\]
+\end{definition}
+
+\begin{definition}{Subsets}{subsets}
+	Let $P$ and $Q$ be sets. Then
+	\begin{itemize}
+		\item $P$ is a \textbf{subset} of $Q$, written $P \subset Q$ (or $P \subseteq Q$), if every element of $P$ also belongs to $Q$.
+		\item $P$ is a \textbf{proper subset} of $Q$, written $P \subsetneq Q$, if $P$ is a subset of $Q$ but $P \neq Q$.
+		\item We write $P \nsubseteq Q$ if $P$ is not a subset of $Q$.
+	\end{itemize}
+\end{definition}
+
+\begin{definition}{Relations}{relations}
+	Let $X$ be a set. A \textbf{relation} on $X$ is a subset $\mathcal{R} \subseteq X \times X$, that is, a collection of ordered pairs of elements of $X$. If $(x, y) \in \mathcal{R}$ we write $x\mathcal{R}y$. Common symbols for relations include $<, \leq , \sim, \equiv, \cong$.
+	If $\sim$ is a relation on $X$, we write $x \nsim y$ if $x \sim y$ does not hold. A realtion $\sim$ may have the following properties:
+	\begin{enumerate}
+		\item \textbf{Reflexive:} if $x \sim x \qquad \forall x \in X$.
+		\item \textbf{Transitive:} if $x \sim y$ and $y \sim z$, then $x \sim z$.
+		\item \textbf{Symmetric:} if $x \sim y$, then $y \sim x$.
+		\item \textbf{Antisymmetric:} if $x \sim y$ and $y \sim x$, then $x = y$.
+	\end{enumerate}
+	A relation is an \textbf{equivalence relation} if it is reflexive, transitive and symmetric. It is an \textbf{order relation} if it is reflexive, transitive and antisymmetric.
+\end{definition}
+
+\subsection{Ordered Fields}
+
+\begin{definition}{Ordered Field}{ordered_field}
+	Let $F$ be a field, and let $\leq$ be an order relation on $F$. We call $(F, \leq)$, or simply $F$, an \textbf{ordered field} if the following hold:
+	\begin{enumerate}
+		\item \textbf{Linearity of order:} for all $x, y \in F$, at least one of $x \leq y$ or $y \leq x$ holds.
+		\item \textbf{Compatibility with addition:} for all $x,y,z \in F$,
+		\[
+			x \leq y \Rightarrow x + z \leq y + z.
+		\]
+		\item \textbf{Compatibility with multiplication:} for all $x, y \in F$,
+		\[
+			0 \leq x \;\wedge \; 0 \leq y \Rightarrow 0 \leq x \cdot y.
+		\]
+	\end{enumerate}
+\end{definition}
+
+\begin{lemma}{Ordered Field: Basic Consequences}{consequences_ordered_field}
+	Let $(F, \leq)$ be and ordered field, and let $x, y, z, w \in F$. Then:
+	\begin{enumerate}
+		\item[(a)] (Trichotomy) Either $x < y$, or $x = y$, or $x > y$.
+		\item[(b)] If $x < y$ and $y \leq z$, then $x < z$. (Analogously, $x \leq y and y < z imply x < z$.)
+		\item[(c)] (Addition of inequalities) If $x \leq y$ and $z \leq w$, then $x + z \leq y + w$. (Analogously, $x < z$ and $z \leq w$ imply $x + z < y + w$.)
+		\item[(d)] $x \leq y$ if and only if $0 \leq y - x$.
+		\item[(e)] $x \leq 0$ if and only if $0 \leq -x$.
+		\item[(f)] $x^2 \geq 0$, and $x^2 > 0$ if $x \neq 0$.
+		\item[(g)] 0 < 1.
+		\item[(h)] If $0 \leq x$ and $y \leq z$, then $x y \leq x z$.
+		\item[(i)] If $x \leq 0$ and $y \leq z$, then $x y \geq x z$.
+		\item[(j)] If $0 < x \leq y$, then $0 < y^{-1} \leq x^{-1}$.
+		\item[(k)] If $0 \leq x \leq y$ and $0 \leq z \leq w$, then $0 \leq x z \leq y w$.
+		\item[(l)] If $x + y \leq x + z$, then $y \leq z$.
+		\item[(m)] If $x y \leq x z$ and $x > 0$, then $y \leq z$.
+	\end{enumerate}
+\end{lemma}
+
+\begin{lemma}{Integers and Rationals Inside an Ordered Field}{int_rat_ordered_field}
+	Let $(F, \leq)$ be and ordered field, and denote by 0 and 1 the neutral elements for addition and multiplication, respectively. Then:
+	\begin{enumerate}
+		\item[(i)] The elements $\hdots, -2, -1, 0, 1, 2, \hdots $ defined by
+		\[
+			2 = 1 + 1, \quad 3 = 2 + 1, \hdots , \quad -n = (-1)\cdot n
+		\]
+		are all distinct and satisfy
+		\[
+			\hdots < -2 < -1 < 0 < 1 < 2 < 3 < \hdots.
+		\]
+		We denote this set of elements by $\mathbb{Z}$, and we call them 'integers'
+		\item[(ii)] Every fraction $pq^{-1}$ with $p, q \in \mathbb{Z}, \, q \neq 0$, lies in $F$ and the set of all such elements is denoted by $\mathbb{Q}$. Also,
+		\[
+			\mathbb{Z} \subsetneq \mathbb{Q} \subseteq F.
+		\]
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	(i) By Lemma \ref{lem*consequences_ordered_field}(g), we have that 0 < 1. Then Lemma \ref{lem*consequences_ordered_field}(c) yields $0 < 1 < 2 < 3 < \hdots$, and taking negatives gives $\hdots < -2 < -1 < 0$. Hence all these elements are distinct.
+	
+	(ii) For $q \neq 0$, q is invertible in $F$; define $\frac{p}{q} = pq^{-1}$. The set of such fractions is a field contained in $F$, which we denote by $\mathbb{Q}$.
+	
+	To show that $\mathbb{Q}$ strictly contains $\mathbb{Z}$, consider $\frac{1}{2}$ (the inverse of 2). Since 2 > 1, it follows from Lemma \ref{lem*consequences_ordered_field}(j) that $0 < \frac{1}{2} < 1$, so $\frac{1}{2} \notin \mathbb{Z}$.\qedhere
+\end{proof}
+
+\begin{definition}{Absolute Value and Sign}{abs_sgn}
+	Let $(F, \leq)$ be and ordered field.
+	\begin{itemize}
+		\item[$\bullet$] The \textbf{absolute value} (or \textbf{modulus}) is the function $|\cdot|: F \to F$ defined by
+		\[
+			|x| = \begin{cases}
+				x, \quad &x \geq 0,\\
+				-x, \quad &x < 0.
+			\end{cases}
+		\]
+		\item[$\bullet$] The \textbf{sign} is the function $\operatorname{sgn}:F \to \{-1, 0, 1\}$ defined by
+		\[
+			\operatorname{sgn}(x) = \begin{cases}
+				-1, \quad &x < 0,\\
+				0, \quad &x = 0,\\
+				1, \quad &x > 0.
+			\end{cases}
+		\]
+	\end{itemize}
+\end{definition}
