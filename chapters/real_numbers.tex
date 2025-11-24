@@ -233,3 +233,240 @@ Groups capture the idea of combining elements with a single operation. But to de
 		\]
 	\end{itemize}
 \end{definition}
+
+\begin{lemma}{Absolute Value and Sign: Basic Properties}{prop_abs_sign}
+	Let $(F, \leq)$ be an ordered field and let $x,y \in F$. Then:
+	\begin{enumerate}
+		\item[(a)] $x = \operatorname{sgn}(x) |x|, \quad |-x| = |x|, \quad \operatorname{sgn}(-x) = - \operatorname{sgn}(x)$.
+		\item[(b)] $|x| \geq 0$, and $|x| = 0$ if and only if $x = 0$ (by Trichotomy Lemma \ref{lem*consequences_ordred_field}).
+		\item[(c)] (Multiplicativity) $\operatorname{sgn}(xy) = \operatorname{sgn}(x) \operatorname{sgn}(y)$ and $|x y| = |x||y|$.
+		\item[(d)] If $x \neq 0$, then $|x^{-1}| = |x|^{-1}$.
+		\item[(e)] $|x| \leq y$ iff $-y \leq x \leq y$.
+		\item[(f)] $|x| < y$ iff $-y < x < y$.
+		\item[(g)] (Triangle inequality) $|x + y| \leq |x| + |y|$.
+		\item[(h)] (Inverse triangle inequality) $||x| - |y|| \leq |x - y|$.
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	(g) Thanks to (e) we have $-|x| \leq x \leq |x|$ and $-|y| \leq y \leq |y|$. Adding these two inequalities we get
+	\[
+		- (|x| + |y|) \leq x + y \leq |x| + |y|.
+	\]
+	Applying (e) again yields the result.
+	
+	(h) From (g) we have $|x| \leq |x - y| + |y|$, therefore
+	\[
+		|x| - |y| \leq |x - y|.
+	\]
+	Exchanging the roles of $x$ and $y$, we also have $|y| - |x| leq |y - x| = |x - y|$. Combining these two inequalities yields
+	\[
+		-|x - y| \leq |x| - |y| \leq |x -y|,
+	\]
+	and the result follows by applying (e) again. \qedhere
+\end{proof}
+
+\subsection{Completeness Axiom}
+
+\begin{definition}{Completeness Axiom}{compl_axiom}
+	Let $(K, \leq)$ be an ordered field. We say that $(K, \leq)$ is \textbf{complete} (or a \textbf{completely ordered field}) if the following statement holds:
+	\begin{itemize}
+		\item[] Let $X, Y$ be non-empty subsets of $K$ such that $x \leq y$ for all $x \in X$ and $y \in Y$. Then there exists $c \in K$ lying between $X $ and $Y$, in the sense that $x \leq c \leq y$ for all $x \in X$ and $y \in Y$.
+	\end{itemize}
+	The statement above is called the \textbf{completeness axiom}.
+\end{definition}
+
+\begin{definition}{Real Numbers}{real_numbers}
+	We call \textbf{the field of real numbers}, any completely ordered field and denote it by $\mathbb{R}$.
+\end{definition}
+
+\subsection{Intervals}
+
+\begin{definition}{Intervals}{interval}
+	Let $a, b \in \mathbb{R}$. We define:
+	\begin{itemize}
+		\item[$\bullet$] The \textbf{closed interval}
+		\[
+			[a, b] := \{x \in R\;|\; a \leq x \leq b\};
+		\]
+		\item[$\bullet$] The \textbf{open interval}
+		\[
+			(a, b) := \{x \in R \;|\; a < x < b\};
+		\]
+		\item[$\bullet$] The \textbf{half-open intervals}
+		\[
+			[a, b) := \{x \in R \;|\; a \leq x < b\} \quad \text{and} \quad (a, b] := \{x \in R \;|\; a < x \leq b\};
+		\]
+		\item[$\bullet$] The \textbf{unbounded closed intervals}
+		\[
+			[a, \infty) := \{x \in R \;|\; a \leq x\} \quad \text{and} \quad (-\infty, b] := \{x \in R \;|\; x \leq b\};
+		\]
+		\item[$\bullet$] The \textbf{unbounded open intervals}
+		\[
+			(a, \infty) := \{x \in R \;|\; a < x\} \quad \text{and} \quad (-\infty, b) := \{x \in R \;|\; x < b\};
+		\]
+	\end{itemize}
+\end{definition}
+
+\begin{definition}{Set Operations}{set_op}
+	Let $P, Q$ be sets. The \textbf{intersection} $P \cap Q$, the \textbf{union} $P \cup Q$, the \textbf{relative complement} $P \setminus Q$ and the \textbf{symmetric difference} $P \bigtriangleup Q$ are defined by
+	\begin{align*}
+		P \cap Q &= \{x \;|\; x \in P \text{and} x \in Q\},\\
+		P \cup Q &= \{x \;|\; x \in P \text{or} x \in Q\},\\
+		P \setminus Q &= \{x \;|\; x \in P \text{and} x \notin Q\},\\
+		P \bigtriangleup Q &= (P \setminus Q) \cup (Q  \setminus P) = (P \cup Q) \setminus (P \cap Q).
+	\end{align*}
+\end{definition}
+
+\begin{definition}{Union and Intersection of several Sets}{union_int_sets}
+	Let $\mathcal{A}$ be a family of sets (i.e., a set whose elements are sets). We define the \textbf{union} and \textbf{intersection} of the sets in $\mathcal{A}$ as
+	\[
+		\bigcup_{A \in \mathcal{A}} A = \{x \;|\; \exists A \in A : x \in A\}, \quad \bigcap_{A \in \mathcal{A}} A = \{x \;|\; \forall A \in \mathcal{A} : x \in A\}.
+	\]
+	If $\mathcal{A} = \{A_1, A_2, \hdots \}$, we also write
+	\[
+		\bigcup_{i = 1}^{\infty} A_i = \{x \;|\; \exists i \geq 1 : x \in A_i\}, \quad \bigcap_{i = 1}^{\infty} A_i = \{x \;|\; \forall i \geq 1 : x \in A_i\}.
+	\]
+\end{definition}
+
+\begin{definition}{Neighborhoods}{neigh}
+	Let $x \in \mathbb{R}$. A \textbf{neighborhood} of $x$ is a set containing an interval $I$ such that $x \in I$. Given $\delta > 0$, the open interval $(x - \delta, x + \delta)$ is called the $\delta$\textbf{-neighborhood} of $x$.
+\end{definition}
+
+\begin{definition}{Open and Closed Sets}{open_closed_sets}
+	A subset $U \subseteq \mathbb{R}$ is called \textbf{open} in $\mathbb{R}$ if for every $x \in U$ there exists open interval $I$ such that $x \in I$ and $I \subseteq U$.
+	A subset $F \subseteq \mathbb{R}$ is called \textbf{closed} in $\mathbb{R}$ if its complement $\mathbb{R} \setminus F$ is open.
+\end{definition}
+
+\begin{remark}
+	The sets $\emptyset$ and $\mathbb{R}$ are both open in $\mathbb{R}$. Hence, they are also closed since $\emptyset^{c} = \mathbb{R}$ and $\mathbb{R}^{c} = \emptyset$. We note that $\mathbb{Q} \subseteq \mathbb{R}$ and $[a, b) \subseteq \mathbb{R}$ are neither open nor closed.
+\end{remark}
+
+\begin{remark}
+	Let $\mathcal{U}$ be a family of open sets, and $\mathcal{F}$ be a family of closed subsets of $\mathbb{R}$. Then the union and intersection
+	\[
+		\bigcup_{U \in \mathcal{U}} U, \quad \bigcap_{F \in \mathcal{F}} F
+	\]
+	Are open and closed, respectively.
+\end{remark}
+
+\subsection{Complex Numbers}
+Starting from the field of real numbers $\mathbb{R}$, we define the set of \textbf{complex numbers} as
+\[
+	\mathbb{C} = \mathbb{R}^2 = \{(x, y) \;|\; x, y \in \mathbb{R}\}.
+\]
+We denote the elements $z = (x, y) \in \mathbb{C}$ in the form $z = x + iy$, where $i$ is the \textbf{imaginary unit}.
+Here $x \in \mathbb{R}$ is the \textbf{real part} of $z$, written as $x = \operatorname{Re}(z)$, and $y \in \mathbb{R}$ is the \textbf{imaginary part}, written as $y = \operatorname{Im}(z)$. Elements with $\operatorname{Im}(z) = 0$ are called \textbf{real}, while those with $\operatorname{Re}(z) = 0$ are \textbf{purely imaginary}. Via the injective map $\mathbb{R} \owns x \mapsto x + i\cdot 0 \in \mathbb{C}$, we identify $\mathbb{R}$ with the subset of real numbers inside $\mathbb{C}$.
+
+As you may expect from previous knowledge, we want to satisfy $i^2 = -1$. To achieve this, we define addition and multiplication on $\mathbb{C}$ so that it becomes a field. Additionally, we want these operations to coincide with the usual addition and multiplication when considering real numbers.
+
+Since $i^2 = -1$, using commutativity and distributivity we get
+\[
+	(x_1 + iy_1) (x_2 + iy_2) = x_1x_2 + i x_1y_2 + iy_2x_1 + i^2y_1y_2 = (x_1x_2 - y_1y_2) + i (x_1y_2 + y_1x_2).
+\]
+This motivates the following definition
+
+\begin{definition}{Addition and Multiplication on $\mathbb{C}$}{add_mult_cmplx}
+	On $\mathbb{C} = \mathbb{R} \times \mathbb{R}$ we define \textbf{addition} and \textbf{multiplication} as follows:
+	\begin{align*}
+		(x_1, y_1) + (x_2, y_2) &= (x_1 + x_2,\, y_1 + y_2),\\
+		(x_1, y_1) \cdot (x_2, y_2) &= (x_1x_2 - y_1y_2,\, x_1y_2 + x_2y_1).
+	\end{align*}
+\end{definition}
+
+\begin{proposition}{$\mathbb{C}$ is a Field}{cmplx_field}
+	With the operation of Definition \ref{def*add_mult_cmplx}, together with the zero element $(0, 0)$ and the unit element $(1, 0)$, the set $\mathbb{C}$ is a field.
+\end{proposition}
+
+\begin{definition}{Complex Conjugation}{cmplx_conj}
+	For $z = x + iy \in \mathbb{C}$ we define its \textbf{conjugate} as $\bar{z} = x - iy$. The mapping $\mathbb{C} \owns z \mapsto \bar{z} \in \mathbb{C}$ is called \textbf{complex conjugation}.
+\end{definition}
+
+\begin{lemma}{Properties of Complex Conjugation}{prop_cmplx_conj}
+	For all $z, w \in \mathbb{C}$:
+	\begin{enumerate}
+		\item[(i)] $z \bar{z} = x^2 + y^2 \in \mathbb{R}_{\geq 0}$. In particular, $z\bar{z} = 0$ if and only if $z = 0$.
+		\item[(ii)] $\overline{z + w} = \bar{z} + \bar{w}$.
+		\item[(iii)] $\overline{z w} = \bar{z} \bar{w}$.
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	Property (i) follows from the fact that, for $z = x + iy$, $(x + iy)(x - iy) = x^2 + y^2$. Also, $x^2 + y^2 = 0$ if and only if $x + iy = 0$.
+	Properties (ii) and (iii) follow from a direct computation, writing $z = x_+ + iy_1$ and $w = x_2 + iy_2$, which yields
+	\begin{align*}
+		\overline{z + w} = \overline{(x_1 + x_2) + i(y_1 + y_2)} = (x_1 + x_2) - i (y_1 + y_2) &= (x_1 - iy_2) + (x_2 - i y_2) = \bar{z} + \bar{w},\\
+		\overline{z \cdot w} = \overline{(x_1x_2 - y_1y_2) + i (x_1y_2 + x_2y_1)} = (x_1 x_2 - y_1y_2) &- i (x_1y_2 + y_1x_2)\\
+		 &= (x_1 - i y_1) \cdot (x_2 - i y_2) = \bar{z} \cdot \bar{w}. \qedhere
+	\end{align*}
+\end{proof}
+
+\begin{definition}{Absolute Value}{abs_val}
+	The \textbf{absolute value} (or \textbf{norm}) on $\mathbb{C}$ is the map $|\cdot|:\mathbb{C} \to \mathbb{R}$ given by
+	\[
+		|z| = \sqrt{z \bar{z}} = \sqrt{x^2 + y^2}, \qquad z = x + iy \in \mathbb{C}.
+	\]
+\end{definition}
+
+\begin{lemma}{Cauchy-Schwart Inequality}{cauchy_schwarz_ineq}
+	If $z = x_1 + iy_1$, and $w = x_2 + iy_2$, then
+	\begin{equation}
+		\label{eq:cauchy_schwarz_ineq}
+		x_1x_2 + y_1y_2 \leq |z||w|.
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	We observe that
+	\begin{align*}
+		|z|^2|w|^2 - (x_1x_2 + y_1y_2)^2 &= (x_1^2 + y_1^2)(x_2^2 + y_2^2) - (x_1x_2 + y_1y_2)^2\\
+		&= x_1^2x_2^2 +y_1^2y_2^2 + y_1^2x_2^2 + x_+^2y_2^2 - (x_1^2x_2^2 + y_1^2y_2^2 + 2x_1x_2y_1y_2)\\
+		&= y_1^2x_2^2 + x_+^2y_2^2 - 2x_1x_2y_1y_2\\
+		&= (y_1 x_2 - x_1y_2)^2 \geq 0.
+	\end{align*}
+	This proves that $(x_1x_2 + y_1y_2)^2 \leq |z|^2|w|^2$, so it follows that
+	\[
+		|x_1x_2 +y_1y_2| \leq |z||w|.
+	\]
+	Since $x \leq |x|$ for all $x \in \mathbb{R}$, we obtain Equation \ref{eq:cauchy_schwarz_ineq}.\qedhere
+\end{proof}
+
+\begin{proposition}{Trianlge Inequality}{triangle_ineq}
+	For all $z, w \in \mathbb{C}$, one has
+	\[
+		|z + w| \leq |z| + |w|.
+	\]
+\end{proposition}
+
+\begin{proof}
+	For $z = x_1 + iy_1$ and $w = x_2 + iy_2$, using Lemma \ref{lem*cauchy_schwarz_ineq}, we have
+	\begin{align*}
+		|z + w|^2 &= (x_1 + x_2)^2 + (y_1 + y_2)^2\\
+		&= |z|^2 + |w|^2 + 2(x_1x_2 + y_1y_2)\\
+		&\leq |z|^2 + |w|^2 + 2 |z||w| = (|z| + |w|)^2.
+	\end{align*}
+	Taking square roots proves the result. \qedhere
+\end{proof}
+
+\begin{definition}{Cicular Disks}{circ_disk}
+	For $z \in \mathbb{C}$ and $r > 0$, we define the \textbf{open disk} with radius $r >0$ around $z$ as
+	\[
+		B(z, r) := \{w \in \mathbb{C}\;|\; |z - w| < r\},
+	\]
+	and the \textbf{closed disk} with radius $r >0$ around $z$ as
+	\[
+		\overline{B(z, r)} := \{w \in \mathbb{C}\;|\; |z - w| \leq r\}.
+	\]
+\end{definition}
+
+In other words, the open disk $B(z, r)$ is the set of points at distance strictly less than $r$ form $z$. We note that this definition is compatible with the one of neighborhoods in $\mathbb{R}$: if $x \in \mathbb{R}$ and $r > 0$, then 
+\[
+	B(x, r) \cap \mathbb{R} = (x - r, x + r).
+\]
+
+\begin{definition}{Open and Closed Sets}{open_closed_sets_cmplx}
+	A set $U \subseteq \mathbb{C}$ is \textbf{open} if for every $z \in U$ there exists $r > 0$ such that $B(z, r) \subseteq U$. A set $C \subseteq \mathbb{C}$ is \textbf{closed} if its complement $\mathbb{C} \setminus C$ is open.
+\end{definition}
+
+\subsection{Consequences of Completeness}
+
