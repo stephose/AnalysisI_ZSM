@@ -468,5 +468,283 @@ In other words, the open disk $B(z, r)$ is the set of points at distance strictl
 	A set $U \subseteq \mathbb{C}$ is \textbf{open} if for every $z \in U$ there exists $r > 0$ such that $B(z, r) \subseteq U$. A set $C \subseteq \mathbb{C}$ is \textbf{closed} if its complement $\mathbb{C} \setminus C$ is open.
 \end{definition}
 
+\subsection{Maximum and Supremum}
+\subsubsection*{Existence of the Supremum}
+
+\begin{definition}{Bounded Sets, Maxima and Minima}
+	Let $X \subseteq \mathbb{R}$ be a subset of real numbers.
+	\begin{itemize}
+		\item[$\bullet$] $X$ is \textbf{bounded from above} if there exists $s \in \mathbb{R}$ such that $x \leq s$ for all $x \in X$. Such a number $s$ is called an \textbf{upper bound} of $X$. If $s$ is an upper bound and also an element of $X$, we say that $s$ is the \textbf{maximum} of $X$ and write
+		\[
+			s = \max(X).
+		\]
+		\item[$\bullet$] Analogously, $X$ is \textbf{bounded from below} if there exists $r \in \mathbb{R}$ such that $r \leq x$ for all $x \in X$. Such a number $r$ is called a \textbf{lower bound} of $X$. If $r$ is a lower bound and also an element of $X$, we say that $r$ is the \textbf{minimum} of $X$ and write
+		\[
+			r = \min(X).
+		\]
+		\item[$\bullet$] $X$ is called \textbf{bounded} if it is both bounded from above and bounded from below.
+	\end{itemize}
+\end{definition}
+
+\begin{remark}
+	If a set $X \subseteq \mathbb{R}$ has a maximum, then it is unique. Indeed, if $x_1, x_2 \in X$ are both maxima, then $x_1 \leq x_2$ (since $x_2$ is a maximum) and $x_2 \leq x_1$ (since $x_1$ is a maximum), so $x_1 = x_2$.
+\end{remark}
+
+A closed interval $[a, b]$ with $a < b$ has both a minimum and maximum, i.e., $a = \min([a, b])$ and $b = \max([a, b])$. But not all sets have a maximum. For instance, the open interval $(a, b)$ does not have a maximum because the endpoint $b$, though an upper bound, is not contained in the set. Similarly $\mathbb{R}$ and unbounded intervals such as $[a, \infty)$ or $(a, \infty)$ have no maximum.
+
+\begin{definition}{Supremum}{sup}
+	Let $X \subseteq \mathbb{R}$ be a subset and let
+	\[
+		A := \{a \in \mathbb{R}\;|\; x \leq a \quad \forall x \in X\}
+	\]
+	be the set of all upper bounds of $X$. If $A$ has a minimum, we call this minimum the \textbf{supremum} of $X$ and write
+	\[
+		\sup(X) = \min(A).
+	\]
+	The \textbf{infimum} is defined analogously using the maximum of the set of all lower bounds.
+\end{definition}
+
+In other words, the supremum of $X$ is the smallest real number that is greater than or equal to every element of $X$. Note that we can describe the supremum $s = \sup(X)$ as follows
+\begin{equation}
+	\label{eq:sup_1}
+	x \leq s \qquad \forall x \in X, \qquad \text{and} \qquad \text{if } t < s, \text{the $t$ is not an upper bound of $X$}.
+\end{equation}
+This means that for every $t < s$, there exists some $x \in X$ such that $x > t$. That is,
+\begin{equation}
+	\label{eq:sup_2}
+	x \leq s \qquad \forall x \in X, \qquad \text{and} \qquad \forall t < s \, \exists x \in X : x > t.
+\end{equation}
+The two characterizations \ref{eq:sup_1} and \ref{eq:sup_2} are equivalent.
+
+Note that not every set has a supremum. If $X = \emptyset$ or if $X$ is unbounded form above, then $\sup(X)$ does not exist. However, for any non-empty and bounded-above subset of $\mathbb{R}$, the supremum always exists.
+
+\begin{remark}
+	\label{rmk:sup_max}
+	If a set $X$ has a maximum, then this element is also the supremum. Indeed, the maximum is an upper bound of $X$, and since it lies in $X$, no smaller upper bound can exist.
+\end{remark}
+
+\begin{theorem}{Existence of Supremum}{sup_exist}
+	Let $X \subseteq \mathbb{R}$ be non-empty and bounded from above. Then $\sup(X)$ exists and is a real number.
+\end{theorem}
+
+\begin{proof}
+	Since $X$ is bounded from above, the set $A := \{a \in \mathbb{R}\;|\; x \leq a \quad \forall x \in X\}$ of upper bounds is non-empty. Since $x \leq a$ for any $x \in X$ and $a \in A$, we can apply the completeness axiom (Definition \ref{def*compl_axiom}) to find $c \in \mathbb{R}$ such that
+	\[
+		x \leq c \leq a \qquad \forall x \in X, \forall a \in A.
+	\]
+	The first inequality implies that $c$ is itself an upper bound (so $c \in A$), while the second inequality tells us that $c$ is smaller than or equal to every upper bound. Hence, $c = \min(A) = \sup(X)$. \qedhere
+\end{proof}
+
+\begin{proposition}{Supremum and Set Operations}{sup_set_op}
+	Let $X$ and $Y$ be non-empty subsets of $\mathbb{R}$ that are bounded from above. Define
+	\[
+		X + Y := \{x + y\;|\; x \in X, y \in Y\} \quad \text{and} \quad X \cdot Y := \{x \cdot y\;|\; x \in X, y \in Y\}.
+	\]
+	The the sets $X \cup Y, X \cap Y$, and $X + Y$ are also bounded from above. Moreover, if $X, Y \subseteq \mathbb{R}_{\geq 0}$ (i.e., $x \geq 0$ and $y \geq 0$ for all $x \in X$ and $y \in Y$), then $X \cdot Y$ is bounded from above as well. In these cases, the following formulas hold:
+	\begin{enumerate}
+		\item[(1)] $\sup(X \cup Y) = \max\{\sup(X), \sup(Y)\}$,
+		\item[(2)] If $X \cap Y \neq \emptyset$, then $\sup(X \cap Y) \leq \min\{\sup(X), \sup(Y)\}$,
+		\item[(3)] $\sup(X + Y) = \sup(X) + \sup(Y)$,
+		\item[(4)] If $X, Y \subseteq \mathbb{R}_{\geq 0}$, then $\sup(X \cdot Y) = \sup(X) \cdot \sup(Y)$.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	(3) Let $x_0 = \sup(X)$ and $y_0 = \sup(Y)$. For any $z \in X + Y$, there exists $x \in X$ and $y \in Y$ such that $z = x + y$. Since $x \leq x_0$ and $y \leq y_0$, we have
+	\[
+		z = x + y \leq x_0 + y_0,
+	\]
+	so $x_0 + y_0$ is an upper bound form $X + Y$. We now want to show that $x_0 + y_0 = \sup(X + Y)$. 
+	
+	Let $z_0 = \sup(X + Y)$ and suppose, by contradiction, that 
+	\[
+		\varepsilon := x_0 + y_0 - z_0 > 0.
+	\]
+	Since $x_0 = \sup(X)$, by the characterization \ref{eq:sup_2} there exists $x \in X$ such that $x > x_0 - \varepsilon/2$. Likewise, there exists $y \in Y$ such that $y > y_0 - \varepsilon/2$. Setting $z = x + y$, we obtain
+	\[
+		z > x_0 - \frac{\varepsilon}{2} + y_0 - \frac{\varepsilon}{2} = x_0 + y_0 - \varepsilon = z_0,
+	\]
+	contradicting the assumption that $z_0$ is an upper bound for $X + Y$. Therefore, $z_0 = x_0 + y_0$.
+	
+	(4) The proof is analogous. If all elements of $X$ and $Y$ are non-negative, and we set $x_0 = \sup(X)$ and $y_0 = \sup(Y)$, then for any $z = x \cdot y \in X \cdot Y$, we have
+	\[
+		z = x \cdot y \leq x_0 \cdot y_0,
+	\]
+	which shows that $x_0 \cdot y_0$ is an upper bound for $X \cdot Y$. Using a similar '$\varepsilon$-argument' as done above, when proving (3), one shows that this upper bound is sharp, i.e., $x_0 \cdot y_0$ is the least upper bound. \qedhere
+\end{proof}
+
+\subsection{Two-Point Compactification}
+In this section, we extend the notions of \textbf{supremum} and \textbf{infimum} to arbitrary subsets of $\mathbb{R}$. To do so, we introduce two formal symbols
+\[
+	+\infty \quad \text{and} \quad -\infty,
+\]
+which are not real numbers. We define the \textbf{extended real numbers line} (also called the \textbf{two-point compactification} of $\mathbb{R}$) by
+\[
+	\overline{\mathbb{R}} := \mathbb{R} \cup \{-\infty, +\infty\}.
+\]
+We extend the usual order relation $\leq$ on $\mathbb{R}$ to $\overline{\mathbb{R}}$ by requiring that 
+\[
+	-\infty < x < + \infty \qquad \forall x \in \mathbb{R}.
+\]
+For simplicity, we often write $\infty$ instead of $+\infty$.
+
+We now introduce some standard (but informal) computation rules involving these symbols. For all $x \in \mathbb{R}$, we adopt the conventions:
+\[
+	\infty + x = \infty + \infty = \infty, \qquad - \infty + x = -\infty - \infty = -\infty.
+\]
+If $x > 0$, then 
+\[
+	x \cdot \infty = \infty \cdot \infty = \infty, \qquad x \cdot (-\infty) = \infty \cdot (-\infty) = -\infty,
+\]
+while for $x < 0$ we have
+\[
+	x \cdot \infty = -\infty \cdot \infty = -\infty, \qquad x \cdot (-\infty) = -\infty \cdot (-\infty) = \infty.
+\]
+These rules are widely used as notational shorthand, but one must handle them with care. Expressions like
+\[
+	\infty - \infty, \quad 0 \cdot \infty, \quad \text{or similar}
+\]
+are undefined and should be avoided.
+
+\begin{definition}{Supremum and Infimum in the Extended Line}{sup_inf_extended}
+	Let $X \subseteq \mathbb{R}$.
+	\begin{itemize}
+		\item[$\bullet$] If $X$ is not bounded from above, we define $\sup(X) = \infty$.
+		\item[$\bullet$] If $X = \emptyset$, we define $\sup(\emptyset) = -\infty$.
+		\item[$\bullet$] If $X$ is not bounded from below, we define $\inf(X) = -\infty$.
+		\item[$\bullet$] If $X = \emptyset$, we define $\inf(\emptyset) = \infty$.
+	\end{itemize}
+	In this context, we refer to $\infty$ and $-\infty$ as \textbf{indefinite values}.
+\end{definition}
+In other words:
+\begin{itemize}
+	\item[$\bullet$] Saying $\sup(X) = \infty$ means that $X$ is not bounded from above, i.e.,
+	\[
+		\forall x_0 \in X \; \exists x \in X : x > x_0.
+	\]
+	\item[$\bullet$] Saying $\sup(X) = -\infty$ means that $X$ is empty.
+	\item[$\bullet$] Similarly, $\inf(X) = -\infty$ means that $X$ is not bounded from below, and $\inf(X) = \infty$ means $X$ is empty.
+\end{itemize}
+
 \subsection{Consequences of Completeness}
+
+\subsection*{Archimedean Principle}
+The archimedean principle states that for every real number $x \in \mathbb{R}$ there exists and integers $n$ greater than $x$. The following theorem, proved using the existence of suprema (and implicitly the completeness axiom), gives a precise formulation of this principle.
+
+\begin{theorem}{Archimedean Principle}{arch_princ}
+	For every $x \in \mathbb{R}$ there exists exactly one $n \in \mathbb{Z}$ such that
+	\[
+		n \leq x < n+ 1.
+	\]
+\end{theorem}
+
+\begin{proof}
+	We first treat the case $x \geq 0$. Fix $ \mathbb{R} \owns x \geq 0$ and define
+	\[
+		E = \{n \in \mathbb{Z}\;|\; n \leq x\}.
+	\]
+	Since $0 \in E$ and $x$ is an upper bound, $E$ is a non-empty subset of $\mathbb{R}$ bounded from above.
+	Hence, by Theorem \ref{theo*sup_exist}, the supremum $s_0 = \sup(E)$ exists. From the definition of supremum we deduce:
+	\begin{enumerate}
+		\item[(i)] $s_0 \leq x$ (because $x$ is an upper bound);
+		\item[(ii)] there exists $n_0 \in E$ with $s_0 - 1 < n_0$ (otherwise $s_0 - 1$ would also be an upper bound).
+	\end{enumerate}
+	From (ii) we obtain $s_0 < n_0 + 1$, which implies
+	\begin{enumerate}
+		\item[(iii)] $n_0 + 1 \notin E$ (otherwise $s_0$ would not be an upper bound for $E$).
+	\end{enumerate}
+	Moreover, since $m \leq s_0$ for every $m \in E$, we have $m < n_0 + 1$ for all $m \in E$. As all elements of $E$ are integers,
+	\[
+		m < n_0 + 1 \quad \Leftrightarrow \quad m - n_0 < 1 \quad \Leftrightarrow \quad m - n_0 \leq 0 \quad \Leftrightarrow \quad m \leq n_0.
+	\]
+	Thus, every $m \in E$ is less than or equal to $n_0$, and since $n_0 \in E$, we conclude that $n_0 = \max(E)$. In particular, by Remark \ref{rmk:sup_max}, the maximum is also the supremum, so $s_0 = n_0$.
+	
+	Finally, recalling (iii) and the definition of $E$, we have $n_0 + 1 > x$. Together with (i), this shows
+	\[
+		n_0 = s_0 \leq x < n_0 + 1,
+	\]
+	establishing the claim for any $x \geq 0$.
+	
+	Now, if $x < 0$, apply the previous argument to $-x > 0$. Then there exists $m \in \mathbb{Z}$ such that
+	\[
+		m \leq -x < m + 1,
+	\]
+	which is equivalent to
+	\[
+		-m - 1 < x \leq -m.
+	\]
+	If $x = -m$, then set $n = -m$. If $x < -m$, set $n = -m - 1$. In both cases, we obtain
+	\[
+		n \leq x < n+1.
+	\]
+	
+	Finally, for uniqueness, assume that $n_1, n_2 \in \mathbb{Z}$ both satisfy $n_i \leq x < n_i + 1$. From $n_1 \leq x < n_2 + 1$ we deduce that $n_1 < n_ 2 + 1$, and therefore $n_1 \leq n_2$. Reversing the roles of $n_1$ and $n_2$ gives $n_2 \leq n_1$. Hence, $n_1 = n_2$. \qedhere
+\end{proof}
+
+\begin{definition}{Integer and Fractional Parts}{int_fract_part}
+	The \textbf{integer part} $\lfloor x\rfloor$ of $x \in \mathbb{R}$ is the integer $n \in \mathbb{Z}$ uniquely determined by Theorem \ref{theo*arch_princ} such that $n \leq x < n + 1$. The map $x \mapsto \lfloor x \rfloor$ from $\mathbb{R}$ to $\mathbb{Z}$ is called the \textbf{rounding function}. The \textbf{fractional part} of $x$ is defined as
+	\[
+		\{x\} = x - \lfloor x \rfloor \in [0, 1).
+	\]
+\end{definition}
+
+\begin{corollary}{$\frac{1}{n}$ is Arbitrarily Small}{small_int}
+	For every $\varepsilon > 0$ there exists $n \in \mathbb{N}$, with $n \geq 1$, such that
+	\[
+		\frac{1}{n} < \varepsilon.
+	\]
+\end{corollary}
+
+\begin{proof}
+	Applying Theorem \ref{theo*arch_princ} to $x = \frac{1}{\varepsilon} > 0$, we find $m \in \mathbb{Z}$ such that
+	\[
+		m \leq \frac{1}{\varepsilon} < m + 1.
+	\]
+	Set $n := m + 1$. In this way we have $0 < \frac{1}{\varepsilon} < n$, which is equivalent to $n > 0$ (therefore, $n \geq 1$) and $\frac{1}{n} < \varepsilon$. \qedhere
+\end{proof}
+
+\begin{definition}{Dense Sets}{dense_sets}
+	A subset $X \subseteq \mathbb{R}$ is called \textbf{dense} in $\mathbb{R}$ if every open non-empty interval contains an element of $X$.
+\end{definition}
+
+\begin{corollary}{Density of $\mathbb{Q}$}{q_dense}
+	For every $a, b \in \mathbb{R}$ with $a < b$, there exists $r \in \mathbb{Q}$ such that $a < r < b$.
+\end{corollary}
+
+\begin{proof}
+	Set $\varepsilon = b - a$. By Corollary \ref{cor*small_int}, there exists $m \in \mathbb{N}$ with $\frac{1}{m} < \varepsilon$. Then, by Theorem \ref{theo*arch_princ} applied with $x = ma$, there exists $n \in \mathbb{Z}$ with
+	\[
+		n \leq ma < n + 1,
+	\]
+	or equivalently,
+	\[
+		\frac{n}{m} \leq a < \frac{n + 1}{m}.
+	\]
+	Since $\frac{1}{m} < \varepsilon$, by the two inequalities above, we obtain
+	\[
+		a < \frac{n + 1}{m} \leq a + \frac{1}{m} < a + \varepsilon = b.
+	\]
+	Thus $r = \frac{n + 1}{m}$ is a rational number between $a$ and $b$.\qedhere
+\end{proof}
+
+\begin{corollary}{Density of $\mathbb{R}\setminus\mathbb{Q}$}{irrational_dense}
+	For every $a, b \in \mathbb{R}$ with $a < b$, there exists $r \in \mathbb{R}\setminus\mathbb{Q}$ such that $a < r < b$.
+\end{corollary}
+
+\begin{proof}
+	We want to show that for every $x \in \mathbb{R}$ and $\delta > 0$, there exists an $a \in \mathbb{R}\setminus\mathbb{Q}$ such that
+	\[
+		a \in (x - \delta, x + \delta).
+	\]
+	By Corollary \ref{cor*q_dense}, we find a $q \in \mathbb{Q}$ such that $q \in (x - \delta, x + \delta)$.
+	By Corollary \ref{cor*small_int} we find an $N \in \mathbb{N}$ such that
+	\[
+		\frac{1}{N} < \frac{(x + \delta) - q}{\sqrt{2}} \quad \Rightarrow \quad \frac{\sqrt{2}}{N} < (x + \delta) - q.
+	\]
+	This implies that
+	\[
+		x - \delta < q < \frac{\sqrt{2}}{N} + q < x + \delta.
+	\]
+	Choosing $r = \frac{\sqrt{2}}{N} + q$ proves the statement. \qedhere
+\end{proof}
 
