@@ -1,0 +1,225 @@
+%
+% (c) 2025 Autor, ETH Zürich
+%
+% !TEX root = main.tex
+% !TEX encoding = UTF-8
+%
+
+\section{Functions of one Real Variable}
+In this chapter we study real-valued functions defined on subsets of $\mathbb{R}$, typically intervals. The central concept is \textit{continuity}.
+
+\subsection{Real valued functions}
+
+\subsubsection{Boundedness and Monotonitcity}
+For a non-empty set $D \subseteq \mathbb{R}$, the set of \textbf{real-valued} functions on $D$ is
+\[
+	\mathcal{F}(D) = \{f\;|\;f:D \to \mathbb{R}\}.
+\]
+For $f_1, f_2 \in \mathcal{F}(D)$, $\alpha \in \mathbb{R}$, and $x \in D$ we define
+\[
+	(f_1 + f_2)(x) = f_1(x) + f_2(x), \qquad (\alpha f_1)(x) = \alpha f_1(x), \qquad (f_1f_2)(x) = f_1(x)f_2(x).
+\]
+Given $\alpha \in \mathbb{R}$, we write $f \equiv \alpha$ for the constant function $x \mapsto \alpha$ on $D$.
+
+\begin{remark}
+	With the operations above, $\mathcal{F}(D)$ is a commutative ring (the additive identity is $f \equiv 0$ and the multiplicative identity is $f \equiv 1$).
+\end{remark}
+
+A point $x \in D$ is a \textbf{zero} of $f \in \mathcal{F}(D)$ if $f(x) = 0$. The \textbf{zero set} of $f$ is $\{x \in D\;|\; f(x) = 0\}$.
+We order $\mathcal{F}(D)$ pointwise: for $f_1, f_2 \in \mathcal{F}(D)$,
+\begin{align*}
+	f_1 \leq f_2 \quad &\Leftrightarrow \quad f_1(x) \leq f_2(x) \quad \forall x \in D,\\
+	f_1 < f_2 \quad &\Leftrightarrow \quad f_1(x) < f_2(x) \quad \forall x \in D.
+\end{align*}
+We say that $f \in \mathcal{F}(D)$ is \textbf{non-negative} if $f \geq 0$, and \textbf{positive} if $f > 0$.
+
+\begin{definition}{Bounded Functions}{bounded_func}
+	Let $D \neq \emptyset$ and $f:D \to \mathbb{R}$. We say that $f$ is \textbf{bounded from above} if there exists $M > 0$ such that
+	\[
+		f(x) \leq M \qquad \forall x \in D.
+	\]
+	We say that $f$ is \textbf{bounded from below} if there exists $M > 0$ such that
+	\[
+		f(x) \geq -M \qquad \forall x \in D.
+	\]
+	We say that $f$ is \textbf{bounded} if it is both bounded from above and from below. Equivalently, $f$ if bounded if there exists $M > 0$ such that
+	\[
+		|f(x)| \leq M \qquad \forall x \in D.
+	\]
+\end{definition}
+
+\begin{definition}{Monotone Functions}{monotone_func}
+	Let $D \subseteq \mathbb{R}$ and $f:D \to \mathbb{R}$. The function $f$ is:
+	\begin{enumerate}
+		\item \textbf{increasing} if $x < y \quad \Rightarrow \quad f(x) \leq f(y) \quad \forall x,y \in D$;
+		\item \textbf{strictly increasing} if $x < y \quad \Rightarrow \quad f(x) < f(y) \quad \forall x,y \in D$;
+		\item \textbf{decreasing} if $x < y \quad \Rightarrow \quad f(x) \geq f(y) \quad \forall x,y \in D$;
+		\item \textbf{strictly decreasing} if $x < y \quad \Rightarrow \quad f(x) > f(y) \quad \forall x,y \in D$.
+	\end{enumerate}
+	We call $f$ \textbf{monotone} if it is increasing or decreasing, and \textbf{strictly monotone} if it is strictly increasing or strictly decreasing.
+\end{definition}
+
+\subsubsection{Continuity}
+
+\begin{definition}{Continuous Functions}{cont_func}
+	Let $D \subseteq \mathbb{R}$ and $f:D \to \mathbb{R}$. We say that $f$ is \textbf{continuous at} $x_0 \in D$ if for all $\varepsilon > 0$ there exists $\delta > 0$ such that
+	\[
+		\forall x \in D, \quad |x - x_0| < \delta \quad \Rightarrow \quad |f(x) - f(x_0)| < \varepsilon.
+	\]
+	We say that $f$ is \textbf{continuous on} $D$ if it is continuous at every point of $D$.
+\end{definition}
+
+\begin{remark}
+	It suffices to verify the implication above for small $\varepsilon$. Precisely, assume there exists $\varepsilon_0 > 0$ such that for every $\varepsilon \in (0, \varepsilon_0]$ there is a $\delta > 0$ such that
+	\[
+		\forall x \in D, \quad |x - x_0| < \delta \quad \Rightarrow \quad |f(x) - f(x_0)| < \varepsilon.
+	\]
+	Then $f$ is continuous at $x_0$.
+	
+	Indeed, for $\varepsilon_0 > \varepsilon$ we can choose the number $\delta > 0$ corresponding to $\varepsilon$ to get
+	\[
+		\forall x \in D, \quad |x - x_0| < \delta \quad  \Rightarrow \quad |f(x) - f(x_0)| < \varepsilon < \varepsilon_0.
+	\]
+	In other words, if $\delta$ works for $\varepsilon$, then it works for all $\varepsilon_0 > \varepsilon$.
+\end{remark}
+
+\begin{definition}{Restriction}{restriction}
+	Let $D \subseteq \mathbb{R}$ and $f:D \to \mathbb{R}$. For any $D' \subseteq D$ the \textbf{restriction} of $f$ to $D'$ is the function $f|_{D'}:D' \to \mathbb{R}$ defined by
+	\[
+		f|_{D'}(x) = f(x) \qquad \forall x \in D'.
+	\]
+	We regard $f|_{D'}$ and $f$ as different functions unless $D' = D$.
+\end{definition}
+
+\begin{proposition}{Combination of Continuous Functions}{comb_cont_func}
+	Let $D \subseteq \mathbb{R}$, and let $f_1, f_2:D \to \mathbb{R}$ be continuous at $x_0 \in D$. Then $f_1 + f_2$, $f_1f_2$, and $\alpha f_1$ (for any $\alpha \in \mathbb{R}$) are continuous at $x_0$.
+\end{proposition}
+
+\begin{proof}
+	We first prove the result for the sum. Let $\varepsilon > 0$. Since $f_1$ and $f_2$ are continuous at $x_0$, there exists $\delta_1, \delta_2 > 0$ such that for all $x \in D$,
+	\[
+		|x - x_0| < \delta_1 \; \Rightarrow \; |f_1(x) - f_1(x_0)| < \frac{\varepsilon}{2}, \quad |x - x_0| < \delta_2 \; \Rightarrow \; |f_2(x) - f_2(x_0)| < \frac{\varepsilon}{2}.
+	\]
+	So, choosing $\delta = \min{\delta_1, \delta_2}$, for $|x - x_0| < \delta$ we get
+	\[
+		|(f_1 + f_2)(x) - (f_1 + f_2)(x_0)| \leq |f_1(x) - f_1(x_0)| + |f_2(x) - f_2(x_0)| < \varepsilon,
+	\]
+	which shows that $f_1 + f_2$ is continuous at $x_0$.
+	
+	For the product, note that
+	\begin{align*}
+		|f_1(x)f_2(x) - f_1(x_0)f_2(x_0)| &= |f_1(x)f_2(x) - f_1(x_0)f_2(x) + f_1(x_0)f_2(x) - f_1(x_0)f_2(x_0)|\\
+		&\leq |f_1(x)f_2(x) - f_1(x_0)f_2(x)| + |f_1(x_0)f_2(x) - f_1(x_0)f_2(x_0)|\\
+		&= |f_2(x)||f_1(x) - f_1(x_0)| + |f_1(x_0)||f_2(x) - f_2(x_0)|.
+	\end{align*}
+	Now, first choose $\delta_0 > 0$ such that $|x - x_0| < \delta_0$ implies $|f_2(x) - f_2(x_0)| < 1$, so that
+	\[
+		|x - x_0| < \delta_0 \quad \Rightarrow \quad |f_2(x)| < 1 + |f_2(x_0)|.
+	\]
+	Then choose $\delta_1, \delta_2 > 0$ such that
+	\begin{align*}
+		|x - x_0| < \delta_1 \quad \Rightarrow \quad |f_1(x) - f_1(x_0)| < \frac{\varepsilon}{2 (1 + |f_2(x_0)|)},\\
+		|x - x_0| < \delta_2 \quad \Rightarrow \quad |f_2(x) - f_2(x_0)| < \frac{\varepsilon}{2 (1 + |f_1(x_0)|)}.
+	\end{align*}
+	So choosing $\delta = \min{\delta_0, \delta_1, \delta_2}$, for $|x - x_0| < \delta$ we get
+	\begin{align*}
+		|f_1(x)f_2(x) - f_1(x_0)f_2(x_0)| &< |f_2(X)|\, \frac{\varepsilon}{2 (1 + |f_2(x_0)|)} + |f_1(x_0)|\, \frac{\varepsilon}{2 (1 + |f_1(x_0)|)}\\
+		&< (1 + |f_2(x_0)|)\, \frac{\varepsilon}{2 (1 + |f_2(x_0)|)} + |f_1(x_0)|\, \frac{\varepsilon}{2 (1 + |f_1(x_0)|)}\\
+		&< \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon,
+	\end{align*}
+	thus $f_1f_2$ is continuous at $x_0$.
+	
+	Finally, the statement about $\alpha f_1$ follows by choosing $f_2 \equiv \alpha$ (a constant function) and using the product case proved above: since $f_1$ and $f_2$ are continuous at $x_0$, their product $f_1f_2 = \alpha f_1$ is continuous at $x_0$. \qedhere
+\end{proof}
+
+\begin{definition}{Sum and Product Notation}{sum_prod_notation}
+	Let $n \in \mathbb{N}$ and $a_0, a_1, \hdots , a_n \in \mathbb{R}$. We use the notation
+	\[
+		\sum_{j=0}^{n} a_j = a_0 + a_1 + \hdots + a_n, \qquad \prod_{j=0}^{n} a_0 \cdot a_1 \cdot \hdots \cdot a_n.
+	\]
+	Here $a_j$ is a \textbf{summand} in the sum and a \textbf{factor} in the product; $j$ is the \textbf{index} (or \textbf{running variable}).
+	If $J$ is a finite set and numbers $(a_j)_{j\in J}$ are given, we write
+	\[
+		\sum_{j \in J} a_j, \qquad \prod_{j\in J} a_j.
+	\]
+	By convention, for the empty index set $\emptyset$,
+	\[
+		\sum_{j\in \emptyset} a_j = 0, \qquad \prod_{j\in \emptyset} a_j = 1.
+	\]
+\end{definition}
+
+\begin{proposition}{Composition of Continuous Functions}{comp_cont_func}
+	Let $D_1, D_2 \subseteq \mathbb{R}, x_0 \in D_1$ and $f:D_1 \to D_2$ be continuous at $x_0$. If $g:D_2 \to \mathbb{R}$ is continuous at $f(x_0)$, then $g \circ f:D_1 \to \mathbb{R}$ is continuous at $x_0$. In particular, the composition of continuous functions is continuous.
+\end{proposition}
+
+\begin{proof}
+	Let $\varepsilon > 0$. By continuity of $g$ at $f(x_0)$, there exists $\eta > 0$ such that
+	\[
+		\forall y \in D_2, \quad |y - f(x_0)| < \eta \quad \Rightarrow \quad |g(y) - g(f(x_0))| < \varepsilon.
+	\]
+	By continuity of $f$ at $x_0$, there exists $\delta > 0$ such that
+	\[
+		\forall x \in D_1, \quad |x - x_0| < \delta \quad \Rightarrow \quad |f(x) - f(x_0)| < \eta.
+	\]
+	Combining the implications gives, for any $x \in D_1$,
+	\[
+		|x - x_0| < \delta \quad \Rightarrow \quad |f(x) - f(x_0)| < \eta \quad \Rightarrow \quad |g(f(x)) - g(f(x_0))| < \varepsilon. \qedhere
+	\]
+\end{proof}
+
+\begin{remark}
+	Applying Proposition \ref{prop*comp_cont_func} with $g(y) = |y|$, we see that if $f:D \to \mathbb{R}$ is continuous, then $x \mapsto |f(x)|$ is continuous.
+\end{remark}
+
+\subsubsection{Sequential Continuity}
+
+\begin{definition}{Notation for Limits of Sequences}{notation_lim_seq}
+	Let $(x_n)_{n=0}^{\infty} \subseteq \mathbb{R}$ and $\overline{x} \in \mathbb{R}$. We write
+	\[
+		x_n \to \bar{x} \qquad \text{or} \qquad x_n \underset{n \to \infty}{\longrightarrow} \bar{x}
+	\] 
+	to mean
+	\[
+		\lim_{n \to \infty} x_n = \bar{x}.
+	\]
+\end{definition}
+
+\begin{theorem}{Continuity = Sequential Continuity}{cont_seq_cont}
+	Let $D \subseteq \mathbb{R}$, $f:D \to \mathbb{R}$, and $\bar{x} \in D$. Then $f$ is continuous at $\bar{x}$ if and only if for every sequence $(x_n)_{n=0}^{\infty} \subseteq D$ with $x_n \to \bar{x}$ we have $f(x_n) \to f(\bar{x})$.  
+\end{theorem}
+
+\begin{proof}
+	'$\Rightarrow$': First Assume that $f$ is continuous at $\bar{x}$. Then, given $\varepsilon > 0$, there exists $\delta > 0$ such that
+	\[
+		\forall x \in D, \quad |x - \bar{x}| < \delta \quad \Rightarrow \quad |f(x) - f(\bar{x})| < \varepsilon.
+	\]
+	Also, since $x_n \to \bar{x}$, there exists $N \in \mathbb{N}$ such that
+	\[
+		n \geq N \quad \Rightarrow \quad |x_n - \bar{x}| < \delta.
+	\]
+	Thus,
+	\[
+		n \geq N \quad \Rightarrow \quad |f(x_n) - f(\bar{x})| < \varepsilon,
+	\]
+	which implies that the sequence $(f(x_n))_{n=0}^{\infty}$ converges to $f(\bar{x})$.
+	
+	'$\Leftarrow$': To prove the converse, assume that $f$ is not continuous at $x_0$. This means that there exists $\varepsilon > 0$ such that, for every $\delta > 0$, there is $x \in D$ with
+	\[
+		|x - \bar{x}| < \delta \quad \text{and} \quad |f(x) - f(\bar{x})| \geq \varepsilon.
+	\]
+	Now, for every $n \in \mathbb{N}$, we apply this property with $\delta = 2^{-n}$ to find a point $x_n \in D$ such that
+	\[
+		|x_n - \bar{x}| < 2^{-n} \quad \text{and} \quad |f(x_n) - f(\bar{x})| \geq \varepsilon
+	\]
+	Then the sequence constructed in this way satisfies $x_n \to \bar{x}$ but $f(x_n) \not\to f(\bar{x})$. \qedhere
+\end{proof}
+
+\begin{remark}
+	The proof above shows that if $f:D \to \mathbb{R}$ is not continuous at $\bar{x}$, then there exists $\varepsilon > 0$ and a sequence $(x_n)_{n=0}^{\infty} \subseteq D$ with $x_n \to \bar{x}$ such that $|f(x_n) - f(\bar{x})| \geq \varepsilon$ for all $n \in \mathbb{N}$. This is useful to show that a function $f$ is not continuous at $\bar{x}$.   
+\end{remark}
+
+\subsection{Continuous Functions}
+
+\subsubsection{Intermediate Value Theorem}
+
+

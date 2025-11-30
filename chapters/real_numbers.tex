@@ -469,7 +469,7 @@ In other words, the open disk $B(z, r)$ is the set of points at distance strictl
 \end{definition}
 
 \subsection{Maximum and Supremum}
-\subsubsection*{Existence of the Supremum}
+\subsubsection{Existence of the Supremum}
 
 \begin{definition}{Bounded Sets, Maxima and Minima}
 	Let $X \subseteq \mathbb{R}$ be a subset of real numbers.
@@ -628,7 +628,7 @@ In other words:
 
 \subsection{Consequences of Completeness}
 
-\subsection*{Archimedean Principle}
+\subsubsection{Archimedean Principle}
 The archimedean principle states that for every real number $x \in \mathbb{R}$ there exists and integers $n$ greater than $x$. The following theorem, proved using the existence of suprema (and implicitly the completeness axiom), gives a precise formulation of this principle.
 
 \begin{theorem}{Archimedean Principle}{arch_princ}
@@ -747,4 +747,49 @@ The archimedean principle states that for every real number $x \in \mathbb{R}$ t
 	\]
 	Choosing $r = \frac{\sqrt{2}}{N} + q$ proves the statement. \qedhere
 \end{proof}
+
+\subsubsection{Uncountability}
+
+\begin{definition}{Cardinality}{cardinality}
+	Let $X$ and $Y$ be sets.
+	\begin{itemize}
+		\item[$\bullet$] We say $X$ and $Y$ have the \textbf{same cardinality}, written $X \sim Y$, if there is a bijection $f:X \to Y$.
+		\item[$\bullet$] We write $X \preceq Y$ if there exists an injection $f:X \to Y$.
+		\item[$\bullet$] The empty set has cardinality 0.
+		\item[$\bullet$] A set $X$ has \textbf{finite cardinality} $|X| = n$ if there exists a bijection with $\{1, \hdots , n\}$.
+		\item[$\bullet$] A set is \textbf{infinite} it it is not finite.
+		\item[$\bullet$] A set is \textbf{countable} if it has a bijection to $\mathbb{N}$. Its cardinality is denoted $\aleph_0$, pronounced Aleph-0.
+		\item[$\bullet$] A set is \textbf{uncountable} if it is infinite but not countable.
+	\end{itemize}
+\end{definition}
+
+If $X \preceq Y$ and $Y \preceq X$, then $X \sim Y$. In other words, if there exists an injective map $f:X \to Y$ and an injective map $g:Y \to X$, then one can find a bijective map $h:X \to Y$. This non-trivial statement is the \textbf{Schröder-Bernstein Theorem}.
+
+We will now list some statements about different sets of numbers from the lecture:
+\begin{enumerate}
+	\item $\mathbb{N}$ and the even numbers have the same cardinality.
+	\item $\mathbb{N}$ and $\mathbb{Z}$ have the same cardinality.
+	\item $\mathbb{Q}$ is countable, i.e., $\mathbb{N} \sim \mathbb{Q} \sim \mathbb{Z}$.
+\end{enumerate}
+
+\begin{proposition}{Uncountability of $\mathbb{R}$}{reals_uncoutable}
+	The set $\mathbb{R}$ is uncountable.
+\end{proposition}
+
+\subsubsection*{Extra Material}
+
+\begin{definition}{Power Set}{power_set}
+	Let $X$ be a set. The \textbf{power set} $\mathcal{P}(X)$ of $X$ is the set of all subsets of $X$, i.e.,
+	\[
+		\mathcal{P}(X) := \{A \subseteq X\}.
+	\]
+\end{definition}
+
+\begin{theorem}{Cantor's Theorem}{canotrs_theo}
+	For any set $X$, the power set $\mathcal{P}(X)$ has strictly larger cardinality than $X$.
+\end{theorem}
+
+\begin{proposition}{The Reals have the same cardinality as $\mathcal{P}(\mathbb{N})$}{reals_naturals_same_card}
+	$|\mathbb{R}| = |\mathcal{P}(\mathbb{N})|$.
+\end{proposition}
 

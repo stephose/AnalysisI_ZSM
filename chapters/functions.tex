@@ -59,3 +59,29 @@ Thus, a function $f:X \to Y$ is \textit{not} injective if there exists distinct 
 \begin{remark}
 	Saying that $f:X \to Y$ is surjective is equivalent to $f(X) = Y$. Equivalently, $f$ is surjective if $f^{-1}(\{y\}) \neq \emptyset$ for all $y \in Y$. 
 \end{remark}
+
+\begin{definition}{Composition of Functions}{comp_func}
+	Let $f:X \to Y$ and $g:Y \to Z$. The \textbf{composition} is $g \circ f: X \to Z$, defined by $(g \circ f)(x) = g(f(x))$ for all $x \in X$.
+	
+	\textbf{Associativity:} If $f:W \to X, g:X \to Y$ and $h:Y \to Z$, then
+	\[
+		h \circ (g \circ f) = (h \circ g) \circ f.
+	\]
+	Indeed, for all $w \in W$, we have
+	\[
+		h \circ (g \circ f)(w) = h((g \circ f)(w)) = h(g(f(w))) = (h \circ g)(f(w)) = ((h \circ g) \circ f)(w).
+	\]
+	Therefore, we may omit parentheses and write $h \circ g \circ f:W \to Z$.
+\end{definition}
+
+\begin{definition}{Identity and Inverse Function}{id_inv_func}
+	Given a set $X$, the \textbf{identity function} $\operatorname{id}_{X}:X \to X$ is defined by
+	\[
+		\operatorname{id}_{X}(x) = x \qquad \forall x \in X.
+	\]
+	If $f:X \to Y$ is bijective, then there exists a unique function $g:Y \to X$ such that, for each $y \in Y$, the value $g(y)$ is the unique element $x \in X$ satisfying $f(x) = y$. With this definition,
+	\[
+		g \circ f = \operatorname{id}_{X} \qquad \text{and} \qquad f \circ g = \operatorname{id}_{Y}.
+	\]
+	The function $g$ is called the \textbf{inverse function} (or \textbf{inverse mapping}) of $f$, and is denoted by $f^{-1}$.
+\end{definition}
