@@ -215,11 +215,105 @@ We say that $f \in \mathcal{F}(D)$ is \textbf{non-negative} if $f \geq 0$, and \
 \end{proof}
 
 \begin{remark}
+	\label{rmk:neg_seq_cont}
 	The proof above shows that if $f:D \to \mathbb{R}$ is not continuous at $\bar{x}$, then there exists $\varepsilon > 0$ and a sequence $(x_n)_{n=0}^{\infty} \subseteq D$ with $x_n \to \bar{x}$ such that $|f(x_n) - f(\bar{x})| \geq \varepsilon$ for all $n \in \mathbb{N}$. This is useful to show that a function $f$ is not continuous at $\bar{x}$.   
 \end{remark}
 
 \subsection{Continuous Functions}
 
 \subsubsection{Intermediate Value Theorem}
+In this section we prove a fundamental theorem that formalizes the idea that the graph of a continuous function on an interval is a continuous curve, and thus cannot make any jumps.
+
+\begin{theorem}{Intermediate Value Theorem}{int_val_theo}
+	Let $f:[a, b] \to \mathbb{R}$ be a continuous function with $f(a) \leq f(b)$. Then, for every real number $c$ with $f(a) \leq c \leq f(b)$, there exists $\bar{x} \in [a, b]$ such that $f(\bar{x}) = c$.
+\end{theorem}
+
+\begin{proof}
+	Fix $c \in [f(a), f(b)]$. Then define
+	\[
+		X = \{x \in [a, b] \;|\; f(x) \leq c\}.
+	\]
+	Since $a \in X$ and $X \subseteq [a, b]$, the set is non-empty and bounded from above. By Theorem \ref{theo*sup_exist}, its supremum
+	\[
+		\bar{x} = sup(X) \in [a, b]
+	\]
+	exists.
+	We now use the continuity of $f$ at $x_0$ to show that $f(\bar{x}) = c$.
+	
+	Since $\bar{x}$ is the supremum of $X$, for each $n \geq 0$, we can find a point $x_n \in [\bar{x} - 2^{-n}, \bar{x}]$.
+	Then $|x_n - \bar{x}| \leq 2^{-n}$, hence $x_n \longrightarrow \bar{x}$.
+	Also, by the definition of $X$, we have $f(x_n) \leq c$. Thus, by Theorem \ref{theo*cont_seq_cont} (continuity of $f$ along sequences),
+	\[
+		\lim_{n \to \infty} f(x_n) = f(\bar{x}).
+	\]
+	And Proposition \ref{prop*lim_ineq} yields $\lim_{n \to \infty} f(x_n) \leq c$. Therefore, $f(\bar{x}) \leq c$.
+	
+	Suppose, by contradiction, $f(\bar{x}) < c$ and set $\varepsilon := c - f(\bar{x}) > 0$. By continuity at $\bar{x}$, there exists $\delta > 0$ such that for all $x \in [a, b]$
+	\[
+		|x - \bar{x}| < \delta \quad \Rightarrow \quad |f(x) - f(\bar{x})| < \varepsilon,
+	\]
+	hence $f(x) < f(\bar{x}) + \varepsilon = c$. 
+	Therefore, by the definition of $X$,
+	\[
+		(\bar{x} - \delta, \bar{x} + \delta) \cap [a, b] \subseteq X.
+	\]
+	Moreover, since $f(\bar{x}) < c \leq f(b)$, we cannot have $\bar{x} = b$; hence $\bar{x} < b$.
+	Because $\bar{x} < b$, the interval $(\bar{x} , \bar{x} + \delta) \cap [a, b] \subseteq X$ is non-empty.
+	Pick 
+	\[
+		y \in (\bar{x}, \bar{x} + \delta) \cap [a, b] \subseteq X.
+	\]
+	Then $y \in X$ and $y > \bar{x}$, which contradicts the defining property of the supremum: $\bar{x}$ is an upper bound of $X$, and $X$ cannot contain elements larger than $\bar{x}$. This contradiction shows that $f(\bar{x}) \geq c$. Together with $f(\bar{x}) \leq c$ proved above, we conclude that $f(\bar{x}) = c$, as desired. \qedhere
+\end{proof}
+
+\begin{theorem}{Inverse Function Theorem}{inv_func_theo}
+	Let $I$ be an interval and $f: I \to \mathbb{R}$ a continuous strictly monotone function. Then $f(I)$ is an interval, and the mapping $f:I \to f(I)$ has a continuous strictly monotone inverse function $f^{-1}:f(I) \to I$.
+\end{theorem}
+
+\begin{proof}
+	We may assume that $I$ is non-empty and not a single point.
+	Also, w.l.o.g, suppose $f$ is strictly increasing (otherwise replace $f$ with $-f$).
+	
+	Let $J = f(I)$. Since $f$ is strictly monotone it is injective. Also, since by definition $J = f(I)$, it is surjective, hence bijective. 
+	Therefore there exists a unique inverse $g = f^{-1}:J \to I$.
+	
+	Because $f$ is strictly increasing, we have
+	\begin{equation}
+		\label{eq:f_strict_incr}
+		x_1 < x_2 \quad \Leftrightarrow \quad f(x_1) < f(x_2) \qquad \forall x_1, x_2 \in I.
+	\end{equation}
+	(Note: here we have equivalence in the statements because $f$ is both injective and strictly increasing)
+	Defining $y_1 = f(x_1)$ and $y_2 = f(x_2)$, this is equivalent to
+	\[
+		y_1 < y_2 \quad \Leftrightarrow \quad g(y_1) < g(y_2) \qquad \forall y_1, y_2 \in J
+	\]
+	Thus, $g$ is strictly increasing.
+	
+	To show that $J$ is an interval, $y_1, y_2 \in J$, and assume w.l.o.g that $y_ 1 < y_2$. Since, $J = f(I)$, Equation \ref{eq:f_strict_incr} implies that $y_1 = f(x_1), y_2 = f(x_2)$ for some $x_1, x_2 \in I$ with $x_1 < x_2$.
+	Now by the Intermediate Value Theorem \ref{theo*int_val_theo} applied to $f:[x_1, x_2] \to \mathbb{R}$, we have that all values $c \in [y_1, y_2]$ are in the image of $f:[x_1, x_2] \to \mathbb{R}$, i.e.,
+	\[
+		[y_1, y_2] \subseteq f([x_1, x_2]) \subseteq J.
+	\]
+	Since, $y_1, y_2$ were two arbitrary points in $J$, this proves that $J$ is an interval.
+	
+	It remains to show that $g = f^{-1}$ is continuous. 
+	Fix $\bar{y} \in J$ and suppose, by contradiction, that $g$ is not continuous at $\bar{y}$. Then by Remark \ref{rmk:neg_seq_cont}, there exists $\varepsilon > 0$ and a sequence $(y_n)_{n=0}^{\infty} \subseteq J$ such that
+	\begin{equation}
+		\label{eq:g_not_cont}
+		y_n \longrightarrow \bar{y} \qquad \text{but} \qquad |g(y_n) - g(\bar{y})| \geq \varepsilon \quad \forall n \in \mathbb{N}.
+	\end{equation}
+	Set $x_n = g(y_n) \in I$ and $\bar{x} = g(\bar{y}) \in I$.
+	Then for every $n \in \mathbb{N}$, either $x_n \leq \bar{x} - \varepsilon$ or $x_n \geq \bar{x} + \varepsilon$.
+	In particular, at least one of these cases must occur infinitely often. W.l.o.g, assume $x_n \leq \bar{x} - \varepsilon$ for infinitely many $n$, and extract a subsequence $(x_{n_k})_{k=0}^{\infty}$ with $x_{n_k} \leq \bar{x} - \varepsilon$ for all $k$. 
+	Since, $I$ is an interval, $\bar{x} - \varepsilon \in I$, and by strict monotonicity of $f$ we obtain
+	\[
+		y_{n_k} = f(x_{n_k}) \leq f(\bar{x} - \varepsilon) < f(\bar{x}) = \bar{y}.	
+	\]
+	Then Proposition \ref{prop*lim_ineq} gives (recall $y_n \longrightarrow \bar{y}$, see \ref{eq:g_not_cont})
+	\[
+		\bar{y} = \lim_{k \to \infty} y_{n_k} \leq f(\bar{x} - \varepsilon) < f(\bar{x}) = \bar{y},
+	\]
+	a contradiction. Hence, $g$ is continuous. \qedhere
+\end{proof}
 
 
