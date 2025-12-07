@@ -168,6 +168,7 @@ We say that $f \in \mathcal{F}(D)$ is \textbf{non-negative} if $f \geq 0$, and \
 \end{proof}
 
 \begin{remark}
+	\label{rmk:modulus_cont}
 	Applying Proposition \ref{prop*comp_cont_func} with $g(y) = |y|$, we see that if $f:D \to \mathbb{R}$ is continuous, then $x \mapsto |f(x)|$ is continuous.
 \end{remark}
 
@@ -315,5 +316,275 @@ In this section we prove a fundamental theorem that formalizes the idea that the
 	\]
 	a contradiction. Hence, $g$ is continuous. \qedhere
 \end{proof}
+
+\subsection{Continuous Functions on Compact Intervals}
+In this section we show that continuous functions on \textbf{bounded closed} intervals, called \textbf{compact intervals}, enjoy special properties.
+
+\subsubsection{Boundedness and Extrema}
+
+\begin{lemma}{Compactness}{compact}
+	Let $[a, b]$ be a compact interval, and let $(x_n)_{n=0}^{\infty}$ be a sequence contained in $[a, b]$.
+	Then there exists a subsequence $(x_{n_k})_{k=0}^{\infty}$ such that
+	\[
+		\lim_{k \to \infty} x_{n_k} = \bar{x} \qquad \text{for some } \bar{x} \in [a, b].
+	\]
+\end{lemma}
+
+\begin{proof}
+	Since $(x_n)_{n=0}^{\infty}$ is bounded (as it lies in $[a, b]$), Corollary \ref{cor*bound_seq_conv_subseq} ensures the existence of a convergent subsequence $(x_{n_k})_{k=0}^{\infty}$. Let $\bar{x}$ denote its limit. Because $a \leq x_{n_k} \leq b$ for all k, Proposition \ref{prop*lim_ineq} yields $a \leq \bar{x} \leq b$. \qedhere
+\end{proof}
+
+\begin{theorem}{Boundedness}{boundedness}
+	Let $[a, b]$ be compact interval, and let $f:[a, b] \to \mathbb{R}$ be continuous. Then $f$ is bounded.
+\end{theorem}
+
+\begin{proof}
+	Assume by contradiction that $f$ is unbounded. Then, for every $n \in \mathbb{N}$, there exists $x_n \in [a, b]$ such that $|f(x_n)| \geq n$. By Lemma \ref{lem*compact}, there is a subsequence $(x_{n_k})_{k=0}^{\infty}$ converging to some $\bar{x} \in [a, b]$.
+	
+	Since $f$ is continuous, so is $|f|$ (recall Remark \ref{rmk:modulus_cont}), therefore $|f(x_{n_k})| \longrightarrow |f(\bar{x})| \in \mathbb{R}$. This contradicts $|f(x_{n_k})| \geq n_k \longrightarrow \infty$, so $f$ must be bounded. \qedhere
+\end{proof}
+
+\begin{exercise}
+	Find examples of:
+	\begin{enumerate}
+		\item a continuous but unbounded function on a bounded \textit{open} interval.
+		\[
+			f:(0, 1) \to \mathbb{R},\; x \mapsto \frac{1}{x}.
+		\]
+		\item a continuous but unbounded function on an \textit{unbounded closed} interval.
+		\[
+			f:[0, \infty) \to \mathbb{R},\; x \mapsto x.
+		\]
+		\item an unbounded function on a compact interval but discontinuous at only one point.
+		\[
+			f:[0, 1] \to \mathbb{R},\; x \mapsto \begin{cases}
+				\frac{1}{x}, \quad &\text{for } x \neq 0\\
+				a \in \mathbb{R}, \quad &\text{for } x = 0.
+			\end{cases}
+		\]
+	\end{enumerate}
+\end{exercise}
+
+\begin{definition}{Extreme Values}{extreme_val}
+	Let $D \subseteq \mathbb{R}$ and $f: D \to \mathbb{R}$.
+	\begin{itemize}
+		\item[$\bullet$] We say that $f$ takes its \textbf{maximum value} at $x_0 \in D$ if $f(x) \leq f(x_0)$ for all $x \in D$.
+		Then $f(x_0)$ is the \textbf{maximum} of $f$.
+		\item[$\bullet$] We say that $f$ takes its \textbf{minimum value} at $x_0 \in D$ if $f(x) \geq f(x_0)$ for all $x \in D$.
+		Then $f(x_0)$ is the \textbf{minimum} of $f$.
+	\end{itemize}
+	Maxima and minima ar called \textbf{extreme values} or \textbf{extrema}.
+\end{definition}
+
+\begin{theorem}{Extreme Value Theorem}{extreme_val_theo}
+	Let $[a, b]$ be a compact interval, and let $f:[a, b] \to \mathbb{R}$ be continuous. Then $f$ attains both its minimum and its maximum.
+\end{theorem}
+
+\begin{proof}
+	Theorem \ref{theo*boundedness} guarantees that $f$ is bounded, or equivalently, that $f([a, b]) \subseteq \mathbb{R}$ is a bounded subset of $\mathbb{R}$. Thus, Theorem \ref{theo*sup_exist} implies that
+	\[
+		S := \sup f([a, b])
+	\]
+	exists.
+	By definition of the supremum, for each $n \in \mathbb{N}$ there exists $y_n \in f([a, b])$ such that $S - 2^{-n} \leq y_n \leq S$. Hence, $y_n \to S$. Also, since $y_n \in f([a, b])$, there exists $x_n \in [a, b]$ such that $f(x_n) = y_n$.
+	
+	Now, by Lemma \ref{lem*compact}, we can find a subsequence $(x_{n_k})_{k=0}^{\infty}$ such that $x_{n_k} \to \bar{x} \in [a, b]$. By continuity of $f$, we have that
+	\[
+		f(\bar{x}) = \lim_{k \to \infty} f(x_{n_k}) = \lim_{k \to \infty} y_{n_k} = S,
+	\]
+	so $f$ attains its maximum at $\bar{x}$.
+	
+	Applying the same reasoning to $-f$ shows that $f$ also attains its minimum. \qedhere
+\end{proof}
+
+\subsubsection{Uniform Continuity}
+
+\begin{definition}{Uniform Continuity}{unif_cont}
+	Let $D \subseteq \mathbb{R}$. A function $f:D \to \mathbb{R}$ is \textbf{uniformly continuous} if, for every $\varepsilon > 0$, there exists $\delta > 0$ such that
+	\[
+		|x - y| < \delta \quad \Rightarrow \quad |f(x) - f(y)| < \varepsilon \qquad \forall x,y \in D.
+	\]
+\end{definition}
+
+\begin{remark}
+	The difference between the usual definition of continuity and the one of uniform continuity lies in how the choice of $\delta$ depends on the points considered.
+	
+	For a function that is continuous at each $x_0 \in D$, the $\delta$ in the definition may depend on both $\varepsilon$ \textbf{and} $x_0$: for every $\varepsilon > 0$ and each $x_0$, we can find a $\delta = \delta(\varepsilon, x_0)$ that works near $x_0$.
+	
+	Uniform continuity is stronger: there exists a single $\delta = \delta(\varepsilon)$ that works \textbf{simultaneously} for all $x, y \in D$. In other words, the control on the variation of $f$ does not deteriorate as we move along the domain. This property is automatically satisfied on compact intervals for continuous functions, as we will prove below.
+\end{remark}
+
+\begin{theorem}{Uniform Continuity on Compact Intervals}{unif_cont_compact_int}
+	Let $[a, b]$ be a compact interval, and $f:[a, b] \to \mathbb{R}$ continuous on $[a, b]$. Then $f$ is uniformly continuous.
+\end{theorem}
+
+\begin{proof}
+	Assume, by contradiction, that $f$ is not uniformly continuous on $[a, b]$. Then there exists $\varepsilon > 0$ such that for every $\delta > 0$ one can find $x, y \in [a, b]$ with
+	\[
+		|x - y| < \delta \quad \text{and} \quad |f(x) - f(y)| \geq \varepsilon.
+	\]
+	Taking $\delta = 2^{-n}$ for each $n \in \mathbb{N}$, we obtain sequences $(x_n)_{n=0}^{\infty}$ and $(y_n)_{n=0}^{\infty}$ in $[a, b]$ with
+	\begin{equation}
+		\label{eq:contra_unif_cont}
+		|x_n - y_n| < 2^{-n} \quad \text{and} \quad |f(x_n) - f(y_n)| \geq \varepsilon.
+	\end{equation}
+	By Lemma \ref{lem*compact}, the sequence $(x_n)_{n=0}^{\infty}$ has a subsequence $(x_{n_k})_{k=0}^{\infty}$ converging to some $\bar{x} \in [a, b]$. Then
+	\[
+		|y_{n_k} - \bar{x}| \leq |y_{n_k} - x_{n_k}| + |x_{n_k} - \bar{x}| < 2^{-n_k} + |x_{n_k} - \bar{x}| \underset{k \to \infty}{\longrightarrow} 0,
+	\]
+	so $y_{n_k} \to \bar{x}$ as well. Thus, by continuity of $f$ and Theorem \ref{theo*cont_seq_cont}, we have that
+	\[
+		\lim_{k \to \infty} f(x_{n_k}) = \lim_{k \to \infty} f(y_{n_k}) = f(\bar{x}),
+	\]
+	therefore,
+	\[
+		|f(x_{n_k}) - f(y_{n_k})| \leq |f(x_{n_k}) - f(\bar{x})| + |f(\bar{x}) - f(y_{n_k})| \underset{k \to \infty}{\longrightarrow} 0,
+	\]
+	which contradicts Equation \ref{eq:contra_unif_cont}. Hence, $f$ is uniformly continuous on $[a, b]$. \qedhere
+\end{proof}
+
+\begin{definition}{Lipschitz Continuity}{lip_cont}
+	Let $D \subseteq \mathbb{R}$, and $f: D \to \mathbb{R}$. We say that $f$ is \textbf{Lipschitz continuous} if there exists $L \geq 0$ such that
+	\[
+		|f(x) - f(y)| \leq L|x - y| \qquad \forall x, y \in D.
+	\]
+\end{definition}
+
+\begin{lemma}{Lipschitz Continuity $\Rightarrow$ Uniform Continuity}{lip_cont_unif_cont}
+	Let $D \subseteq \mathbb{R}$, and $f:D \to \mathbb{R}$ be a Lipschitz continuous function. Then $f$ is uniformly continuous.
+\end{lemma}
+
+\begin{proof}
+	Let $D \subseteq \mathbb{R}$ and assume that $f:D \to \mathbb{R}$ is a Lipschitz continuous function. Then there exists $L \geq 0$ such that
+	\[
+		|f(x) - f(y)| \leq L|x - y| \qquad \forall x, y \in D.
+	\]
+	Now, fix $\varepsilon > 0$. We assume that $L \neq 0$ (otherwise the result follows immediately) and choose $\delta = \frac{\varepsilon}{L}$.
+	Because of the Lipschitz continuity of $f$, we have that for all $x, y \in D$ it holds that
+	\begin{align*}
+		|x - y| < \delta = \frac{\varepsilon}{L} \quad \Leftrightarrow \quad L|x - y| < \varepsilon\\
+		\Rightarrow \qquad |f(x) - f(y)| \leq L|x - y| < \varepsilon,
+	\end{align*}
+	which shows that $f$ is also uniformly continuous.\qedhere
+\end{proof}
+
+
+\subsection{Example: Expential and Logarithmic Functions}
+
+\subsubsection{Definition of the Exponential Function}
+
+\begin{lemma}{Bernoulli's Inequality}{bernoulli_ineq}
+	For all $a \in \mathbb{R}$ with $a \geq -1$ and all $n \in \mathbb{N}$ with $n \geq 1$, it holds that
+	\[
+		(1 + a)^{n} \geq 1 + na.
+	\]
+\end{lemma}
+
+\begin{proof}
+	We proceed by induction. For $n = 1$ we have $(1 + a)^1 = 1 + a = 1 + 1 \cdot a$.
+	
+	Now assume that the inequality holds for some $n \geq 1$. Since $1 + a \geq 0$ by assumption, we find
+	\[
+		(1 + a)^{n + 1} = (1 + a)^n (1 + a) \geq (1 + n a) (1 + a) = 1 + na + a + na^2 \geq 1 + (n + 1)a,
+	\]
+	which establishes the induction step and completes the proof. \qedhere
+\end{proof}
+
+\begin{proposition}{Existence of the Exponential}{exp_exist}
+	Let $x \in \mathbb{R}$. The sequence $(a_n)_{n=1}^{\infty}$ defined by
+	\[
+		a_n = \left(1 + \frac{x}{n}\right)^n
+	\]
+	is convergent, and its limit is a positive real number.
+\end{proposition}
+
+\begin{lemma}{Monotonicity}{exp_mono}
+	Given $x \in \mathbb{R}$, let $n_0 \in \mathbb{N}$ satisfy $n_0 \geq 1$ and $n_0 > -x$. Then the sequence $(a_n)_{n=n_0}^{\infty}$ defined in Proposition \ref{prop*exp_exist} is increasing.
+\end{lemma}
+
+\begin{definition}{Exponential Function}{exp}
+	The \textbf{exponential function} $\exp:\mathbb{R} \to \mathbb{R}_{>0}$ is defined by
+	\[
+		\exp(x) = \lim_{n \to \infty} \left(1 + \frac{x}{n}\right)^n \qquad \forall x \in \mathbb{R}.
+	\]
+\end{definition}
+
+\begin{corollary}{Growth of the Exponential}{growth_exp}
+	Given $n \in \mathbb{N}$ with $n \geq 1$, the exponential function satisfies
+	\[
+		\exp(x) \geq \left(1 + \frac{x}{n}\right)^n \qquad \forall x > -n.
+	\]
+\end{corollary}
+
+\begin{proof}
+	By Lemma \ref{lem*exp_mono} and Definition \ref{def*exp}, for $x > -n$ we have
+	\[
+		a_n \leq a_{n+1} \leq \hdots \leq \exp(x). \qedhere
+	\]
+\end{proof}
+
+\subsubsection{Properties of the Exponential Function}
+
+\begin{theorem}{Properties of the Exponential Function}{exp_properties}
+	The exponential function $\exp:\mathbb{R} \to \mathbb{R}_{>0}$ is bijective, strictly increasing, and continuous. Moreover,
+	\begin{align*}
+		\exp(0) &= 1,\\
+		\exp(-x) &= \exp(x)^{-1},\\
+		\exp(x + y) &= \exp(x)\exp(y),
+	\end{align*}
+	for all $x, y \in \mathbb{R}$.
+\end{theorem}
+
+\subsubsection{The Natural Logarithm}
+\begin{definition}{Logarithm}{log}
+	The unique inverse function
+	\[
+		\log:\mathbb{R}_{>0} \to \mathbb{R}
+	\]
+	of the bijective map $exp:\mathbb{R} \to \mathbb{R}_{>0}$ is called the \textbf{logarithm}.
+\end{definition}
+
+\begin{corollary}{Properties of the Logarithm}{log_properties}
+	The logarithm $\log:\mathbb{R}_{>0} \to \mathbb{R}$ is strictly increasing, continuous, and bijective. Moreover,
+	\begin{align*}
+		\log(1) &= 0,\\
+		\log(a^{-1}) &= -\log(a),\\
+		\log(ab) &= \log(a) + \log(b),
+	\end{align*}
+	for all $a, b \in \mathbb{R}_{>0}$.
+\end{corollary}
+
+The logarithm defined here is also called the \textbf{natural logarithm} to distinguish it from logarithms with another \textbf{base} $a > 1$ (for instance $a = 10$ or $a = 2$). For any $a > 1$, we define
+\[
+	\log_a(x) = \frac{\log(x)}{\log(a)} \qquad \forall x > 0.
+\]
+Unless stated otherwise, $\log(x)$ always denotes the natural logarithm, i.e., the logarithm to base $e$.
+
+We can now define powers with arbitrary real exponents. For $a > 0$ and $x \in \mathbb{R}$ we set
+\[
+	a^x = \exp(x\,\log(a)).
+\]
+
+\subsection{Limits of Functions}
+We consider functions $f:D \to \mathbb{R}$ defined on a subset $D \subseteq \mathbb{R}$, and we wish to define the limit of $f(x)$ as $x \in D$ approaches a point $x_0 \in \mathbb{R}$. Typical examples include $D = \mathbb{R}, D = [0, 1]$ or $D = (0, 1)$, with $x_0 = 0$ in each case.
+
+\subsubsection{Limit in the Vicinity of a Point}
+Let $D \subseteq \mathbb{R}$ be non-empty, and let $x_0 \in \mathbb{R}$ be such that
+\begin{equation}
+	\label{eq:acc_pt}
+	D \cap (x_0 - \delta, x_0  + \delta) \neq \emptyset
+\end{equation}
+for all $\delta > 0$. Whenever this holds, we say that $x_0$ is an \textbf{accumulation point} of $D$. Note that if $x_0 \in D$, then Equation \ref{eq:acc_pt} is automatically satisfied.
+
+Condition \ref{eq:acc_pt} ensures that there exists a sequence of points in $D$ converging to $x_0$.
+
+\begin{definition}{Limit of a Function}{lim_func}
+	Let $f:D \to \mathbb{R}$, and $x_0$ be an accumulation point of $D$.
+	A number $L \in \mathbb{R}$ is called the \textbf{limit of} $f(x)$ \textbf{as} $x \to x_0$ if, for every $\varepsilon > 0$, there exists $\delta > 0$ such that
+	\[
+		|x - x_0| < \delta \quad \Rightarrow \quad |f(x) - L| < \varepsilon \qquad \forall x \in D.
+	\]
+\end{definition}
+
 
 
