@@ -585,6 +585,149 @@ Condition \ref{eq:acc_pt} ensures that there exists a sequence of points in $D$ 
 		|x - x_0| < \delta \quad \Rightarrow \quad |f(x) - L| < \varepsilon \qquad \forall x \in D.
 	\]
 \end{definition}
+In general, the limit of $f(x)$ as $x \to x_0$ may not exist. However, if it exists, it is uniquely determined. Hence we speak of \textit{the} limit and write
+\[
+	\lim_{x \to x_0} f(x) = L
+\]
+to indicate the limit exists and is equal to $L$. Informally, this means that the function values $f(x)$ are arbitrarily close to $L$ whenever $x \in D$ is sufficiently close to $x_0$.
 
+The limit of a function satisfies properties analogous to those of Proposition \ref{prop*lim_ineq}. More precisely, if $f, g$ are functions on $D$ such that
+\[
+	\lim_{x \to x_0} f(x) = L_1 \qquad \text{and} \qquad \lim_{x \to x_0} g(x) = L_2,
+\]
+then
+\[
+	\lim_{x \to x_0} (f+g)(x) = L_1 + L_2, \qquad \lim_{x \to x_0} (f\cdot g)(x) = L_1\cdot L_2.
+\]
+Moreover, $f \leq g$ implies $L_1 \leq L_2$, and the sandwich lemma holds: if $f \leq h \leq g$ and $L_1 = L_2$ then $\lim_{x \to x_0} h(x) = L_1 = L_2$.
+
+\begin{remark}
+	Let $f:D \to \mathbb{R}$ be a function. If $x_0 \in D$, then $f$ is continuous at $x_0$ if and only if $\lim_{x \to x_0} f(x) = f(x_0)$.
+\end{remark}
+
+Suppose that $x_0 \in D$ is an accumulation point of $D \setminus \{x_0\}$. Let $f:D \to \mathbb{R}$, and consider the restriction $f|_{D \setminus \{x_0\}}$. It may happen that $f$ is discontinuous at $x_0$, but the limit
+\begin{equation}
+	L = \lim_{x \to x_0} f|_{D \setminus \{x_0\}}(x)
+\end{equation}
+nevertheless exists. In this case, the point $x_0$ is called a \textbf{removable discontinuity} of $f$, and one also writes
+\begin{equation}
+	\label{eq:limit_neq_x}
+	L = \underset{x \neq x_0}{\lim_{x \to x_0}} f(x).
+\end{equation}
+If we now define
+\begin{equation}
+	\label{eq:cont_ext}
+	\tilde{f}(x) = \begin{cases}
+		f(x), \quad &x \in D \setminus \{x_0\},\\
+		L, \quad &x = x_0,
+	\end{cases}
+\end{equation}
+then $\tilde{f}$ is continuous at $x_0$. In other words, we can remove the discontinuity of $f$ by redefining its value at $x_0$ to be $L$.
+
+If instead $x_0 \notin D$ but the limit in Equation \ref{eq:limit_neq_x} exists, we call the function $\tilde{f}$ defined in Equation \ref{eq:cont_ext} the \textbf{continuous extension} of $f$ to $D \cup \{x_0\}$.
+
+Arguing as in the proof of Theorem \ref{theo*cont_seq_cont}, we obtain the following result.
+
+\begin{lemma}{Limit and Sequences}{lim_and_seq}
+	Let $f:D \to \mathbb{R}$. Then $L = \lim_{x \to \bar{x}} f(x)$ if and only if, for every sequence $(x_n)_{n=0}^{\infty} \subseteq D$ converging to $\bar{x}$, one has $\lim_{n \to \infty} f(x_n) = L$.
+\end{lemma}
+
+We now state a result describing the behaviour of limits under composition with a continuous function.
+
+\begin{proposition}{Limit and Composition}{lim_and_comp}
+	Let $E \subseteq \mathbb{R}$, and let $f:D \to E$ be such that the limit $L = \lim_{x \to \bar{x}} f(x)$ exists and belongs to $E$. If $g:E \to \mathbb{R}$ is continuous at $L$, then
+	\[
+		\lim_{x \to \bar{x}} g(f(x)) = g(L).
+	\]
+\end{proposition}
+
+\begin{proof}
+	Let $(x_n)_{n=0}^{\infty} \subseteq D$ be a sequence converging to $\bar{x}$. By Lemma \ref{lem*lim_and_seq}, we have $\lim_{n \to \infty} f(x_n) = L$. Since $g$ is continuous at $L$, Theorem \ref{theo*cont_seq_cont} gives $\lim_{n \to \infty} g(f(x_n)) = g(L)$. Because $(x_n)_{n=0}^{\infty}$ was arbitrary, using Lemma \ref{lem*lim_and_seq} again, we conclude that $\lim_{x \to \bar{x}} g(f(x)) = g(L)$. \qedhere
+\end{proof}
+
+We now introduce conventions for improper limits of functions, in analogy with improper limits for sequences.
+
+\begin{definition}{Improper Limits}{improper_lim}
+	Let $f:D \to \mathbb{R}$, and let $x_0$ be an accumulation point of $D$.
+	We say that $f$ \textbf{diverges to} $+\infty$ \textbf{as} $x \to x_0$, and write
+	\[
+		\lim_{x \to x_0} f(x) = + \infty,
+	\]
+	if for every $M > 0$, there exists $\delta > 0$ such that
+	\[
+		\forall x \in D: \quad |x - x_0| < \delta \quad \Rightarrow \quad f(x) \geq M.
+	\]
+	Analogously, $f$ \textbf{diverges to} $-\infty$ \textbf{as} $x \to x_0$ and we write $\lim_{x \to x_0} f(x) = -\infty$, if for every $M > 0$, there exists $\delta > 0$ such that
+	\[
+		\forall x \in D: \quad |x - x_0| < \delta \quad \Rightarrow \quad f(x) \leq -M.
+	\]
+\end{definition}
+
+\subsubsection{One-Sided Limits}
+It is often useful to consider limits taken form one side only and to allow $x_0$ to be $\pm \infty$ as well. To this end, let $x_0 \in \mathbb{R}$ be such that
+\begin{equation}
+	\label{eq:x_right_acc_pt}
+	D \cap (x_0, x_0 + \delta) \neq \emptyset
+\end{equation}
+for every $\delta > 0$. In this case, we say that $x_0$ is a \textbf{right-hand accumulation point} of $D$. Analogously, if
+\begin{equation}
+	\label{eq:x_left_acc_pt}
+	D \cap (x_0 - \delta, x_0) \neq \emptyset
+\end{equation}
+for every $\delta > 0$, we say that $x_0$ is a \textbf{left-hand accumulation point} of $D$.
+
+\begin{definition}{One-Sided Limits}{one_side_lim}
+	Let $f:D \to \mathbb{R}$, and let $x_0 \in \mathbb{R}$ be a right-hand accumulation point of $D$. A number $L \in \mathbb{R}$ is called the \textbf{right-hand limit} of $f$ at $x_0$ if, for every $\varepsilon > 0$, there exists $\delta > 0$ such that
+	\[
+		x \in D \cap (x_0, x_0 + \delta) \quad \Rightarrow \quad |f(x) - L| < \varepsilon.
+	\]
+	In this case we write $L = \lim_{x \to x_0^+} f(x)$.
+	We also allow improper one-sided limits. We say that
+	\[
+		\lim_{x \to x_0^+} f(x) = +\infty
+	\]
+	if for every $M > 0$, there exists $\delta > 0$ such that
+	\[
+		x \in D \cap (x_0, x_0 + \delta) \quad \Rightarrow \quad f(x) \geq M.
+	\]
+	Similarly, $\lim_{x \to x_0^+} f(x) = -\infty$ means that, for every $M > 0$, there exists $\delta > 0$ such that
+	\[
+		x \in D \cap (x_0, x_0 + \delta) \quad \Rightarrow \quad f(x) \leq -M.
+	\]
+	The \textbf{left-hand limit} is defined analogously, considering a left-hand accumulation point of $D$ and writing $\lim_{x \to x_0^-} f(x)$.
+\end{definition}
+
+Next, we define the notion of limit at infinity.
+
+\begin{definition}{Limits at Infinity}{lim_at_inf}
+	Let $f:D \to \mathbb{R}$, and assume that $D \cap (R, \infty) \neq \emptyset$ for every $R > 0$.
+	A number $L \in \mathbb{R}$ is called the \textbf{limit of} $f$ \textbf{as} $x \to +\infty$ if, for every $\varepsilon > 0$, there exists $R > 0$ such that
+	\[
+		x \in D \cap (R, \infty) \quad \Rightarrow \quad |f(x) - L| < \varepsilon.
+	\]
+	We say that $f$ \textbf{diverges to} $+\infty$ \textbf{as} $x \to +\infty$ if, for every $M > 0$, there exists $R > 0$ such that
+	\[
+		x \in D \cap (R, \infty) \quad \Rightarrow \quad f(x) \geq M.
+	\]
+	The corresponding definition for $x \to -\infty$ and diverges to $-\infty$ are analogous.
+\end{definition}
+
+Limits at $+\infty$ can be converted into right-hand limits at 0 via inversion. Given $f:D \to \mathbb{R}$ as above, define
+\[
+	E = \{x > 0 \;|\; x^{-1} \in D\}, \qquad g:E \to \mathbb{R}, \qquad g(x) = f(x^{-1}).
+\]
+Then 
+\[
+	\lim_{x \to +\infty} f(x) = \lim_{x \to 0^+} g(x),  
+\]
+so one limit exists if and only if the other does.
+
+\begin{definition}{One-Sided Continuity and Jumps}{one_side_cont_jump}
+	Let $f:D \to \mathbb{R}$ and $x_0 \in D$. If $\lim_{x \to x_0^+} f(x)$ exists and equals $f(x_0)$, then $f$ is \textbf{continuous from the right} at $x_0$. \textbf{Continuity form the left} is defined similarly.
+	We call $x_0$ a \textbf{jump point} if both one-sided limits exist but are different, i.e.,
+	\[
+		L_{-} := \lim_{x \to x_0^-} f(x) \in \mathbb{R}, \qquad L_+ := \lim_{x \to x_0^+} f(x) \in \mathbb{R}, \qquad L_{-} \neq L_+.
+	\]
+\end{definition}
 
 
