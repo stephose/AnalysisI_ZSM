@@ -730,4 +730,161 @@ so one limit exists if and only if the other does.
 	\]
 \end{definition}
 
+\subsubsection{Landau Notation}
+We introduce two standard notations that compare the asymptotic behaviour of a function to that of another function. (often called \textit{relative} asymptotics).
+
+\begin{definition}{Big-O at a Point}{big_o}
+	Let $f,g:D \to \mathbb{R}$, and let $x_0$ be an accumulation point of $D$. We write
+	\[
+		f(x) = O(g(x)) \quad \text{as } x \to x_0
+	\]
+	if there exists $M > 0$ and $\delta > 0$ such that
+	\[
+		x \in D \cap (x_0 - \delta, x_0 + \delta) \quad \Rightarrow \quad |f(x)| \leq M |g(x)|.
+	\]
+	We then say that $f$ is a \textbf{Big-O} of $g$ as $x \to x_0$.
+\end{definition}
+If $g(x) \neq 0$ for all $x$ sufficiently close to $x_0$ (with $x \in D$), then
+\[
+	f(x) = O(g(x)) \quad \text{as } x \to x_0 \qquad \Leftrightarrow \qquad \frac{f(x)}{g(x)} \text{ is bounded near $x_0$}.
+\]
+
+\begin{definition}{Big-O at Infinity}{big_o_inf}
+	Let $f, g:D \to \mathbb{R}$, and assume $D \cap (R, \infty) \neq \emptyset$ for every $R > 0$. We write
+	\[
+		f(x) = O(g(x)) \quad \text{as } x \to +\infty
+	\]
+	if there exists $M > 0$ and $R > 0$ such that
+	\[
+		x \in D \cap (R, \infty) \quad \Rightarrow \quad |f(x)| \leq M |g(x)|.
+	\]
+	The definition for $x \to -\infty$ is analogous.
+\end{definition}
+
+The big-O notation hides the precise bound by an \textit{implicit constant} $M$, which is often irrelevant for the argument one is interested in.
+
+\subsubsection*{Example}
+\begin{itemize}
+	\item[$\bullet$] if $f$ and $g$ are bounded and continuous near $x_0$ with $g(x_0) \neq 0$, then $f(x) = O(g(x))$ as $x \to x_0$.
+	\item[$\bullet$] As $x \to 0$, one has $x^2 = O(x)$, but $x \neq O(x^2)$ (since $x / x^2$ is unbounded near 0).
+	\item[$\bullet$] As $x \to +\infty$, $\frac{3x^3}{x^3 + 3} = O(1)$, but $\frac{3x^3}{x^3 + 3} \neq O(x^{\alpha})$ for $\alpha < 0$.
+\end{itemize}
+
+As discussed above, the big-O means that $f$ is bounded by a multiple of $g$. One may also consider a stronger condition, namely that $f$ is asymptotically negligible with respect to $g$. This leads to the following definition.
+
+\begin{definition}{Little-O at a Point}{lil_o}
+	Let $f, g:D \to \mathbb{R}$, and let $x_0$ be an accumulation point of $D$. We write
+	\[
+		f(x) = o(g(x)) \quad \text{as } x\to x_0
+	\]
+	if, for every $\varepsilon > 0$ there exists $\delta > 0$ such that
+	\[
+		x \in D \cap (x_0 - \delta, x_0 + \delta) \quad \Rightarrow \quad |f(x)| \leq \varepsilon |g(x)|.
+	\]
+	We then say that $f$ is a \textbf{little-o} of $g$ as $x \to x_0$.
+\end{definition}
+
+If $g(x) \neq 0$ for all $x$ near $x_0$ (with $x \in D$), then
+\[
+	f(x) = o(g(x)) \quad \text{as } x \to x_0 \qquad \Leftrightarrow \qquad \lim_{x \to x_0} \frac{f(x)}{g(x)} = 0.
+\]
+Moreover, $f(x) = o(g(x)) \; \Rightarrow \; f(x) = O(g(x))$.
+
+\begin{definition}{Little-o at Infinity}{lil_o_inf}
+	Let $f, g:D \to \mathbb{R}$, and assume that $D \cap (R, \infty) \neq \emptyset$ for every $R > 0$. We write
+	\[
+		f(x) = o(g(x)) \quad \text{as } x \to +\infty
+	\]
+	if, for every $\varepsilon > 0$ there exists $R > 0$ such that
+	\[
+		x \in D \cap (R, \infty) \quad \Rightarrow \quad |f(x)| \leq \varepsilon |g(x)|.
+	\]
+	The definition for $x \to -\infty$ is analogous.
+\end{definition}
+
+\subsubsection*{Example}
+\begin{itemize}
+	\item[$\bullet$] $x = o(x^2)$ as $x \to +\infty$, and $x^2 = o(x)$ as $x \to 0$
+	\item[$\bullet$] For any $\alpha < 1$,
+	\[
+		\frac{3x^3}{2x^2 + x^10} = o(|x|^{\alpha}) \quad \text{as } x\to 0,
+	\]
+	but not for $\alpha \geq 1$. Indeed,
+	\[
+		\big|\frac{3x^3}{|x|^{\alpha} 2x^2 + x^10}\big|= |x|^{1 - \alpha} \frac{3}{2 + x^8} \longrightarrow 0 \quad \text{as } x \to 0,
+	\]
+	whenever $\alpha < 1$.
+\end{itemize}
+
+In computations, one often uses Landau symbols as placeholders. Writing
+\[
+	f(x) = o(g(x)) \quad \text{as } x \to x_0
+\]
+means there is a function $h:D \to \mathbb{R}$ with $h(x) = o(g(x))$ as $x \to x_0$. Similarly for big-O.
+
+\subsubsection*{Example}
+Polynomial division gives, as $x \to +\infty$,
+\[
+	\frac{x^3 - 7x^2 + 6x + 2}{x^2} = x - 7 + O\left(\frac{1}{x}\right) = x - 7 + o(1) = x + O(1) = x + o(x).
+\]
+
+\subsection{Sequences of Functions}
+
+\subsubsection{Pointwise Convergence}
+
+\begin{definition}{Sequences of Functions}{seq_func}
+	A \textbf{sequence} of real-valued on a subset $D \subseteq \mathbb{R}$ is a family of functions $f_n: D \to \mathbb{R}$ indexed by $\mathbb{N}$. The function $f_n$ is called the n-th \textbf{element} of the sequence. One often writes $(f_n)_{n \in \mathbb{N}}$, $(f_n)_{n=0}^{\infty}$, or $(f_n){n\geq 0}$ for a sequence of functions.
+\end{definition}
+
+\begin{definition}{Pointwise Convergence}
+	Let $D \subseteq \mathbb{R}$, and let $(f_n)_{n=0}^{\infty}$ be a sequence of functions $f_n:D \to \mathbb{R}$. Let $f:D \to \mathbb{R}$ be another function. We say that $(f_n)_{n=0}^{\infty}$ \textbf{converges pointwise} to $f$, if for every $x \in D$, the sequence of real numbers $(f_n(x))_{n=0}^{\infty}$ converges to $f(x)$, i.e., for every $x \in D$ and for every $\varepsilon > 0$, there exists $n \in \mathbb{N}$ such that
+	\[
+		|f_n(x) - f(x)| < \varepsilon \qquad \forall n \geq N.
+	\]
+	In this case, $f$ is called the \textbf{pointwise limit} of the sequence $(f_n)_{n=0}^{\infty}$.
+\end{definition}
+
+\begin{remark}
+	Note that, in the definition of pointwise convergence the index $N$ may depend on both $x$ and $\varepsilon$. In other words, for each point $x \in D$ we examine the convergence of $(f_n)_{n=0}^{\infty}$ to $f$ separately.
+\end{remark}
+
+\subsubsection{Uniform Convergence}
+
+\begin{definition}{Uniform Convergence}{unif_conv}
+	Let $D \subseteq \mathbb{R}$, and let $(f_n)_{n=0}^{\infty}$ be a sequence of functions $f_n:D \to \mathbb{R}$. Let $f:D \to \mathbb{R}$ be another function. We say that $(f_n)_{n=0}^{\infty}$ \textbf{converges uniformly} to $f$ on $D$ if, for every $\varepsilon > 0$, there exists $N \in \mathbb{N}$ such that
+	\[
+		|f_n(x) - f(x)| < \varepsilon \qquad \forall n\geq N,\; \forall x \in D.
+	\]
+\end{definition}
+
+\begin{remark}
+	Note that, in the definition of uniform convergence the index $N$ may only depend on $\varepsilon$, and therefore the condition has to hold for all $x \in D$ for the sequence of functions $(f_n)_{n=0}^{\infty}$ to converge uniformly to $f$ on $D$.
+\end{remark}
+
+\begin{remark}
+	Let $D \subseteq \mathbb{R}$, and $(f_n)_{n=0}^{\infty}$ be a sequence of functions $f_n:D \to \mathbb{R}$ converging uniformly to $f:D\to \mathbb{R}$ on $D$. Then the sequence of functions $(f_n)_{n=0}^{\infty}$ also converges pointwise to $f$.
+\end{remark}
+
+\begin{theorem}{Continuity under Uniform Convergence}{cont_unif_conv}
+	Let $D \subseteq \mathbb{R}$, and let $(f_n)_{n=0}^{\infty}$ be a sequence of continuous functions converging uniformly to $f:D \to \mathbb{R}$. Then $f$ is continuous.
+\end{theorem}
+
+\begin{proof}
+	To prove that $f$ is continuous, we fix $\bar{x} \in D$ and show that $f$ is continuous at $\bar{x}$. Given $\varepsilon > 0$, the uniform convergence of $f_N$ to $f$ provides $N \in \mathbb{N}$ such that
+	\[
+		|f_N(y) - f(y)| < \frac{\varepsilon}{3} \qquad \forall y \in D.
+	\]
+	Also, since $f_N$ is continuous at $\bar{x}$, there exists $\delta > 0$ such that
+	\[
+		|x - \bar{x}| < \delta \quad \Rightarrow \quad |f_N(x) - f_N(\bar{x})| < \frac{\varepsilon}{3}.
+	\]
+	Then, for $|x - \bar{x}| < \delta$, we have
+	\[
+		|f(x) - f(\bar{x})| \leq |f(x) - f_N(x)| + |f_N(x) - f_N(\bar{x})| + |f_N(\bar{x}) - f(\bar{x})| < \frac{\varepsilon}{3} + \frac{\varepsilon}{3} + \frac{\varepsilon}{3} = \varepsilon.
+	\]
+	Which shows that $f$ is continuous at $\bar{x}$. Since, $\bar{x}$ is arbitrary, $f$ is continuous on $D$.
+\end{proof}
+
+
+
 
