@@ -1,0 +1,294 @@
+%
+% (c) 2025 Autor, ETH Zürich
+%
+% !TEX root = main.tex
+% !TEX encoding = UTF-8
+%
+
+\section{Series and Power Series}
+In this chapter we study series (infinite sums). They provide a framework to define many classical functions; in particular, we will use series to define trigonometric functions.
+
+\subsection{Series of Real Numbers}
+
+\begin{definition}{Convergent and Divergent Series}{conv_div_series}
+	Let $(a_n)_{n=0}^{\infty}$ be a sequence of real numbers, and let $A \in \mathbb{R}$. We say that the series $\sum_{k=0}^{\infty} a_k$ \textbf{converges} to $A$ if
+	\[
+		\lim_{n \to \infty} \sum_{k=0}^{n} a_k = A.
+	\]
+	In other words, computing the infinite sum $\sum_{k=0}^{\infty} a_k$ means finding (if it exists) the limit of the \textbf{partial sums}
+	\[
+		s_n = \sum_{k=0}^{n} a_k, \qquad n \in \mathbb{N}.
+	\]
+	We call $a_n$ the $n$\textbf{-th term} (or $n$\textbf{-th summand}) of the series. If the limit exists, its value $A$ is the \textbf{sum of the series}. If the limit does not exist, the series is said to be \textbf{not convergent}. In particular, if the sequence of partial sums $(s_n)_{n=0}^{\infty}$ diverges to $+\infty$ (respectively, to $-\infty$), we say that the series \textbf{diverges to} $+\infty$ (respectively, \textbf{to} $-\infty$).
+	This situation is therefore a specific case of a series that does not converge.
+\end{definition}
+
+\begin{proposition}{Necessary Condition for Convergence}{cond_for_conv}
+	Is the series $\sum_{k=0}^{\infty} a_k$  converges, then $a_n \to 0$ as $n \to \infty$.
+\end{proposition}
+
+\begin{proof}
+	By assumption the partial sums $s_n = \sum_{k=0}^{n} a_k$ satisfy $s_n \to A \in \mathbb{R}$. Then for $n \geq 1$, we have 
+	\[
+		a_n = s_n - s_{n-1} \underset{n \to \infty}{\longrightarrow} A - A = 0. \qedhere
+	\]
+\end{proof}
+
+\subsubsection*{Geometric Series}
+For $q \in \mathbb{R}$, the geometric series $\sum_{k=0}^{\infty} q^k$ converges if and only if $|q| < 1$, and in this case
+\[
+	\sum_{k=0}^{\infty} q^k = \frac{1}{1 - q}.
+\]
+Indeed, if the series converges, then by Proposition \ref{prop*cond_for_conv} we must have $q^n \to 0$ as $n \to \infty$, hence $|q| < 1$. Conversely, for $|q| < 1$ one provides by induction that
+\[
+	s_n = \sum_{k=0}^{n} q^k = \frac{1 - q^{n+1}}{1 - q}\qquad \forall n \in \mathbb{N}, q \neq 1.
+\]
+Also since $|q| < 1$, $q^{n+1} \to 0$ as $n\to \infty$. Thus,
+\[
+	s_n = \frac{1 - q^{n+1}}{1 - q} \underset{n\to \infty}{\longrightarrow} \frac{1}{1 - q}.
+\]
+
+\subsubsection*{Harmonic Series}
+The converse of Proposition \ref{prop*cond_for_conv} fails: the \textbf{harmonic series} $\sum_{k=1}^{\infty} \frac{1}{k}$ does not converge. To see this, consider $n = 2^{\ell}$ with $\ell \in \mathbb{N}$. Grouping terms gives
+\begin{align*}
+	\sum_{k=1}^{2^{\ell}} \frac{1}{k} &= 1 + \frac{1}{2} + \left(\frac{1}{3} + \frac{1}{4}\right) + \left(\frac{1}{5} + \hdots + \frac{1}{8}\right) + \hdots + \left(\frac{1}{2^{\ell - 1} + 1} + \hdots + \frac{1}{2^{\ell}}\right)\\
+	&\geq 1 + \frac{1}{2} + \underbrace{\frac{1}{4} + \frac{1}{4}}_{=\frac{1}{2}} + \underbrace{\frac{1}{8} + \frac{1}{8} + \frac{1}{8} + \frac{1}{8}}_{=\frac{1}{2}} + \hdots + \underbrace{\frac{1}{2^{\ell}} + \frac{1}{2^{\ell}}}_{=\frac{1}{2}}\\
+	&= 1 + \underbrace{\frac{1}{2} + \hdots + \frac{1}{2}}_{\ell \text{ - times}} = 1 + \frac{\ell}{2},
+\end{align*}
+which is unbounded as $\ell \to \infty$.
+
+\begin{lemma}{Convergence of the Tail}{conv_tail}
+	Let $\sum_{k=0}^{\infty} a_k$ be a series and fix $N \in \mathbb{N}$. Then $\sum_{k=0}^{\infty} a_k$ is convergent if and only if  $\sum_{k=N}^{\infty} a_k$ is convergent, and in that case
+	\[
+		\sum_{k=0}^{\infty} a_k = \sum_{k=0}^{N - 1} a_k + \sum_{k=N}^{\infty} a_k.
+	\]
+	The same equivalence holds for divergence to $+\infty$ or $-\infty$.
+\end{lemma}
+
+\begin{proof}
+	For every $n \geq N$,
+	\[
+		\sum_{k=0}^{n} a_k = \sum_{k=0}^{N - 1} a_k + \sum_{k=N}^{n} a_k.
+	\]
+	Thus, the partial sums of $\sum_{k=0}^{\infty} a_k$ converge if and only if those of $\sum_{k = N}^{\infty} a_k$ do, and the identity in the statement follows by letting $n \to \infty$. The divergence case is analogous.
+\end{proof}
+
+\subsubsection{Series with Non-negative Elements}
+
+\begin{proposition}{Non-negative Series: Convergence vs. Divergence}{non_neg_series_conv}
+	Let $\sum_{k=0}^{\infty} a_k$ be a series with non-negative terms $a_k \geq 0$ for all $k \in \mathbb{N}$. Then the partial sums $s_n = \sum_{k=0}^{n} a_k$ form an increasing sequence. If $(s_n)_{n=0}^{\infty}$ is bounded, the series $\sum_{k=0}^{\infty} a_k$ converges; otherwise it diverges to $+\infty$.
+\end{proposition}
+
+\begin{proof}
+	Since $a_{n+1} \geq 0$, we have $s_{n+1} = s_n + a_{n+1} \geq s_n$ for all $n \in \mathbb{N}$, so $(s_n)_{n=0}^{\infty}$ is increasing.
+	
+	If the sequence $(s_n)_{n=0}^{\infty}$ is bounded, then it converges by Theorem \ref{theo*conv_mono_seq}. If the partial sums are not bounded, then they diverge to $+\infty$. \qedhere
+\end{proof}
+
+\begin{remark}
+	\label{rmk:series_sub_seq}
+	If $\sum_{k=0}^{\infty} a_k$ has non-negative terms, then $(s_n)_{n=0}^{\infty}$ is bounded if and only if it has a bounded subsequence $(s_{n_k})_{k=0}^{\infty}$.
+\end{remark}
+
+\begin{corollary}{Comparison Test (Majorant/Minorant)}{maj_min}
+	Let $\sum_{k=0}^{\infty} a_k$ and $\sum_{k=0}^{\infty} b_k$ be series with $0 \leq a_k \leq b_k$ for all $k \in \mathbb{N}$. Then
+	\[
+		0 \leq \sum_{k=0}^{\infty} a_k \leq \sum_{k=0}^{\infty} b_k,
+	\]
+	and in particular
+	\begin{align*}
+		\sum_{k = 0}^{\infty} b_k \text{ convergent} \quad &\Rightarrow \quad \sum_{k=0}^{\infty} a_k \text{ convergent},\\
+		\sum_{k=0}^{\infty} a_k \text{ divergent to } +\infty \quad &\Rightarrow \quad \sum_{k=0}^{\infty} b_k \text{ divergent to } +\infty.
+	\end{align*}
+	These implications remain true if the inequalities $0 \leq a_n \leq b_n$ hold only for all $n \geq N$, for some $N \in \mathbb{N}$.
+\end{corollary}
+
+\begin{proof}
+	From $a_k \leq b_k$ we get $\sum_{k=0}^{n} a_k \leq \sum_{k=0}^{n} b_k$ for all $n \in \mathbb{N}$. Therefore,
+	\[
+		\sum_{k=0}^{\infty} a_k = \lim_{n \to \infty} \sum_{k=0}^{n} a_k \leq \lim_{n \to \infty} \sum_{k=0}^{n} b_k = \sum_{k=0}^{\infty} b_k.
+	\]
+	The last part of the statement follows form Lemma \ref{lem*conv_tail}.\qedhere
+\end{proof}
+Under the assumptions of the corollary, $\sum_{k=0}^{\infty} b_k$ is called a \textit{majorant} of $\sum_{k=0}^{\infty}a_k$, and $\sum_{k=0}^{\infty}a_k$ a \textit{minorant} of $\sum_{k=0}^{\infty} b_k$. Hence the names \textbf{majorant} and \textbf{minorant criterion}.
+
+\begin{proposition}{Cauchy Condensation Test}{cauchy_cond_test}
+	Let $(a_k)_{k=0}^{\infty}$ be a decreasing sequence of non-negative numbers. Then
+	\[
+		\sum_{k=0}^{\infty} a_k \text{ converges} \quad \Leftrightarrow \quad \sum_{k=0}^{\infty} 2^k a_{2^k} \text{ converges}.
+	\]
+\end{proposition}
+
+\begin{proof}
+	Consider the partial sums of the series $\sum_{k=0}^{\infty} a_k$ starting form $k=2$ up to an index that is a power of 2. Since the terms $a_k$ are decreasing, the following inequalities hold:
+	\begin{align*}
+		\sum_{k=2}^{2^{n+1}} a_k &= a_2 + (a_3 + a_4) + (a_5 + \hdots + a_8) + \hdots + (a_{2^{n} + 1} + \hdots + a_{2^{n+1}})\\
+		&\leq \underbrace{a_1}_{=1\cdot a_1} + \underbrace{(a_2 + a_2)}_{=2 \cdot a_2} + \underbrace{(a_4 + \hdots + a_4)}_{=4 \cdot a_4} + \hdots + \underbrace{(a_{2^n}) + \hdots + a_{2^{n}}}_{=2^n \cdot a_{2^n}}\\
+		&= a_1 + 2a_2 + 4a_4 + \hdots + 2^n a_{2^n} = \sum_{k=0}^{n} 2^k a_{2^k},
+	\end{align*}
+	and similarly,
+	\begin{align*}
+		\sum_{k=2}^{2^{n+1}} a_k &= a_2 + (a_3 + a_4) + (a_5 + \hdots + a_8) + \hdots + (a_{2^{n} + 1} + \hdots + a_{2^{n+1}})\\
+		&\geq \underbrace{a_2}_{=1\cdot a_2} + \underbrace{(a_4 + a_4)}_{=2 \cdot a_4} + \underbrace{(a_8 + \hdots + a_8)}_{=4 \cdot a_8} + \hdots + \underbrace{(a_{2^{n+1}}) + \hdots + a_{2^{n+1}}}_{=2^n \cdot a_{2^{n+1}}}\\
+		&= \frac{1}{2}(2a_2 + 4a_4 + \hdots + 2^{n+1} a_{2^{n+1}}) = \frac{1}{2}\sum_{k=1}^{n+1} 2^k a_{2^k}.
+	\end{align*}
+	In other words,
+	\[
+		\sum_{k=0}^{n} 2^k a_{2^k} \geq \sum_{j=2}^{2^{n+1}} a_j \geq \frac{1}{2}\sum_{k=1}^{n+1} 2^k a_{2^k}. 
+	\]
+	By Remark \ref{rmk:series_sub_seq} and Corollary \ref{cor*maj_min}, the partial sums of one series are bounded if and only if those of the other are. Hence, the two series converge or diverge together. \qedhere
+\end{proof}
+
+\subsubsection{Conditional Convergence}
+
+\begin{definition}{Absolute and Conditional Convergence}{abs_cond_conv}
+	A series $\sum_{k=0}^{\infty} a_k$ is \textbf{absolutely convergent} if $\sum_{k=0}^{\infty} |a_k|$ converges. It is \textbf{conditionally convergent} if $\sum_{k=0}^{\infty} a_k$ converges but $\sum_{k=0}^{\infty} |a_k|$ diverges.
+\end{definition}
+A striking feature of conditionally convergent series is that their terms can be rearranged to obtain any prescribed limit.
+
+\begin{theorem}{Riemann Rearrangement Theorem}{riemann_rearrange}
+	Let $\sum_{n=0}^{\infty} a_n$ be a conditionally convergent series and let $A \in \mathbb{R}$. Then there exists a bijection $\varphi: \mathbb{N} \to \mathbb{N}$ such that
+	\[
+		A = \sum_{n=0}^{\infty} a_{\varphi(n)}.
+	\]
+\end{theorem}
+The proof of this Theorem is extra material.
+
+\subsubsection{Leibniz Criterion for Alternating Series}
+
+\begin{definition}{Alternating Series}{alt_series}
+	If $(a_k)_{k=0}^{\infty}$ is a sequence of non-negative numbers, the series
+	\[
+		\sum_{k=0}^{\infty} (-1)^{k} a_k
+	\]
+	is called the \textbf{alternating series} associated with the sequence $(a_k)_{k=0}^{\infty}$.
+\end{definition}
+
+\begin{proposition}{Leibniz Criterion}{leibniz_crit}
+	Let $(a_k)_{k=0}^{\infty}$ be a monotonically decreasing sequence of non-negative numbers with $a_k \to 0$. Then the alternating series $\sum_{k=0}^{\infty} (-1)^k a_k$ converges, and for all $n \in \mathbb{N}$,
+	\begin{equation}
+		\label{eq:leibniz_crit}
+		\sum_{k=0}^{2n+1} (-1)^k a_k \leq \sum_{k=0}^{\infty} (-1)^k a_k \leq \sum_{k=0}^{2n} (-1)^k a_k.
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	Let $s_n = \sum_{k=0}^{n} (-1)^k a_k$. Since the sequence $(a_n)_{n=0}^{\infty}$ is decreasing and non-negative, we have
+	\begin{align*}
+		s_{2n+2} &= s_{2n} \underbrace{- a_{2n+1} + a_{2n+2}}_{\leq 0} \leq s_{2n},\\
+		s_{2n+1} &= s{2n-1} \underbrace{+ a_{2n} - a{2n+1}}_{\geq 0} \geq s_{2n-1},\\
+		s_{2n+2} &= s_{2n+1} \underbrace{+ a{2n+2}}_{\geq 0} \geq s_{2n+1}
+	\end{align*}
+	for all $n\in \mathbb{N}$. In other words,
+	\[
+		s_1 \leq s_3 \leq \hdots \leq s_{2n-1} \leq s_{2n+1} \leq \hdots \leq s_{2n+2} \leq s_{2n} \leq \hdots \leq s_2 \leq s_0.
+	\]
+	This implies that the sequence $(s_{2n})_{n=0}^{\infty}$ is decreasing and bounded below, while the sequence $(s_{2n+1})_{n=0}^{\infty}$ is increasing and bounded form above. Thus, both limits $A = \lim_{n \to \infty} s_{n+1}$ and $B = \lim_{n \to \infty} s_{2n}$ exist and satify
+	\begin{equation}
+		\label{eq:leibniz_crit_ineq}
+		s_1 \leq s_3 \leq \hdots \leq s_{2n-1} \leq s_{2n+1} \leq A \leq B \leq s_{2n+2} \leq s_{2n} \leq \hdots \leq s_2 \leq s_0.
+	\end{equation}
+	In particular,
+	\[
+		0 \leq B - A \leq s_{2n+2} - s_{2n-1} \qquad \forall n \in \mathbb{N},
+	\]
+	and because $a_{2n+2} \to 0$, we deduce that $A = B$.
+	
+	Also, Equation \ref{eq:leibniz_crit_ineq} yields that $s_{2n+1} \leq A = B \leq s_{2n}$, which corresponds exactly to Equation \ref{eq:leibniz_crit}. \qedhere
+\end{proof}
+
+\subsubsection*{Example (Alternating Harmonic Series)} 
+The series
+\[
+	\sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n} = 1 - \frac{1}{2} + \frac{1}{3} - \frac{1}{4} + \hdots 
+\]
+converges by Proposition \ref{prop*leibniz_crit}, whereas $\sum_{n=0}^{\infty} \frac{1}{n}$ diverges. Hence, the alternating harmonic series is only conditionally convergent.
+
+\subsection{Absolute Convergence}
+In this section we will look at absolutely convergent series and prove some convergence criteria. As before, unless otherwise specified, all sequences consist of real numbers.
+
+\subsubsection{Criteria for Absolute Covergence}
+We begin by restating the concept of a Cauchy sequence in the context of convergent series.
+
+\begin{theorem}{Cauchy Criterion for Series}{cauchy_crit_series}
+	The series $\sum_{k=0}^{\infty} a_k$ converges if and only if, for every $\varepsilon > 0$, there exists $N \in \mathbb{N}$ such that for all $n > m \geq N$,
+	\[
+		\left|\sum_{k=m+1}^{n} a_k\right| < \varepsilon.
+	\]
+\end{theorem}
+
+\begin{proof}
+	By definition, the series $\sum_{k=0}^{\infty} a_k$ converges if and only if the sequence of partial sums
+	\[
+		s_n = \sum_{k=0}^{n} a_k
+	\]
+	converges. By Theorem \ref{theo*conv_cauchy_seq}, this occurs if and only if $(s_n)_{n=0}^{\infty}$ is a Cauchy sequence, i.e., $|s_n - s_m| < \varepsilon$ for all $n, m \geq N$. Since $s_n - s_m = 0$ when $n=m$, and the expression is symmetric in $n$ and $m$, it suffices to consider the case $n > m$. In this case,
+	\[
+		s_n - s_m = \sum_{k=m+1}^{n} a_k,
+	\]
+	which proves the claim.\qedhere
+\end{proof}
+
+We can now prove that absolutely convergent series do indeed converge.
+
+\begin{proposition}{Absolute Convergence Implies Convergence}{abs_conv_conv}
+	If a series $\sum_{n=0}^{\infty}a_n$ converges absolutely, then it converges and satisfies the generalized triangle inequality
+	\[
+		\left|\sum_{n=0}^{\infty} a_n\right| \leq \sum_{n=0}^{\infty} |a_n|.
+	\]
+\end{proposition}
+
+Since $\sum_{n=0}^{\infty} a_n$ converges, by the Cauchy criterion (Theorem \ref{theo*cauchy_crit_series}) there exists $N \in \mathbb{N}$ such that, for all $n > m \geq N$,
+\[
+	\sum_{k=m+1}^{n} |a_k| < \varepsilon.
+\]
+By the triangle inequality,
+\[
+	\left|\sum_{k=m+1}^{n} a_k\right| \leq \sum_{k=m+1}^{n} |a_k| < \varepsilon,
+\]
+so $\sum_{n=0}^{\infty} a_n$ also satisfies the Cauchy criterion and therefore converges.
+
+Moreover, again by the triangle inequality,
+\[
+	\left|\sum_{k=0}^{n} a_k\right| \leq \sum_{k=0}^{n} |a_k| \leq \sum_{k=0}^{\infty} a_k \qquad \forall n \in \mathbb{N},
+\]
+and taking the limit as $n \to \infty$ gives the desired inequality.\qedhere
+
+We now establish two classical criteria guaranteeing absolute convergence. In their proof, we repeatedly use the following fact:
+\begin{remark}
+	\label{rmk:for_root_crit}
+	If a sequence $(x_n)_{n=0}^{\infty}$ converges to $\alpha \in \mathbb{R}$, then Proposition \ref{prop*lim_ineq} implies the following facts:
+	\begin{enumerate}
+		\item[(i)] for any $q > \alpha$ there exists $N \in \mathbb{N}$ such that $x_n < q$ for all $n \geq N$;
+		\item[(ii)] for any $r < \alpha$ there exists $N \in \mathbb{N}$ such that $x_n > r$ for all $n \geq N$.
+	\end{enumerate}
+\end{remark}
+
+\begin{proposition}{Cauchy Root Criterion}{cauchy_root_crit}
+	Given a sequence $(a_n)_{n=0}^{\infty}$, define
+	\[
+		\alpha = \limsup_{n \to \infty} \sqrt[n]{|a_n|} \in \mathbb{R} \cup \{\infty\}.
+	\]
+	Then,
+	\[
+		\alpha < 1 \;\Rightarrow \; \sum_{n=0}^{\infty} a_n \text{ converges absolutely,} \qquad \alpha > 1 \;\Rightarrow\; \sum_{n=0}^{\infty} a_n \text{ does not converge}.
+	\]
+\end{proposition}
+
+\begin{proof}
+	Suppose $\alpha < 1$ and set $q = \frac{1 + \alpha}{2}$, so that $q \in (\alpha, 1)$. By definition,
+	\[
+		\limsup_{n \to \infty} \sqrt[n]{|a_n|} = \lim_{n \to \infty} \sup_{k\geq n} \sqrt[k]{|a_k|}.
+	\]
+	Thus, $x_n = \sup_{k\geq n} \sqrt[k]{|a_k|} \to \alpha$. Since $\alpha < q$, Remark \ref{rmk:for_root_crit}(i) implies the existence of $N \in \mathbb{N}$ such that
+	\[
+		x_N = \sup_{k\geq N} \sqrt[k]{|a_k|} < q \qquad \forall k \geq N,
+	\]
+	therefore,
+	\[
+		|a_k| < q^k \qquad \forall k \geq N.
+	\]
+	Since $q < 1$, $\sum_{k=N}^{\infty} |a_k|$ converges by comparison with the geometric series, so $\sum_{n=0}^{\infty} a_n$ converges absolutely.
+	
+	If $\alpha > 1$, since the limsup is an accumulation point (Theorem \ref{theo*limsup_acc_pt}), Proposition \ref{prop*subseq_acc_pt} implies the existence of a subsequence $(a_{n_k})_{k=0}^{\infty}$ such that $\lim_{k \to \infty} \sqrt[n_k]{|a_{n_k}|} = \alpha$. Hence, thanks to Remark \ref{rmk:for_root_crit}(ii) with $r=1$, $\sqrt[n_k]{|a_{n_k}|} > 1$ for all $k$ large, or equivalently, $|a_{n_k}| > 1$ for large $k$. In particular the sequence $(a_n)_{n=0}^{\infty}$ does not converge to 0. Recalling Proposition \ref{prop*cond_for_conv}, this implies that the series $\sum_{n=0}^{\infty} a_n$ does not converge.\qedhere
+\end{proof}

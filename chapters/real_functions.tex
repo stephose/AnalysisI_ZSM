@@ -885,6 +885,20 @@ Polynomial division gives, as $x \to +\infty$,
 	Which shows that $f$ is continuous at $\bar{x}$. Since, $\bar{x}$ is arbitrary, $f$ is continuous on $D$.
 \end{proof}
 
+Intuitively, uniform convergence allows us to \textit{exchange} the order of taking limits. More precisely, assume $(f_n)_{n=0}^{\infty}$ is a sequence of continuous functions converging pointwise to $f$. Then, by the pointwise convergence and the continuity of the functions $f_n$ we have
+\[
+	f(\bar{x}) = \lim_{n \to \infty} f_n(\bar{x}), \qquad f_n(\bar{x}) = \lim_{x \to \bar{x}} f_n(x), \qquad f(x) = \lim_{n \to \infty} f_n(x) \quad \forall x \in D. 
+\]
+Hence,
+\[
+	f(\bar{x}) = \lim_{n \to \infty} f_n(\bar{x}) = \lim_{n \to \infty} \bigg(\lim_{x \to \bar{x}}f_n(x)\bigg), \qquad \lim_{x \to \bar{x}} f(x) = \lim_{x \to \bar{x}} \bigg(\lim_{n \to \infty} f_n(x)\bigg).
+\]
+Note that the function $f$ is continuous at $\bar{x}$ if and only if $f(\bar{x}) = \lim_{x \to \bar{x}} f(x)$, which by the identities above is equivalent to
+\[
+	\lim_{x \to \bar{x}} \bigg( \lim_{n \to \infty} f_n(x)\bigg) = \lim_{n \to \infty} \bigg( \lim_{x \to \bar{x}} f_n(x)\bigg).
+\]
+As we have seen, for pointwise convergent this interchange may fail because $f$ need not be continuous. However, Theorem \ref{theo*cont_unif_conv} ensures that this equality holds under uniform convergence.
+
 
 
 
