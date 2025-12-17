@@ -278,17 +278,226 @@ We now establish two classical criteria guaranteeing absolute convergence. In th
 \begin{proof}
 	Suppose $\alpha < 1$ and set $q = \frac{1 + \alpha}{2}$, so that $q \in (\alpha, 1)$. By definition,
 	\[
-		\limsup_{n \to \infty} \sqrt[n]{|a_n|} = \lim_{n \to \infty} \sup_{k\geq n} \sqrt[k]{|a_k|}.
+	\limsup_{n \to \infty} \sqrt[n]{|a_n|} = \lim_{n \to \infty} \sup_{k\geq n} \sqrt[k]{|a_k|}.
 	\]
 	Thus, $x_n = \sup_{k\geq n} \sqrt[k]{|a_k|} \to \alpha$. Since $\alpha < q$, Remark \ref{rmk:for_root_crit}(i) implies the existence of $N \in \mathbb{N}$ such that
 	\[
-		x_N = \sup_{k\geq N} \sqrt[k]{|a_k|} < q \qquad \forall k \geq N,
+	x_N = \sup_{k\geq N} \sqrt[k]{|a_k|} < q \qquad \forall k \geq N,
 	\]
 	therefore,
 	\[
-		|a_k| < q^k \qquad \forall k \geq N.
+	|a_k| < q^k \qquad \forall k \geq N.
 	\]
 	Since $q < 1$, $\sum_{k=N}^{\infty} |a_k|$ converges by comparison with the geometric series, so $\sum_{n=0}^{\infty} a_n$ converges absolutely.
 	
 	If $\alpha > 1$, since the limsup is an accumulation point (Theorem \ref{theo*limsup_acc_pt}), Proposition \ref{prop*subseq_acc_pt} implies the existence of a subsequence $(a_{n_k})_{k=0}^{\infty}$ such that $\lim_{k \to \infty} \sqrt[n_k]{|a_{n_k}|} = \alpha$. Hence, thanks to Remark \ref{rmk:for_root_crit}(ii) with $r=1$, $\sqrt[n_k]{|a_{n_k}|} > 1$ for all $k$ large, or equivalently, $|a_{n_k}| > 1$ for large $k$. In particular the sequence $(a_n)_{n=0}^{\infty}$ does not converge to 0. Recalling Proposition \ref{prop*cond_for_conv}, this implies that the series $\sum_{n=0}^{\infty} a_n$ does not converge.\qedhere
 \end{proof}
+
+\begin{remark}
+	If $\alpha = 1$, the root criterion is inconclusive.
+\end{remark}
+
+\begin{proposition}{D'Alambert's Quotient Criterion}{quot_crit}
+	Given a sequence $(a_n)_{n=0}^{\infty}$ with $a_n \neq 0$ for all $n$, assume that
+	\[
+		\lim_{n \to \infty} \frac{|a_{n+1}|}{|a_n|} = \alpha \in [0, \infty).
+	\]
+	Then
+	\[
+		\alpha < 1 \; \Rightarrow \; \sum_{n=0}^{\infty} a_n \text{ converges absolutely,} \qquad \alpha > 1 \;\Rightarrow\; \sum_{n=0}^{\infty} a_n \text{ does not converge.}
+	\]
+\end{proposition}
+
+\begin{proof}
+	The proof parallels that of the root criterion.
+	
+	If $\alpha < 1$. set $q = \frac{1 + \alpha}{2} \in (\alpha, 1)$. Since $\frac{|a_{n+1}|}{|a_n|} \to \alpha$ and $\alpha < q$, by Remark \ref{rmk:for_root_crit}(i) there exists $N \in \mathbb{N}$ such that
+	\[
+		\frac{|a_{k+1}|}{|a_k|} < q \qquad \forall k \geq N.
+	\]
+	This gives
+	\[
+		|a_k| = \frac{|a_k|}{|a_{k-1}|}\cdot \frac{|a_{k-1}|}{|a_{k-2}|} \cdot \hdots \cdot \frac{|a_{N+1}|}{|a_N|} \cdot |a_{N}|
+		<
+		q^{k-N} |a_N| = \frac{|a_N|}{q^N} q^k \qquad \forall k \geq N.
+	\]
+	Since $q < 1$, the geometric comparison test shows that $\sum_{n=0}^{\infty} a_n$ converges absolutely.
+	
+	If $\alpha > 1$, then Remark \ref{rmk:for_root_crit}(ii) with $r = 1$ implies the existence of $N \in \mathbb{N}$ such that
+	\[
+		\frac{|a_{k+1}|}{|a_k|} > 1 \qquad \forall k \geq N.
+	\]
+	In particular,
+	\[
+		|a_k| = \frac{|a_k|}{|a_{k-1}|}\cdot \frac{|a_{k-1}|}{|a_{k-2}|} \cdot \hdots \cdot \frac{|a_{N+1}|}{|a_N|} \cdot |a_{N}|
+		> |a_N| \qquad \forall k \geq N.
+	\]
+	Hence, $(a_n)_{n=0}^{\infty}$ does not tend to 0, and by Proposition \ref{prop*cond_for_conv} the series does not converge.\qedhere
+\end{proof}
+
+\subsubsection{Reordering Series}
+\begin{theorem}{Rearrangement of Absolutely Convergent Series}{rearr_abs_conv}
+	Let $\sum_{n=0}^{\infty} a_n$ be an absolutely convergent series, and let $\varphi: \mathbb{N} \to \mathbb{N}$ be a bijection. Then $\sum_{n=0}^{\infty} a_{\varphi(n)}$ is absolutely convergent, and
+	\begin{equation}
+		\label{eq:reordered_series}
+		\sum_{n=0}^{\infty} a_n = \sum_{n=0}^{\infty} a_{\varphi(n)}.
+	\end{equation}
+\end{theorem}
+
+\begin{proof}
+	Fix $\varepsilon > 0$. Since $\sum_{n=0}^{\infty} |a_n|$ converges, there exists $N \in \mathbb{N}$ such that
+	\[
+		\sum_{k=N+1}^{\infty} |a_k| < \frac{\varepsilon}{2}.
+	\]
+	Let
+	\[
+		M = \max\{\varphi^{-1}(0), \hdots , \varphi^{-1}(N)\}.
+	\]
+	Equivalently, $M \in \mathbb{N}$ is the smallest number such that
+	\[
+		\{a_0, \hdots , a_N\} \subseteq \{a_{\varphi(0)}, \hdots , a_{\varphi(M)}\}
+	\]
+	Then
+	\[
+		\{a_0, \hdots , a_N\} \subseteq \{a_{\varphi(0)}, \hdots , a_{\varphi(n)}\} \qquad \forall n \geq M.
+	\]
+	Therefore,
+	\[
+		\sum_{\ell = 0}^{n} a_{\varphi(\ell)} - \sum_{k=0}^{N} a_k = \sum_{\underset{\varphi(\ell) > N}{0 \leq \ell \leq n}} a_{\varphi(\ell)}.
+	\]
+	Moreover, since all indices $\varphi(\ell) > N$ with $0\leq \ell \leq n$ correspond to terms among $\{|a_k| \;|\; k \geq N+1\}$, we have
+	\[
+	\sum_{\underset{\varphi(\ell) >N}{0 \leq \ell \leq n}} |a_{\varphi(\ell)}| \leq \sum_{k = N+1}^{\infty} |a_k|.
+	\]
+	This implies that, for $n \geq M$, we can estimate
+	\begin{align*}
+		\bigg|\sum_{\ell = 0}^{n} a_{\varphi(\ell)} - \sum_{k=0}^{\infty} a_k\bigg| &= \bigg|\sum_{\ell = 0}^{n} a_{\varphi(\ell)} - \sum_{k=0}^{N} a_k - \sum_{k=N+1}^{\infty} a_k\bigg| = \bigg|\sum_{\underset{\varphi(\ell) > N}{0 \leq \ell \leq n}} a_{\varphi(\ell)} - \sum_{k=N+1}^{\infty} a_k\bigg|\\
+		&\leq \sum_{\underset{\varphi(\ell) > N}{0 \leq \ell \leq n}} |a_{\varphi(\ell)}| + \sum_{k=N+1}^{\infty} |a_k| \leq 2\,\sum_{k=N+1}^{\infty} |a_k| < \varepsilon.
+	\end{align*}
+	This shows that
+	\[
+	\sum_{\underset{\varphi(\ell) > N}{0 \leq \ell \leq n}} a_{\varphi(\ell)} \longrightarrow \sum_{k=0}^{\infty} a_k \quad \text{as } n\to \infty,
+	\]
+	which proves the identity \ref{eq:reordered_series}. Applying the same reasoning to $\sum_{n=0}^{\infty} |a_n|$ shows that $\sum_{\ell = 0}^{\infty} |a_{\varphi(\ell)}| = \sum_{n=0}^{\infty} |a_n| < \infty$, hence $\sum_{\ell = 0}^{\infty} a_{\varphi(\ell)}$ is absolutely convergent.
+	\qedhere
+\end{proof}
+
+\subsubsection{Product of Series}
+
+\begin{theorem}{Product Theorem}{prod_theo}
+	Let $\sum_{n=0}^{\infty} a_n$ and $\sum_{n=0}^{\infty} b_n$ be absolutely convergent series, and let $\alpha: \mathbb{N} \to \mathbb{N} \times \mathbb{N}$ be a bijection. Writing $\alpha(n) = (\alpha_1(n), \alpha_2(n))$, one has
+	\begin{equation}
+		\label{eq:product_series}
+		\left(\sum_{n=0}^{\infty} a_n\right)\left(\sum_{n=0}^{\infty} b_n\right) = \sum_{n=0}^{\infty} a_{\alpha_1(n)} b_{\alpha_2(n)},
+	\end{equation}
+	and the series on the right converges absolutely.
+\end{theorem}
+
+\begin{proof}
+	Consider first a bijection $\alpha: \mathbb{N} \to \mathbb{N} \times \mathbb{N}$, written as $\alpha(n) = (\alpha_1(n), \alpha_2(n))$, such that
+	\[
+		\{a(k) \;|\; 0\leq k < n^2\} = \{0, 1, \hdots, n-1\} \qquad \forall n \in\mathbb{N}. 
+	\]
+	For example, $(\alpha(n))_{n=0}^{\infty}$ could traverse the grid as shown in the lecture.
+	Then, for every $n \in \mathbb{N}$,
+	\[
+	\sum_{k=0}^{n^2 - 1} |a_{\alpha_1(k)}| |b_{\alpha_2(k)}| = \left(\sum_{\ell = 0}^{n-1} |a_{\ell}|\right) \left(\sum_{m=0}^{n-1} |b_m|\right).
+	\]
+	Since the right-hand side is bounded by
+	\[
+	\left(\sum_{\ell = 0}^{\infty} |a_{\ell}|\right) \left(\sum_{m=0}^{\infty} |b_m|\right),
+	\]
+	we have
+	\[
+	\sup_{n \in \mathbb{N}} \sum_{k=0}^{n^2 - 1} |a_{\alpha_1(k)}| |b_{\alpha_2(k)}| \leq 	\left(\sum_{\ell = 0}^{\infty} |a_{\ell}|\right) \left(\sum_{m=0}^{\infty} |b_m|\right) < \infty.
+	\]
+	This implies that the series $\sum_{k=0}^{\infty} a_{\alpha_1(k)} b_{\alpha_2(k)}$. In particular, since it converges, its value can be computed along every subsequence, therefore
+	\[
+	\sum_{k=0}^{\infty} a_{\alpha_1(k)} b_{\alpha_2(k)} = \lim_{n \to \infty} \sum_{k=0}^{n^2 - 1} a_{\alpha_1(k)} b_{\alpha_2(k)}
+	\]
+	Now writing the identity
+	\[
+	\sum_{k=0}^{n^2 - 1} a_{\alpha_1(k)} b_{\alpha_2(k)} = \left(\sum_{\ell = 0}^{n-1} a_{\ell}\right) \left(\sum_{m=0}^{n-1} b_m\right),
+	\]
+	and taking the limit as $n \to \infty$, Proposition \ref{prop*lim_op}(2.) gives
+	\begin{align*}
+		\sum_{k=0}^{\infty} a_{\alpha_1(k)} b_{\alpha_2(k)} &= \lim_{n \to \infty} \sum_{k=0}^{n^2 - 1} a_{\alpha_1(k)} b_{\alpha_2(k)} = \\
+		&= \left( \lim_{n \to \infty}\sum_{\ell = 0}^{n-1} a_{\ell}\right) \left( \lim_{n \to \infty} \sum_{m=0}^{n-1} b_m\right) = \left(\sum_{\ell = 0}^{\infty} a_{\ell}\right) \left(\sum_{m=0}^{\infty} b_m\right),
+	\end{align*}
+	which proves Equation \ref{eq:product_series} for this specific bijection $\alpha$.
+	
+	For an arbitrary bijection $\beta: \mathbb{N} \to \mathbb{N} \times \mathbb{N}$, define $\varphi = \alpha^{-1} \circ \beta: \mathbb{N} \to \mathbb{N}$. Then $\beta = \alpha \circ \varphi$ and writing $\beta(n) = (\beta_1(n), \beta_2(n)) = (\alpha_1(\varphi(n)), \alpha_2(\varphi(n)))$, the rearrangement Theorem \ref{theo*rearr_abs_conv} yields
+	\[
+	\sum_{n=0}^{\infty} a_{\beta_1(n)} b_{\beta_2(n)} = \sum_{n=0}^{\infty} a_{\alpha_1(\varphi(n))} b_{\alpha_2(\varphi(n))} = \sum_{n=0}^{\infty} a_{\alpha_1(n)} b_{\alpha_2(n)} = \left(\sum_{n=0}^{\infty} a_n\right) \left(\sum_{n=0}^{\infty} b_n\right). \qedhere
+	\] 
+\end{proof}
+
+\begin{corollary}{Cauchy Product}{cauchy_prod}
+	If $\sum_{n=0}^{\infty} a_n$ and $\sum_{n=0}^{\infty} b_n$ are convergent, then
+	\[
+		\left(\sum_{n=0}^{\infty} a_n\right) \left(\sum_{n=0}^{\infty} b_n\right) = \sum_{n = 0}^{\infty} \left(\sum_{k=0}^{n} a_{n-k} b_k\right),
+	\]
+	and the series on the right converges absolutely.
+\end{corollary}
+
+\begin{proof}
+	Consider the bijection $\alpha: \mathbb{N} \to \mathbb{N} \times \mathbb{N}$ defined as
+	\begin{align*}
+		&\alpha(0) = (0,0), \quad \alpha(1) = (1,0), \quad \alpha(2) = (0,1), \quad \alpha(3) = (2,0), \quad \alpha(4) = (1,1), \hdots ,\\
+		&\alpha(20) = (0, 5), \hdots , \alpha(31) = (4, 3), \hdots , \alpha(49) = (5,4), \hdots \text{etc.}
+	\end{align*}
+	By Theorem \ref{theo*prod_theo},
+	\[
+		\left(\sum_{n=0}^{\infty} a_n\right) \left(\sum_{n=0}^{\infty} b_n\right) = \sum_{n=0}^{\infty} a_{\alpha_1(n)} b_{\alpha_2(n)}.
+	\]
+	Listing the terms explicitly and grouping them by diagonals, we obtain
+	\begin{align*}
+				\sum_{n=0}^{\infty} a_{\alpha_1(n)} b_{\alpha_2(n)} &= a_0b_0 + (a_0 b_1 + a_1 b_0) + (a_2 b_0 + a_1 b_1 + a_0 b_2)\\
+				&+ (a_3 b_0 + a_2 b_1 + a_1 b_2 + a_0 b_3) + \hdots\\
+				&= \sum_{n=0}^{\infty} \bigg(\sum_{\underset{j + k = n}{j,k \geq 0}} a_j b_k\bigg) = \sum_{n=0}^{\infty} \bigg(\sum_{k=0}^{n} a_{n-k b_k}\bigg).
+	\end{align*}
+	Finally, absolute convergence follows from the triangle inequality and Theorem \ref{theo*prod_theo}, i.e.,
+	\[
+		\sum_{n=0}^{\infty} \bigg|\sum_{k=0}^{n} a_{n-k} b_k\bigg| \leq \sum_{n=0}^{\infty} \sum_{k=0}^{n} |a_{n-k} b_k| = \sum_{n=0}^{\infty} |a_{\alpha_1(n)}| |b_{\alpha_2(n)}| < \infty. \qedhere
+	\]
+\end{proof}
+
+\subsection{Series of Complex Numbers}
+To define the notion of a convergent series in $\mathbb{C}$, it is sufficient to consider separately the corresponding series of its real and imaginary parts in $\mathbb{R}$.
+
+\begin{definition}{Series of Complex Numbers}{series_cmplx}
+	Let $(z_n)_{n=0}^{\infty} = (x_n + iy_n)_{n=0}^{\infty}$ be a sequence of complex numbers, and let $Z = A + iB \in \mathbb{C}$. The series $\sum_{n=0}^{\infty} z_n$ is said to \textbf{converge} to $Z$ if both real series $\sum_{n=0}^{\infty} x_n$ and $\sum_{n=0}^{\infty} y_n$ converge, with limits $A$ and $B$, respectively, i.e.,
+	\[
+		\sum_{n=0}^{\infty} x_n = A, \qquad \sum_{n=0}^{\infty} y_n = B.
+	\]
+	We say that
+	$\sum_{n=0}^{\infty} z_n$ \textbf{converges absolutely} if the series of moduli $\sum_{n=0}^{\infty} |z_n|$ converges.
+\end{definition}
+
+Whenever the series $\sum_{n=0}^{\infty} z_n$ and $\sum_{n=0}^{\infty} w_n$ converge absolutely, their sum and product are given (exactly as in the real case) by
+\begin{subequations}
+	\begin{align}
+		\label{eq:sum_cmplx_series}
+		\sum_{n=0}^{\infty} z_n + \sum_{n=0}^{\infty} w_n &= \sum_{n=0}^{\infty} z_n + w_n\\
+		\label{eq:prod_cmplx_series}
+		\left(\sum_{n=0}^{\infty} z_n\right) \left(\sum_{n=0}^{\infty} w_n\right) &= \sum_{n=0}^{\infty} \left(\sum_{k=0}^{n} z_{n-k} w_k\right).
+	\end{align}
+\end{subequations}
+
+\begin{remark}
+	\label{rmk:conv_real_im}
+	Let $(z_n)_{n=0}^{\infty} = (x_n + iy_n)_{n=0}^{\infty}$ be a sequence of complex numbers, and assume that the series $\sum_{n=0}^{\infty} |z_n|$ converges. Since
+	\[
+		0\leq |x_n| \leq |z_n|, \qquad 0 \leq |y_n| \leq |z_n|, \qquad \forall n\in \mathbb{N},
+	\]
+	the Majorant Criterion (Corollary \ref{cor*maj_min}) implies that both $\sum_{n=0}^{\infty} |x_n|$ and $\sum_{n=0}^{\infty} |y_n|$ converge. Hence, the series of real and imaginary parts are absolutely convergent.
+	
+	Conversely since $|z_n| \leq |x_n| + |y_n|$, the absolute convergence of $\sum_{n=0}^{\infty} x_n$ and $\sum_{n=0}^{\infty} y_n$ also implies the absolute convergence of $\sum_{n=0}^{\infty} z_n$. Therefore, absolute convergence in $\mathbb{C}$ is equivalent to absolute convergence of the real and imaginary parts.
+\end{remark}
+
+\subsection{Power Series}
+Our next goal is to investigate power series. These are series where the terms are powers of the variable $x \in \mathbb{R}$ (or $z \in \mathbb{C}$, if one considers complex power series) multiplied by coefficients.
+
+
+
+
