@@ -325,5 +325,157 @@ Thus $\inf \mathcal{U}(f) = 1$, and taking $u \equiv 1$ gives $\inf \mathcal{U}(
 \begin{proof}
 	Fix $\varepsilon > 0$. Since $f$ is integrable, there exists step functions $\ell \leq f \leq u$ with $\int_{a}^{b}(u - \ell)\, dx < \varepsilon$. Then $\ell^+$ and $u^+$ are step functions with $\ell^+ \leq f^+ \leq u^+$.
 	
-	Since $u - \ell \geq 0$, we have $(u - \ell) = (u - \ell)^+$. Moreover, applying 
+	Since $u - \ell \geq 0$, we have $(u - \ell) = (u - \ell)^+$. Moreover, applying Equation \ref{eq:ineq_pos_part} with $z_1 = u(x)$ and $z_2 = \ell(x)$, we obtain
+	\[
+		(u(x) - \ell(x))^+ \geq u(x)^+ - \ell(x)^+ \qquad \forall x \in [a,b].
+	\]
+	Hence
+	\[
+		\int_{a}^{b}(u^+ - \ell^+) \, dx \leq \int_{a}^{b} (u - \ell)^+\, dx = \int_{a}^{b} (u - \ell) \, dx < \varepsilon,
+	\]
+	so $f^+$ is integrable. By Theorem \ref{theo*lin_int}, also $f^- = f^+ - f$ and $|f| = 2f^+ - f$ are integrable. Finally,
+	\[
+		\left|\int_{a}^{b} f\, dx\right| = \left|\int_{a}^{b}f^+ \, dx - \int_{a}^{b} f^- \, dx\right| \leq \int_{a}^{b} f^+ \, dx + \int_{a}^{b} f^- \, dx = \int_{a}^{b} |f| \, dx. \qedhere
+	\]
+\end{proof}
+
+\subsection{Integrability Theorems}
+
+\subsubsection{Integrability of Monotone Functions}
+As before we work on a compact interval $[a,b] \subseteq \mathbb{R}$. Note that very monotone function $f:[a,b] \to \mathbb{R}$ is bounded; for instance, if $f$ is increasing then $f(a)$ is a lower bound and $f(b)$ is an upper bound.
+
+\begin{theorem}{Monotone Functions are Integrable}{mono_func_int}
+	Every monotone function $f:[a,b] \to \mathbb{R}$ is Riemann integrable.
+\end{theorem}
+
+\begin{proof}
+	W.l.o.g, $f$ is increasing (otherwise replace $f$ by $-f$ and use Theorem \ref{theo*lin_int}). We want to apply Proposition \ref{prop*int_cond}. Given $\varepsilon > 0$, we need to construct step functions $\ell, u \in \mathcal{SF}$ such that $\ell \leq f \leq u$ and $\int_{a}^{b}(u - \ell) <, dx < \varepsilon$.
+	
+	Fix $n \in \mathbb{N}$ (to be chosen later) and the uniform partition
+	\[
+		a = x_0 < x_1 < \; \hdots \; < x_n = b, \qquad x_k = a + \frac{k}{n}(b - a).
+	\]
+	Define the step functions $ell, u:[a,b] \to \mathbb{R}$ as
+	\begin{align*}
+		\ell(x) = f(x_{k-1}) \quad \text{and} \quad u(x) = f(x_k) \qquad &\text{for } x \in (x_{k-1}, x_k), \quad k = 1, \hdots, n,\\
+		\ell(x) = u(x) = f(x) \qquad &\text{for } x \in \{x_0, \hdots , x_n\}.
+	\end{align*}
+	Note that, since $f$ is increasing, $\ell \leq f \leq u$. Moreover, for each $k$ we have $u - \ell = f(x_k) - f(x_{k-1})$ on $(x_{k-1}, x_k)$. Recalling that $x_k - x_{k-1} = \frac{b - a}{n}$, this yields
+	\begin{align*}
+		\int_{a}^{b} (u - \ell) \, dx &= \sum_{k=1}^{n} (f(x_k) - f(x_{k-1})) (x_k - x_{k-1}) = \frac{b - a}{n} \sum_{k=1}^{n} (f(x_k) - f(x_{k-1})) \\
+		&= \frac{b - a}{n} (f(x_n) - f(x_0)) = \frac{b - a}{n} (f(b) - f(a)).
+	\end{align*}
+	Choosing $n \in \mathbb{N}$ so large that $\frac{b - a}{n}(f(b) - f(a)) < \varepsilon$, Proposition \ref{prop*int_cond} implies that $f$ is Riemann integrable. \qedhere
+\end{proof}
+
+\begin{definition}{Piecewise Monotone Functions}{piecewise_mono_func}
+	A function $f:[a,b] \to \mathbb{R}$ is \textbf{piecewise monotone} if there exists a decomposition
+	\[
+		a = x_0 < x_1 < \; \hdots \; < x_n = b
+	\]
+	such that $f|_{(x_{k-1}, x_k)}$ is monotone for every $k = 1, \hdots , n$.
+\end{definition}
+
+\begin{corollary}{Piecewise Monotone Functions are Integrable}{piecewise_mono_func_int}
+	Every bounded piecewise monotone function $f:[a,b] \to \mathbb{R}$ is Riemann integrable.
+\end{corollary}
+
+\subsubsection{Integrability of Continuous Functions}
+Using boundedness and uniform continuity on compact intervals (Theorems \ref{theo*boundedness} and \ref{theo*unif_cont_compact_int}), we can prove that continuous functions are integrable.
+
+\begin{theorem}{Continuous Functions are Integrable}{cont_func_int}
+	Every continuous function $f:[a,b] \to \mathbb{R}$ is Riemann integrable.
+\end{theorem}
+
+\begin{proof}
+	Let $f:[a,b] \to \mathbb{R}$ be continuous and fix $\varepsilon > 0$. By uniform continuity \ref{unif_cont_compact_int}, there exists $\delta >0$ such that
+	\begin{equation}
+		\label{eq:unif_cont}
+		|x - y| < \delta \quad \Rightarrow \quad |f(x) - f(y)|< \varepsilon \qquad \forall x,y \in [a,b].
+	\end{equation}
+	Choose a partition $a = x_0 < x_1 < \; \hdots \; < x_n = b$ with $x_k - x_{k-1} < \delta$. For each $k$ set 
+	\[
+		c_k = \min\{f(x) \;|\; x_{k-1} \leq x \leq x_k\}, \qquad d_k = \max\{f(x) \,|\; x_{k-1} \leq x \leq x_k\},
+	\]
+	which exists by Theorem \ref{theo*extreme_val_theo}, and let $y_k, z_k \in [x_{k-1}, x_k]$ satisfy $f(y_k) = c_k$ and $f(z_k) = d_k$. Then since, $|y_k - z_k| \leq x_k - x_{k-1} < \delta$, Equation \ref{eq:unif_cont} yields $d_k - c_k < \varepsilon$.
+	
+	Define now the step functions $\ell, u:[a,b] \to \mathbb{R}$ as
+	\begin{align*}
+		\ell(x) = c_k, \quad \text{and} \quad u(x) = d_k \qquad &\text{for } x \in (x_{k-1}, x_k), \quad k = 1,\hdots , n,\\
+		\ell(x) = u(x) = f(x) \qquad &\text{for } x \in \{x_0, \hdots , x_n\}.
+	\end{align*}
+	Then $\ell \leq f \leq u$ and $u - \ell = d_k - c_k$ on $(x_{k-1} , x_k)$, hence
+	\[
+		\int_{a}^{b} (u - \ell) \, dx = \sum_{k=1}^{n} (d_k - c_k)(x_k - x_{k-1}) < \varepsilon \sum_{k=1}^{n} (x_k - x_{k-1}) = \varepsilon (b - a).
+	\]
+	Since $\varepsilon > 0$ is arbitrary, $f$ is integrable. \qedhere
+\end{proof}
+
+\begin{definition}{Piecewise Continuous Functions}{piecewise_cont_func}
+	A function $f:[a,b] \to \mathbb{R}$ is \textbf{piecewise continuous} if there exists a decomposition
+	\[
+		a = x_0 < x_1 < \; \hdots \; < x_n = b
+	\]
+	such that $f|_{(x_{k-1}, x_k)}$ is continuous for all $k$ and both one sided limits $\lim_{x \to x_{k-1}^+} f(x)$ and $\lim_{x \to x_k^-} f(x)$ exist. Equivalently, each $f|_{(x_{k-1}, x_k)}$ extends to a continuous function on $[x_{k-1}, x_k]$.
+\end{definition}
+
+\begin{corollary}{Piecewise Continuous Functions are Integrable}{piecewise_cont_func_int}
+	Every piecewise continuous function $f:[a,b] \to \mathbb{R}$ is Riemann integrable.
+\end{corollary}
+
+\subsubsection{Integration and Sequences of Functions}
+Let $(f_n)_{n=0}^{\infty}$ with $f_n:[a,b] \to \mathbb{R}$ be a sequence of integrable functions. Assume that $f_n$ converges pointwise or uniformly to $f:[a,b] \to \mathbb{R}$. Is $f$ integrable? And if so, does
+\[
+	\lim_{n \to \infty} \int_{a}^{b} f_n \, dx = \int_{a}^{b} f\, dx
+\]
+hold?
+
+In general, the pointwise limit of integrable functions need not to be integrable. Also, as the following example shows, even when the pointwise limit of $f$ is integrable, one may have that $\lim_{n \to \infty} \int f_n \neq \int f$.
+
+\subsubsection*{Example}
+Let $D = [0,1]$ and define $f_n:D \to \mathbb{R}$ by
+\[
+	f_n(x) = \begin{cases}
+		n^2x \qquad &\text{if } 0 \leq x \leq \frac{1}{2n},\\
+		n^2(\frac{1}{n} - x) \qquad &\text{if } \frac{1}{2n} \leq x \leq \frac{1}{n},\\
+		0 \qquad &\text{if } \frac{1}{n} \leq x \leq 1.
+	\end{cases}
+\]
+Each $f_n$ is continuous (hence integrable). Also, its graph is a triangle of base $\frac{1}{n}$ and height $\frac{n}{2}$, so 
+\[
+	\int_{0}^{1} f_n(x) \, dx = \frac{1}{2}\cdot \frac{1}{n} \cdot \frac{n}{2} = \frac{1}{4}.
+\]
+Moreover, $f_n(0) = 0$ for all $n$, and for every $x > 0$ we have $f_n(x) = 0$ for all $n > 1/x$, hence $f_n(x) \to 0$. Thus, $f_n$ converges pointwise to the constant function $f = 0$, but
+\[
+	\int_{0}^{1}f_n(x) \, dx = \frac{1}{4} \neq 0 = \int_{0}^{1} f(x) \, dx.
+\]
+
+On the other hand, as the next result shows, uniform convergence is sufficient for both integrability of the limit and interchange of limit and integral.
+
+\begin{theorem}{Uniform Convergence and Riemann Integral Commute}{unif_conv_int_commute}
+	Let $(f_n)_{n=0}^{\infty}$, with $f_n:[a,b] \to \mathbb{R}$, be a sequence of integrable functions converging uniformly to $f:[a,b] \to \mathbb{R}$. Then $f$ is integrable and
+	\begin{equation}
+		\label{eq:unif_conv_int}
+		\int_{a}^{b}f \, dx = \lim_{n \to \infty} \int_{a}^{b} f_n \, dx.
+	\end{equation}
+\end{theorem}
+
+\begin{proof}
+	Fix $\varepsilon > 0$. By uniform convergence, there exists $N \in \mathbb{N}$ such that $|f_n - f| < \varepsilon$ for all $n \geq N$.
+	
+	Since $f_N$ is integrable, there exists step functions $\ell, u \in \mathcal{SF}$ with $\ell \leq f \leq u$ and $\int_{a}^{b} (u - \ell) \, dx < \varepsilon$. Set $\hat{\ell} = \ell - \varepsilon$ and $\hat{u} = u + \varepsilon$. Then $\hat{\ell}, \hat{u} \in \mathcal{SF}$. Also, since $|f_N - f| < \varepsilon$,
+	\[
+	\hat{\ell} = \ell - \varepsilon \leq f_N - \varepsilon \leq f \leq f_N + \varepsilon \leq u + \varepsilon = \hat{u}
+	\]
+	and (because $\hat{u} - \hat{\ell} = u - \ell + 2\varepsilon$)
+	\[
+	\int_{a}^{b} (\hat{u} - \hat{\ell}) \, dx = \int_{a}^{b} (u - \ell) \, dx + 2\varepsilon(b-a) < \varepsilon + 2\varepsilon(b-a).
+	\]
+	As $\varepsilon > 0$ is arbitrary, Proposition \ref{prop*int_cond} yields that $f$ is integrable.
+	
+	Moreover, using monotonicity (Proposition \ref{prop*mono_int}) and the triangle inequality for the Riemann integral (Theorem \ref{theo*triangle_ineq_int}),
+	\[
+		\left|\int_{a}^{b}f \, dx - \int_{a}^{b}f_n \, dx\right| = \left|\int_{a}^{b} (f - f_n) \, dx\right| \leq \int_{a}^{b} |f - f_n|\, dx \leq \varepsilon (b-a) \qquad \forall n \geq N,
+	\]
+	proving Equation \ref{eq:unif_conv_int}. \qedhere
 \end{proof}
