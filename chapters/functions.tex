@@ -89,3 +89,20 @@ Thus, a function $f:X \to Y$ is \textit{not} injective if there exists distinct 
 \begin{remark}
 	A function $f: X \to Y$ is bijective if and only if there exists a function $g: Y \to X$ such that $g \circ f = id_{X}$ and $f \circ g = id_{Y}$.
 \end{remark}
+
+\begin{definition}{Affine Functions}{affine_func}
+	An \textbf{affine function} is a function of the form $x \mapsto sx + r$, for $s, r \in \mathbb{R}$. The graph of an affine function is a non-vertical liine in $\mathbb{R}^2$. The parameter $s$ in the equation $y = sx + r$ is called the \textbf{slope} of the line.
+\end{definition}
+
+\begin{definition}{Even and Odd Functions}{even_odd_func}
+	Let $D \subseteq\mathbb{R}$ be a set satisfying $D = -D$, i.e.,
+	\[
+		\forall x \in D :\; x \in D \quad \Rightarrow \quad -x \in D.
+	\]
+	A function $f:D \to \mathbb{R}$ is called 
+	\begin{itemize}
+		\item[$\bullet$] \textbf{even} if $f(-x) = f(x)$ for all $x \in D$,
+		\item[$\bullet$] \textbf{odd} if $f(-x) = -f(x)$ for all $x \in D$.
+	\end{itemize}
+	Geometrically, and even function is symmetric with respect to the $y$-axis, while an odd function is symmetric with respect to the origin.
+\end{definition}

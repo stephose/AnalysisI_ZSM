@@ -1,0 +1,329 @@
+%
+% (c) 2025 Autor, ETH Zürich
+%
+% !TEX root = main.tex
+% !TEX encoding = UTF-8
+%
+
+\section{The Riemann Integral}
+
+\subsection{Step Functions and their Integral}
+\subsubsection{Decompositions and Step Functions}
+
+\begin{definition}{Partitions}{partitions}
+	Two sets $A, B$ are called \textbf{disjoint} if $A \cap B = \emptyset$. For a collection $\mathcal{A}$ of sets, we say that the sets in $\mathcal{A}$ are pairwise disjoint, if for all $A_1, A_2 \in \mathcal{A}$ with $A_1 \neq A_2$ it holds that $A_1 \cap A_2 = \emptyset$.
+	
+	Let $X$ be a set. A Partition of $X$ is a family $\mathcal{P}$ of non-empty pairwise disjoint subsets of $X$ such that
+	\[
+		X = \bigcup_{P \in \mathcal{P}} P.
+	\]
+\end{definition}
+
+\begin{definition}{Decomposition of an Interval}{decomp_interval}
+	A \textbf{decomposition} of $[a, b]$ is a finite sequence of points
+	\[
+		a = x_0 < x_1 < \; \hdots \; < x_{n-1} < x_n = b,
+	\]
+	with $n \in \mathbb{N}$. The points $x_0, \hdots , x_n$ are called the \textbf{division points} of the decomposition.
+\end{definition}
+
+Formally, a decomposition of $[a,b]$ is a finite subset of $[a,b]$ containing $a$ and $b$, together with the ordering of its elements. Each decomposition induces a natural partition of $[a,b]$, i.e.,
+\[
+	[a,b] = \{x_0\} \cup (x_0, x_1) \cup \{x_1\} \cup \; \hdots \; \cup (x_{n-1}, x_n) \cup \{x_n\},
+\]
+which we will use implicitly from now on.
+
+A decomposition
+\[
+	a = y_0  < y_1 < \; \hdots \; < y_m = b
+\]
+is called a \textbf{refinement} of the decomposition
+\[
+	a = x_0 < x_1 < \; \hdots \; < x_n = b
+\]
+if
+\[
+	\{x_0, x_1, \hdots, x_n\} \subseteq \{y_0, y_1, \hdots , y_m\}.
+\]
+The notion of refinement defines a partial order on the set of all decompositions of $[a,b]$. Note that any two decompositions of $[a,b]$ admit a common refinement given by the union of all division points.
+
+\begin{definition}{Step Functions}{step_func}
+	A function $f:[a,b] \to \mathbb{R}$ is called a \textbf{step function} if there exists a decomposition
+	\[
+		a = x_0 < x_1 < \; \hdots \; < x_n = b
+	\]
+	such that, for each $k = 1, \hdots , n$ the restriction of $f$ to the open interval $(x_{k-1}, x_k)$ is constant. In this case, we say that $f$ is a step function \textit{with respect to} the decomposition $a= x_0  < x_1 < \; \hdots \; < x_n = b$.
+\end{definition}
+
+\begin{proposition}{Linearity of the Space of Step Functions}{lin_step_func}
+	Let $f, g:[a, b] \to \mathbb{R}$ be step functions, and $\alpha, \beta \in \mathbb{R}$. Then $\alpha f + \beta g$ is also a step function.
+\end{proposition}
+
+\begin{proof}
+	Let $f$ be a step function with respect to the decomposition $a = x_0 < x_1 <\; \hdots \; < x_n = b$, and let $g$ be a step function with respect to the decomposition $a = y_0 < y_1 <\; \hdots \; < y_m = b$. The union of all division points $\{x_0, x_1, \hdots , x_n\} \cup \{y_0, y_1, \hdots , y_m\}$ defines a new decomposition
+	\[
+		a = z_0 < z_1 < \; \hdots \; < z_N = b
+	\]
+	that is a common refinement of the two. Since both $f$ and $g$ are constant on each open interval $(z_{k - 1}, z_k)$, so is the function $\alpha f + \beta g$. Thus, $\alpha f + \beta g$ is also a step function with respect to this decomposition. \qedhere
+\end{proof}
+
+\begin{remark}
+	As in the proof of Proposition \ref{prop*lin_step_func}, one can show that the product of two step functions is again a step function.  Moreover, step functions are bounded, since they take only finitely many values.
+\end{remark}
+
+\subsubsection{The Integral of a Step Function}
+
+\begin{definition}{Integral of a Step Function}{integral_step_func}
+	Let $f:[a,b] \to \mathbb{R}$ be a step function with respect to a decomposition
+	\[
+		a = x_0 < x_1 <\; \hdots \; < x_n = b.
+	\]
+	We define the \textbf{integral} of $f$ on $[a, b]$ as the real number
+	\begin{equation}
+		\label{eq:int_step_func}
+		\int_{a}^{b} f(x)\, dx = \sum_{k=1}^{n} c_k (x_{k} - x_{k-1}),
+	\end{equation}
+	where $c_k$ denotes the constant value of $f$ on the interval $(x_{k - 1}, x_k)$.
+\end{definition}
+
+\begin{proposition}{Linearity of the Integral of Step Functions}{lin_int_step_func}
+	Let $f,g:[a,b] \to \mathbb{R}$ be step functions, and let $\alpha , \beta \in \mathbb{R}$. Then
+	\[
+		\int_{a}^{b} (\alpha f + \beta g)(x) \, dx = \alpha \int_{a}^{b} f(x) \, dx + \beta \int_{a }^{b} g(x) \, dx.
+	\]
+\end{proposition}
+
+\begin{proof}
+	As in the proof of Proposition \ref{prop*lin_step_func}, we can find a decomposition $a = x_0 < x_1 <\; \hdots \; < x_n = b$ such that both $f$ and $g$ (and hence $\alpha f + \beta g$) are constant on the interval $(x_{k-1}, x_k)$. If $f$ takes the values $c_k$ and $g$ the values $d_k$ on $(x_{k-1}, x_k)$, then $\alpha f + \beta g$ takes the value $\alpha c_k + \beta d_k$. Thus,
+	\begin{align*}
+		\int_{a}^{b} (\alpha f + \beta g)(x) \, dx &= \sum_{k=1}^{n} (\alpha c_k + \beta d_k) (x_k - x_{k-1})\\
+		&= \alpha \sum_{k=1}^{n} c_k (x_k - x_{k-1}) + \beta \sum_{k=1}^{n} d_k (x_k - x_{k-1})\\
+		&= \alpha \int_{a}^{b} f(x) \, dx + \beta \int_{a}^{b} g(x) \, dx,
+	\end{align*}
+	as claimed. \qedhere
+\end{proof}
+
+\begin{proposition}{Monotonicity of the Integral of Step Functions}{mono_int_step_func}
+	Let $f,g:[a,b] \to \mathbb{R}$ be step functions such that $f \leq g$. Then
+	\[
+		\int_{a}^{b} f(x) \, dx \leq \int_{a}^{b} g(x) \, dx.
+	\]
+\end{proposition}
+
+\begin{proof}
+	As in the proof of Proposition \ref{prop*lin_step_func}, we can find a decomposition $a = x_0 < x_1 <\; \hdots \; < x_n = b$ such that both $f$ and $g$ are constant on each interval $(x_{k-1}, x_k)$. Writing $c_k$ and $d_k$ for their respective values, the assumption $f \leq g$ implies that $c_k \leq d_k$ for all $k = 1, \hdots , n$. Hence
+	\[
+		\int_{a}^{b} f(x) \, dx = \sum_{k=1}^{n} c_k (x_k - x_{k-1}) \leq \sum_{k=1}^{n} d_k (x_k - x_{k-1}) = \int_{a}^{b} g(x) \, dx. \qedhere
+	\]
+\end{proof}
+
+Applying Proposition \ref{prop*mono_int_step_func} with $g \equiv 0$, we deduce the following corollary.
+
+\begin{corollary}{Positivity of the Integral of Step Functions}{pos_int_step_func}
+	If $f:[a,b] \to \mathbb{R}$ is a step functions such that $f(x) \geq 0$ for all $x \in [a,b]$, then
+	\[
+		\int_{a}^{b} f(x) \, dx \geq 0.
+	\]
+\end{corollary}
+
+\subsection{Definition and First Properties of the Riemann Integral}
+As in the last section, we consider functions on a compact interval $[a,b] \subseteq \mathbb{R}$. To alleviate notation, we write $\mathcal{SF}$ for the set of step functions on $[a,b]$. Also, we often write $\int_{a}^{b} f\, dx$ in place of $\int_{a}^{b} f(x) \, dx$.
+
+\subsubsection{Integrability of Real-Valued Functions}
+Before defining lower and upper sums, we recall a simple but useful property of the supremum and infimum of two related sets. We use this fact several times in what follows.
+
+\begin{definition}{Relation Between Supremum and Infimum}{relation_sup_inf}
+	Let $A, B \subseteq \mathbb{R}$ be non-empty sets such that $s \leq t$ for all $s \in A$ and $t \in B$. Then
+	\begin{equation}
+		\label{eq:relation_sup_inf}
+		\sup A \leq \inf B.
+	\end{equation}
+	Moreover,
+	\begin{equation}
+		\label{eq:relation_sup_inf_2}
+		\sup A = \inf B \quad \Leftrightarrow \quad \forall \varepsilon > 0 \; \exists s \in A \, \exists t \in B \text{ such that }t - s < \varepsilon.
+	\end{equation}
+\end{definition}
+
+
+\begin{definition}{Lower and Upper Sums}{lower_upper_sums}
+	Let $f:[a, b] \to \mathbb{R}$ be a function. Define the sets of \textbf{lower sums} $\mathcal{L}(f) \subseteq \mathbb{R}$ and \textbf{upper sums} $\mathcal{U}(f) \subseteq \mathbb{R}$ by 
+	\[
+		\mathcal{L}(f) = \biggl\{\int_{a}^{b} \ell \, dx \; \bigg|\; \ell \in \mathcal{SF} \text{ and } \ell \leq f\biggr\}, \qquad \mathcal{U}(f) = \biggl\{\int_{a}^{b} u \, dx \;\bigg|\; u \in \mathcal{SF} \text{ and } f \leq u\biggr\}.
+	\]
+\end{definition}
+If $f$ is bounded, then these sets are non-empty. Indeed, if $|f| \leq M$, then the constant step functions
+\[
+	\ell(x) = -M \quad \forall x \in [a,b], \qquad u(x) = M \quad \forall x\in [a,b],
+\]
+satisfy $\ell \in \mathcal{L}(f)$ and $u \in \mathcal{U}(f)$.
+
+For $\ell, u \in \mathcal{SF}$ with $\ell \leq f \leq u$, Proposition \ref{mono_int_step_func} gives
+\[
+	\int_{a}^{b} \ell \, dx \leq \int_{a}^{b } u \, dx.
+\]
+This implies that $s \leq t$ for all $s \in \mathcal{L}(f)$ and $t \in \mathcal{U}(f)$, so Equation \ref{eq:relation_sup_inf} yields
+\[
+	\sup \mathcal{L}(f) \leq \inf \mathcal{U}(f).
+\]
+
+\begin{definition}{Riemann Integral}{riemann_integral}
+	A bounded function $f:[a,b] \to \mathbb{R}$ is \textbf{Riemann integrable} if $\sup \mathcal{L}(f) = \inf \mathcal{U}(f)$. In this case, this common value is called the \textbf{Riemann integral} of $f$, and we write
+	\[
+		\int_{a}^{b} f \, dx = \sup \mathcal{L}(f) = \inf \mathcal{U}(f).
+	\]
+	We call $a$ the \textbf{lower (integration) limit} and $b$ the \textbf{upper (integration) limit}, and the function $f$ the \textbf{integrand} of the integral $\int_{a}^{b} f\, dx$. If $f \geq 0$ is Riemann integrable, we interpret the number $\int_{a}^{b} f\, dx$ as the \textbf{area} of the set
+	\[
+		\{(x, y) \in \mathbb{R}^2 \;|\; a \leq x \leq b, \quad 0 \leq y \leq f(x)\}.
+	\]
+\end{definition}
+
+\begin{proposition}{Riemann Integrability Condition}{int_cond}
+	Let $f:[a,b] \to \mathbb{R}$ be bounded. Then $f$ is Riemann integrable if and only if for every $\varepsilon > 0$ there exists step functions $\ell, u \in \mathcal{SF}$ such that
+	\[
+		\ell \leq f \leq u \qquad \text{and} \qquad \int_{a}^{b} (u - \ell) < \varepsilon.
+	\]
+	In this case,
+	\[
+		\left|\int_{a}^{b} f \, dx - \int_{a}^{b} \ell \, dx\right| < \varepsilon, \qquad \left|\int_{a}^{b} u \, dx - \int_{a}^{b} f \, dx\right| < \varepsilon.	
+	\]
+\end{proposition}
+
+\begin{proof}
+	By Equation \ref{eq:relation_sup_inf_2} applied with $A = \sup \mathcal{L}(f)$ and $B = \inf \mathcal{U}(f)$ we obtain
+	\begin{align*}
+		f \text{ is Riemann integrable} \quad &\Leftrightarrow \quad \sup \mathcal{L}(f) = \mathcal{U}(f)\\
+		&\Leftrightarrow \quad \forall \varepsilon > 0 \; \exists s \in \mathcal{L}(f) \, \exists t \in \mathcal{U}(f):\; t - s < \varepsilon\\
+		&\Leftrightarrow \quad \forall \varepsilon > 0\; \exists \ell, u \in \mathcal{SF}: \; \ell \leq f \leq u \text{ and } \int_{a}^{b} u \, dx - \int_{a}^{b} \ell \, dx < \varepsilon\\
+		&\Leftrightarrow \quad \forall \varepsilon > 0\; \exists \ell, u \in \mathcal{SF}: \; \ell \leq f \leq u \text{ and } \int_{a}^{b} (u - \ell) \, dx < \varepsilon,
+	\end{align*}
+	where we used Proposition \ref{prop*lin_int_step_func} to deduce that
+	\[
+		\int_{a}^{b}u \, dx - \int_{a}^{b} \ell \, dx = \int_{a}^{b}(u-\ell)\, dx
+	\]
+	Finally, the concluding inequalities follow from
+	\[
+		\int_{a}^{b} \ell \, dx \leq \int_{a}^{b} f\, dx \leq \int_{a}^{b} u \, dx \qquad \text{and} \qquad \int_{a}^{b}(u - \ell )\, dx < \varepsilon. \qedhere
+	\]
+\end{proof}
+
+\subsubsection*{Example}
+Not all functions are Riemann integrable. Indeed, consider the function $f:[0,1] \to \mathbb{R}$ defined by
+\[
+	f(x) = \begin{cases}
+		1, \qquad &x \in \mathbb{Q},\\
+		0, \qquad &x \notin \mathbb{Q}.
+	\end{cases}
+\]
+We claim that $f$ is not Riemann integrable.
+
+Let $u \in \mathcal{SF}$ with $f \leq u$, and let $0 = x_0 < \; \hdots \; < x_1 = 1$ be a decomposition such that $u$ is constant $c_k$ on $(x_{k-1}, x_{k})$. Since $\mathbb{Q}$ is dense in $\mathbb{R}$, there exists $x \in (x_{k-1}, x_k) \cap \mathbb{Q}$, hence $1 = f(x) \leq u(x) = c_k$, so $c_k \geq 1$. Therefore,
+\[
+	\int_{0}^{1} u(x)\, dx = \sum_{k=1}^{n} c_k (x_k - x_{k-1}) \geq \sum_{k=1}^{n} (x_k - x_{k-1}) = x_n - x_0 = 1.
+\]
+Thus $\inf \mathcal{U}(f) = 1$, and taking $u \equiv 1$ gives $\inf \mathcal{U}(f)$. A similar argument with lower sums shows that $\sup \mathcal{L}(f) = 0$. Hence, $f$ is not Riemann integrable.
+
+\begin{theorem}{Linearity of the Riemann Integral}{lin_int}
+	If $f,g:[a,b] \to \mathbb{R}$ are integrable and $\alpha , \beta \in \mathbb{R}$, then $\alpha f + \beta g$ is integrable, and
+	\[
+		\int_{a}^{b} (\alpha f + \beta g) \, dx = \alpha \int_{a}^{b} f \, dx + \beta \int_{a}^{b} g\, dx
+	\]
+\end{theorem}
+
+\begin{proof}
+	Given $\varepsilon > 0$, Proposition \ref{prop*int_cond} yields step functions $\ell_1, \ell_2, u_1, u_2$ with
+	\[
+		\ell_1 \leq f \leq u_1, \quad \ell_2 \leq g \leq u_2,  \quad \int_{a}^{b} (u_1 - \ell_1) \, dx < \varepsilon, \quad \int_{a}^{b}(u_2 - \ell_2) \, dx < \varepsilon,
+	\]
+	and
+	\[
+		\left|\int_{a}^{b}f \, dx - \int_{a}^{b} \ell_1 \, dx\right| < \varepsilon, \qquad \left|\int_{a}^{b} g \, dx - \int_{a}^{b} \ell_2 \, dx \right| < \varepsilon.
+	\]
+	
+	Assume first $\alpha, \beta \geq 0$. Then
+	\[
+		\alpha \ell_1 + \beta \ell_2 \leq \alpha f + \beta g \leq \alpha u_1 + \beta u_2,
+	\]
+	and
+	\[
+		\int_{a}^{b}[(\alpha u_1 + \beta u_2) - (\alpha \ell_1 + \beta \ell_2)] \, dx = \alpha \int_{a}^{b} (u_1 - \ell_1) \, dx + \beta \int_{a}^{b} (u_2 - \ell_2) \, dx < (\alpha + \beta) \varepsilon.
+	\]
+	Since $\varepsilon > 0$ is arbitrary, this proves that $\alpha f + \beta g$ is integrable. Moreover, by the triangle inequality and Proposition \ref{prop*lin_int_step_func}, we have that
+	\begin{align*}
+		\bigg|\int_{a}^{b} (\alpha f + \beta g) \, dx - \alpha \int_{a}^{b} f\, dx - \beta \int_{a}^{b} g \, dx\bigg| &\leq \bigg|\int_{a}^{b} (\alpha f + \beta g)\, dx - \int_{a}^{b} (\alpha \ell_1 + \beta \ell_2) \, dx\bigg|\\
+		&+ \bigg|\underbrace{\int_{a}^{b} (\alpha \ell_1 + \beta \ell_2) \, dx - \alpha \int_{a}^{b} \ell_1\, dx - \beta \int_{a}^{b} \ell_2 \, dx}_{=0}\bigg|\\
+		&+ \alpha \bigg|\int_{a}^{b} \ell_1 \, dx - \int_{a}^{b} f\, dx\bigg| + \beta \bigg|\int_{a}^{b} \ell_2 \, dx - \int_{a}^{b} g\, dx\bigg|\\
+		&\leq (\alpha + \beta) \varepsilon + \alpha \varepsilon + \beta \varepsilon = 2 (\alpha + \beta) \varepsilon.
+	\end{align*}
+	Since $\varepsilon > 0$ is arbitrary, the linearity follows.
+	
+	The case when one of $\alpha, \beta$ is negative is analogous, but one needs to reverse the corresponding inequalities. For instance, if $\alpha \geq 0$ and $\beta < 0$, then
+	\[
+		\alpha \ell_1 + \beta u_2 \leq \alpha f + \beta g \leq \alpha u_1 + \beta \ell_2,
+	\]
+	and
+	\[
+		\int_{a}^{b}[(\alpha u_1 + \beta \ell_2) - (\alpha \ell_1 + \beta u_2)]\, dx = \alpha \int_{a}^{b} (u_1 - \ell_1) \, dx + |\beta| \int_{a}^{b} (u_2 - \ell_2) \, dx < (\alpha + |\beta|)\varepsilon.
+	\]
+	This implies again that $\alpha f + \beta g$ is integrabl, and the linearity identity holds similarly. \qedhere
+\end{proof}
+
+\begin{proposition}{Monotonicity of the Riemann Integral}{mono_int}
+	Let $f,g:[a,b] \to \mathbb{R}$ be integrable. If $f \leq g$, then
+	\[
+		\int_{a}^{b} f \, dx \leq \int_{a}^{b} g \, dx.
+	\]
+\end{proposition}
+	
+\begin{proof}
+	Since $f \leq g$, for any step function $\ell$ with $\ell \leq f$ we have $\ell \leq g$. This implies that $\mathcal{L}(f) \subseteq \mathcal{L}(g)$, therefore
+	\[
+		\int_{a}^{b} f\, dx = \sup \mathcal{L}(f) \leq \sup \mathcal{L}(g) = \int_{a}^{b} g\, dx. \qedhere
+	\]
+\end{proof}
+
+\begin{definition}{Positive and Negative Parts}{pos_neg_parts}
+	Given a function $f:D \to \mathbb{R}$, we define its \textbf{positive part} $f^+:D \to \mathbb{R}$ and \textbf{negative part} $f^-:D \to \mathbb{R}$ by
+	\[
+		f^+(x) = \max\{0, f(x)\}, \qquad f^-(x) = -\min\{0, f(x)\}.
+	\]
+	These satisfy
+	\[
+		f = f^+ - f^-, \quad |f| = f^+ + f^-, \quad f^+ = \frac{|f| + f}{2}, \quad f^- = \frac{|f| - f}{2}.
+	\]
+	Moreover, for any functions $f, g:D \to \mathbb{R}$,
+	\[
+		f \leq g \quad \Rightarrow \quad f^+ \leq g^+, \qquad f \leq g \quad \Rightarrow \quad f^- \geq g^-.
+	\]
+\end{definition}
+
+\begin{remark}
+	\label{rmk:prop_pos_part}
+	For any real numbers $z_1, z_2 \in \mathbb{R}$, one has
+	\begin{equation}
+		\label{eq:ineq_pos_part}
+		(z_1 - z_2)^+ \geq z_1^+ - z_2^+.
+	\end{equation}
+	Indeed, since $z^+ \geq z$ and $z^+ \geq 0$ for all $z \in \mathbb{R}$, by applying these inequalities with $z = z_1 - z_2$ and $z = z_2$ we obtain
+	\[
+		z_1 = (z_1 - z_2) + z_2 \leq (z_1 - z_2)^+ + z_2^+ \quad \text{and} \quad 0 \leq (z_1 - z_2)^+ + z_2^+.
+	\]
+	Hence $(z_1 - z_2)^+ + z_2^+$ is greater or equal to both $z_1$ and 0, and therefore
+	\[
+		z_1^+ = \max\{z_1, 0\} \leq (z_1 - z_2)^+ + z_2^+,
+	\]
+	which yields Equation \ref{eq:ineq_pos_part} after rearranging.
+\end{remark}
+
+\begin{theorem}{Triangle Inequality for the Riemann Integral}{triangle_ineq_int}
+	Let $f,g:[a,b] \to \mathbb{R}$ be integrable. Then $f^+$, $f^-$, and $|f|$ are integrable, and
+	\[
+		\left|\int_{a}^{b} f \, dx\right| \leq \int_{a}^{b} |f|\, dx.
+	\]
+\end{theorem}
+
+\begin{proof}
+	Fix $\varepsilon > 0$. Since $f$ is integrable, there exists step functions $\ell \leq f \leq u$ with $\int_{a}^{b}(u - \ell)\, dx < \varepsilon$. Then $\ell^+$ and $u^+$ are step functions with $\ell^+ \leq f^+ \leq u^+$.
+	
+	Since $u - \ell \geq 0$, we have $(u - \ell) = (u - \ell)^+$. Moreover, applying 
+\end{proof}

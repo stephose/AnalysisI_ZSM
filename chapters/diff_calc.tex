@@ -1,0 +1,520 @@
+%
+% (c) 2025 Autor, ETH Zürich
+%
+% !TEX root = main.tex
+% !TEX encoding = UTF-8
+%
+
+\section{Differential Calculus}
+In this chapter we deal with differential calculus in one variable. This is of fundamental importance for understanding functions on $\mathbb{R}$.
+
+\subsection{The Derivative}
+
+\subsubsection{Definition and Geometrical Interpretation}
+In this section $D \subseteq \mathbb{R}$ denotes a non-empty set with no isolated points, i.e., every $x \in D$ is an accumulation point of $D \setminus \{x\}$. A typical example is a non-empty interval containing more than one point.
+
+\begin{definition}{Derivative}{derivative}
+	Let $f:D \to \mathbb{R}$ be a function and $x_0 \in D$. We say that $f$ is \textbf{differentiable} at $x_0$ if the limit
+	\begin{equation}
+		\label{eq:diff_quot}
+		f'(x_0) = \lim_{\underset{x \neq x_0}{x \to x_0}} \frac{f(x) - f(x_0)}{x - x_0} = \lim_{\underset{h \neq 0}{h \to 0}} \frac{f(x_0 + h) - f(x_0)}{h}
+	\end{equation}
+	exists. In this case we call $f'(x_0)$ the \textbf{derivative} of $f$ at $x_0$. If $f$ is differentiable at every point of $D$, we say that $f$ is \textbf{differentiable} on $D$, and we call the resulting function $f':D \to \mathbb{R}$ the \textbf{derivative} of $f$.
+\end{definition}
+
+To simplify notation, we will often write
+\[
+	f'(x_0) = \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0} = \lim_{h \to 0} \frac{f(x_0 + h) - f(x_0)}{h}	
+\]
+without explicitly mentioning that $x \neq x_0$ and $h \neq 0$.
+Note that the condition
+\[
+	f'(x_0) = \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}
+\]
+can be rewritten as
+\[
+	\lim_{x \to x_0} \frac{f(x) - f(x_0) - f'(x_0)(x - x_0)}{x - x_0} = 0,
+\]
+or equivalently, using the little-$o$ notation from Definition \ref{def*lil_o},
+\begin{equation}
+	\label{eq:derivative_lil_o}
+	f(x) - f(x_0) - f'(x_0)(x - x_0) = o(x - x_0).
+\end{equation}
+
+\begin{remark}
+	\label{rmk:diff_imp_cont}
+	If $f:D \to \mathbb{R}$ is differentiable at $x_0$, then $f$ is also continuous at $x_0$. Indeed, using Equation \ref{eq:derivative_lil_o},
+	\[
+		\lim_{x \to x_0} f(x) = \lim_{x \to x_0} (f(x_0) + f'(x_0)(x - x_0) + o(x - x_0)) = f(x_0),
+	\]
+	hence $f$ is continuous at $x_0$.
+\end{remark}
+
+An alternative notation for the derivative of $f$ is $\frac{df}{dx}$. If $x_0 \in D$ is a right accumulation point of $D$, then $f$ is \textbf{differentiable from the right} at $x_0$ if the \textbf{right derivative}
+\[
+	f'_{+}(x_0) = \lim_{x \to x_0^{+}} \frac{f(x) - f(x_0)}{x - x_0} = \lim_{h \to 0^{+}} \frac{f(x_0 + h) - f(x_0)}{h}
+\]
+exists. \textbf{Differentiablility from the left} and the \textbf{left derivative} $f'_{-}(x_0)$ are defined analogously using the limit $x \to x_0^{-}$.
+
+If $f:D \to \mathbb{R}$ is differentiable at $x_0 \in D$, the function $x \mapsto f(x_0) + f'(x_0)(x - x_0)$ is called the \textbf{affine approximation} of $f$ at $x_0$.
+
+\begin{definition}{Higher Derivatives}{high_derivatives}
+	Let $f:D \to \mathbb{R}$ be a function. We define the \textbf{higher derivatives} of $f$, if they exist, by
+	\[
+		f^{(0)} = f, \qquad f^{(1)} = f', \qquad f^{(2)} = f'',\; \hdots \;, f^{(n+1)} = (f^{(n)})'
+	\]
+	for all $n \in \mathbb{N}$. If $f^{(n)}$ exists, we say that $f$ is $n$\textbf{-times differentiable}. If the $n$-th derivative is also continuous, we say that $f$ is $n$\textbf{-times continuously differentiable}. We denote the set of $n$-times continuously differentiable functions on $D$ by $C^n(D)$.
+\end{definition}
+
+Equivalently, $C^0(D)$ is the set of real-valued continuous function on $D$, and $C^1(D)$ is the set of all differentiable functions  whose derivative is continuous (these are called \textbf{continuously differentiable} or of \textbf{class} $C^1$). Recursively, for $n \geq 1$, we define
+\[
+	C^n(D) = \{f:D \to \mathbb{R} \;|\; f \text{ is differentiable and } f' \in C^{n - 1}(D)\},
+\]
+and we say that $f \in C^{n}(D)$ is of \textbf{class} $C^n$.
+
+\begin{definition}{Smooth Functions}{smooth_func}
+	We define
+	\[
+		C^{\infty}(D) = \bigcap_{n = 0}^{\infty} C^n(D) = \{f:D \to \mathbb{R} \;|\; f \text{ is differentiable infinitely many times}\},
+	\]
+	and call functions $f \in C^{\infty}(D)$ \textbf{smooth} or of \textbf{class} $C^{\infty}$.
+\end{definition}
+
+The exponential function $\exp: \mathbb{R} \to \mathbb{R}$ is smooth.
+
+\subsubsection{Differentiation Rules}
+As with continuous functions, we rarely reprove differentiability from first principles for each new example. Instead, we use general rules that reduce differentiability of compound expressions to that of simpler ones.
+
+\begin{proposition}{Derivative of Sum and Product}{derivative_sum_prod}
+	Let $D \subseteq \mathbb{R}$ and $x_0 \in D$ be an accumulation point of $D \setminus \{x_0\}$. Let $f, g:D \to \mathbb{R}$ be differentiable at $x_0$. Then $f + g$ and $f \cdot g$ are differentiable at $x_0$, and
+	\begin{subequations}
+		\begin{align}
+			\label{eq:sum_rule}
+			(f + g)'(x_0) &= f'(x_0) + g'(x_0),\\
+			\label{eq:prod_rule}
+			(f \cdot g)'(x_0) &= f'(x_0)g(x_0) + f(x_0)g'(x_0).
+		\end{align}
+	\end{subequations}
+	In particular, for any $\alpha \in \mathbb{R}$, the scalar multiple $\alpha f$ is differentiable at $x_0$ and $(\alpha f)'(x_0) = \alpha f'(x_0)$.
+\end{proposition}
+
+\begin{proof}
+	Using the properties of limit discussed in Section \ref{sec:lim_vicinity_pt}, we have
+	\begin{align*}
+		\lim_{x \to x_0} \frac{(f + g)(x) - (f + g)(x_0)}{x - x_0} &= \lim_{x \to x_0} \left(\frac{f(x) - f(x_0)}{x - x_0} + \frac{g(x) g(x_0)}{x -x_0}\right)\\
+		&=\lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0} + \lim_{x \to x_0} \frac{g(x) - g(x_0)}{x - x_0}\\
+		&= f'(x_0) + g'(x_0),
+	\end{align*}
+	and
+	\begin{align*}
+		\lim_{x \to x_0} \frac{(fg)(x) - (fg)(x_0)}{x - x_0} &= \lim_{x \to x_0} \frac{(f(x) - f(x_0))g(x) + f(x_0)(g(x) - g(x_0)) }{x - x_0}\\
+		&= \lim_{x \to x_0} \left(\frac{f(x) - f(x_0)}{x - x_0} g(x)\right) + f(x_0)\, \lim_{x \to x_0} \frac{g(x) - g(x_0)}{x - x_0}\\
+		&= \lim_{x \to x_0} \left(\frac{f(x) - f(x_0)}{x - x_0}\right) \cdot \left( \lim_{x \to x_0} g(x) \right) + f(x_0)\, \lim_{x \to x_0} \frac{g(x) - g(x_0)}{x - x_0}\\
+		&=
+		f'(x_0)g(x_0) + f(x_0)g'(x_0),
+	\end{align*}
+	where we used that $g$ is continuous at $x_0$ (see Remark \ref{rmk:diff_imp_cont}) to conclude $\lim_{x \to x_0} g(x) = g(x_0)$. \qedhere
+\end{proof}
+
+\begin{corollary}{Higher Order Derivatives of the Sum and Product}{higher_derivative_prod}
+	Let $f,g:D \to \mathbb{R}$ be $n$-times differentiable. Then $f + g$ and $f \cdot g$ are also $n$-times differentiable, and 
+	\begin{align*}
+		(f + g)^{(n)} &= f^{(n)} + g^{(n)},\\
+		(fg)^{(n)} &= \sum_{k = 0}^{n} \binom{n}{k} f^{(k)} g^{(n - k)}.
+	\end{align*}
+	In particular, for every $\alpha \in \mathbb{R}$, $(\alpha f)^{(n)} = \alpha f^{(n)}$.
+\end{corollary}
+
+\begin{proof}
+	For $n = 1$ this is Proposition \ref{prop*derivative_sum_prod}. The general case for $n \geq 1$ follows by induction. \qedhere
+\end{proof}
+
+\begin{corollary}{Derivatives of Polynomials}{derivative_poly}
+	Polynomial functions are differentiable on all of $\mathbb{R}$. Moreover $(1)' = 0$ and $(x^n)' = nx^{n-1}$ for all $n \geq 1$.
+\end{corollary}
+
+\begin{proof}
+	We argue by induction. For $n = 0$, we have
+	\[
+		(1)' = \lim_{x \to x_0} = \frac{1 - 1}{x - x_0} = 0.
+	\]
+	For $n = 1$, we have
+	\[
+		(x)' = \lim_{x \to x_0} \frac{x - x_0}{x - x_0} = 1.
+	\]
+	
+	For $n > 1$, assume $(x^n)' = nx^{n-1}$. Then by Equation \ref{eq:prod_rule}, since $x^{n+1} = x\cdot x^n$, we have
+	\[
+		(x^{n+1})' = (x \cdot x^n)' = 1 \cdot x^n + x \cdot n x^{n-1} = (n + 1)x^n.
+	\]
+	This proves the inductive step and establishes the result. Finally, the linearity of the derivative (see Equation \ref{eq:sum_rule}) yields the differentiability of any polynomial. \qedhere
+\end{proof}
+
+\subsubsection*{Example}
+With $\alpha = \pm 1$ and $\alpha = \pm i$, we have
+\[
+	(e^x)' = e^x, \qquad (e^{-x})' = -e^{-x}, \qquad (e^{ix})' = ie^{ix}, \qquad (e^{-ix})' = -ie^{-ix}.
+\]
+By Theorem \ref{theo*cmplx_exp_sin_cos}, we have
+\[
+	\sin'(x) = \frac{(e^{ix})' - (e^{-ix})'}{2i} = \frac{e^{ix} + e^{ix}}{2} = \cos(x),
+\]
+and analogously, $\cos'(x) = -\sin(x)$. Similarly $\sinh'(x) = \cosh(x)$ and $\cosh'(x) = \sinh(x)$.
+
+\begin{theorem}{Chain Rule}{chain_rule}
+	Let $D, E \subseteq \mathbb{R}$ and let $x_0 \in D$ be an accumulation point of $D \setminus \{x_0\}$. Let $f: D \to E$ be differentiable at $x_0$ such that $y_0 = f(x_0)$ is an accumulation point of $E \setminus \{y_0\}$, and let $g:E \to \mathbb{R}$ be differentiable at $y_0$. Then $g \circ f:D \to \mathbb{R}$ is differentiable at $x_0$ and 
+	\[
+		(g \circ f)'(x_0) = g'(f(x_0))f'(x_0).
+	\]
+\end{theorem}
+
+\begin{proof}
+	Observer that we can write
+	\begin{align*}
+		g(y) &= g(y_0) [g(y) - g(y_0)]\\
+		&= g(y_0) + g'(y_0)(y - y_0) + [g(y) - g(y_0) - g'(y_0)(y - y_0)]\\
+		&= g(y_0) + g'(y_0)(y - y_0) + \omega(y)(y - y_0),
+	\end{align*}
+	where $\omega: E \to \mathbb{R}$ is defined as
+	\[
+		\omega(y) = \begin{cases}
+			\dfrac{g(y) - g(y_0)}{y - y_0} - g'(y_0) \qquad &\text{for }y \in E \setminus \{y_0\},\\
+			0 \qquad &\text{for } y = y_0.
+		\end{cases}
+	\]
+	Since $g$ is continuous at $y_0$, it follows that $\omega(y) \to 0$ as $y \to y_0$; hence, the function $\omega$ is continuous at $y_0$. Substituting $y = f(x)$ and using $y_0 = f(x_0)$, we get
+	\[
+		g(f(x)) = g(f(x_0)) + g'(f(x_0))[f(x) - f(x_0)] + \omega(f(x))[f(x) - f(x_0)],
+	\]
+	therefore
+	\begin{align*}
+		 \lim_{x \to x_0} \frac{g(g(x)) - g(f(x_0))}{x - x_0} &= \lim_{x \to x_0} \bigg( g'(f(x_0))\frac{f(x) - f(x_0)}{x - x_0} + \omega(f(x)) \frac{f(x) - f(x_0)}{x - x_0} \bigg)\\
+		 &= g'(f(x_0)) f'(x_0) + \underbrace{\omega(f(x_0))}_{= 0} f'(x_0) = g'(f(x_0)) f'(x_0),
+	\end{align*}
+	where we used the continuity of $\omega$ at $y_0 = f(x_0)$ to deduce that $\omega(f(x)) \to \omega(f(x_0))$ as $x \to x_0$. \qedhere
+\end{proof}
+
+\begin{corollary}{Quotient Rule}{quot_rule}
+	Let $D \subseteq \mathbb{R}$. let $x_0$ be an accumulation point of $D \setminus \{x_0\}$, and let $f,g:D \to \mathbb{R}$ be differentiable at $x_0$. If $g(x_0) \neq 0$, then $\frac{f}{g}$ is differentiable at $x_0$, and
+	\[
+		\left(\frac{f}{g}\right)'(x_0) = \frac{f'(x_0)g(x_0) - f(x_0)g'(x_0)}{g(x_0)^2}.
+	\]
+\end{corollary}
+
+\begin{proof}
+	Consider the function $\psi: \mathbb{R} \setminus \{0\} \to \mathbb{R}$ given by $\psi(y) = \frac{1}{y}$. This function is differentiable, with $\phi'(y) = -\frac{1}{y^2}$. Then, by the chain rule (Theorem \ref{theo*chain_rule}), $\frac{1}{g} = \psi \circ g$ is differentiable at $x_0$, with
+	\[
+		\bigg( \frac{1}{g}\bigg)'(x_0) = \psi'(g(x_0)) g'(x_0) = -\frac{g'(x_0)}{g(x_0)^2}.
+	\]
+	Applying now the product rule (Proposition \ref{prop*derivative_sum_prod}), $\frac{f}{g} = f \cdot \frac{1}{g}$ is differentiable at $x_0$, and
+	\[
+		\left(\frac{f}{g}\right)'(x_0) = \left(f \cdot \frac{1}{g}\right)'(x_0) = f'(x_0)\frac{1}{g(x_0)} - f(x_0) \frac{g'(x_0)}{g(x_0)^2} = \frac{f'(x_0)g(x_0) - f(x_0)g'(x_0)}{g^(x_0^2)}. \qedhere 
+	\]
+\end{proof}
+
+\begin{theorem}{Derivative of the Inverse}{derivative_inv}
+	Let $D, E \subseteq\mathbb{R}$, and let $f:D \to E$ be a continuous bijection whose inverse $f^{-1}:E \to D$ is also continuous. Let $\bar{x} \in D$ be an accumulation point of $D \setminus \{\bar{x}\}$, and assume $f$ is differentiable at $\bar{x}$ with $f'(\bar{x}) \neq 0$. Then $f^{-1}$ is differentiable at $\bar{y} = f(\bar{x})$ and
+	\[
+		(f^{-1})'(\bar{y}) = \frac{1}{f'(\bar{x})} = \frac{1}{f'(f^{-1}(\bar{y}))}.
+	\] 
+\end{theorem}
+
+\begin{proof}
+	To compute $(f^{-1})'(\bar{y})$, take a sequence $(y_n)_{n=0}^{\infty} \subseteq E \setminus \{\bar{y}\}$ with $y_n \to \bar{y}$ and set $x_n = f^{-1}(y_n)$. Then
+	\[
+		\frac{f^{-1}(y_n) - f^{-1}(\bar{y})}{y_n - \bar{y}} = \frac{x_n - \bar{x}}{f(x_n) - f(\bar{x})} = \left(\frac{f(x_n) - f(\bar{x})}{x_n - \bar{x}}\right)^{-1}.
+	\]
+	By the continuity of $f^{-1}$ we have $f^{-1}(y_n) = x_n \to \bar{x} = f^{-1}(\bar{y})$ as $y_n \to \bar{y}$. Thus, since $f$ is differentiable at $\bar{x}$ with $f'(\bar{x}) \neq 0$, Proposition \ref{prop*lim_op}(4) implies
+	\[
+		\left(\frac{f(x_n) - f(\bar{x})}{x_n - \bar{x}}\right)^{-1} \longrightarrow \frac{1}{f'(\bar{x})},
+	\]
+	proving that
+	\[
+		\lim_{n \to \infty} \frac{f^{-1}(y_n) - f^{-1}(\bar{y})}{y_n - \bar{y}} = \frac{1}{f'(\bar{x})}.
+	\]
+	Since the sequence $(y_n)_{n=0}^{\infty}$ was arbitrary, Lemma \ref{lem*lim_and_seq} gives
+	\[
+		\lim_{y \to \bar{y}} \frac{f^{-1}(y) - f^{-1}(\bar{y})}{y - \bar{y}} = \frac{1}{f'(\bar{x})},
+	\]
+	as desired. \qedhere
+\end{proof}
+
+\subsection{Main Theorems of Differential Calculus}
+
+\subsubsection{Local Extrema}
+
+\begin{definition}{Local Extrema}{local_extrema}
+	Let $D \subseteq \mathbb{R}$ and $x_0 \in D$. We say that a function $f:D \to \mathbb{R}$ has a \textbf{local maximum} at $x_0$, if there exists $\delta > 0$ such that
+	\[
+		f(x) \leq f(x_0) \qquad \forall x \in D \cap (x_0 - \delta, x_0 + \delta).
+	\]
+	If the inequality is strict (i.e. $f(x) < f(x_0)$ for all $x \in (x_0 - \delta, x_0 + \delta) \setminus \{x_0\}$), then $f$ has a \textbf{strict local maximum} at $x_0$. A (\textbf{strict}) \textbf{local minimum} is defined analogously. We call $x_0$ a \textbf{local extremum} if $f$ has either a local maximum or a local minimum at $x_0$.
+\end{definition}
+
+\begin{proposition}{Local Extrema vs. First Derivative}{local_extrema_deriv}
+	Let $D \subseteq \mathbb{R}$ and $f:D \to \mathbb{R}$. Suppose $x_0 \in D$ is a local extremum of $f$, that $f$ is differentiable at $x_0$ and that $x_0$ is both a right-hand and a left-hand accumulation point of $D$. Then
+	\[
+		f'(x_0) = 0.
+	\]
+\end{proposition}
+
+\begin{proof}
+	W.l.o.g, assume that $f$ has a local maximum at $x_0$ (otherwise replace $f$ by $-f$). We first note that for $x$ close to $x_0$ and to the right of it, we have $f(x) - f(x_0) \leq 0$ and $x - x_0 > 0$. Hence,
+	\[
+		f'_{+}(x_0) = \lim_{x \to 0^+} \frac{f(x) - f(x_0)}{x - x_0} \leq 0.
+	\]
+	Similarly for $x$ close to $x_0$ and to the left of it, we have $f(x) - f(x_0) \leq 0$ and $x - x_0 < 0$, so
+	\[
+		f'_{-}(x_0) = \lim_{x \to x_0^-} \frac{f(x) - f(x_0)}{x - x_0} \geq 0.
+	\]
+	Since $f$ is differentiable at $x_0$, the two one sided derivatives coincide, i.e.,
+	\[
+		 f'(x_0) = f'_{+}(x_0) = f'_{-}(x_0) = 0,
+	\]
+	and therefore $f'(x_0) = 0$. \qedhere
+\end{proof}
+
+\begin{corollary}{Local Extrema in an Inteval}{local_extrema_inteval}
+	Let $I \subseteq \mathbb{R}$ be an interval and $f:I \to \mathbb{R}$. If $x_0 \in I$ is a local extrema, then at least one of the following statements holds:
+	\begin{enumerate}
+		\item $x_0$ is an endpoint of $I$,
+		\item $f$ is not differentiable at $x_0$,
+		\item $f$ is differentiable at $x_0$ and $f'(x_0) = 0$.
+	\end{enumerate}
+	In particular, all local extrema of a differentiable function on an open interval are zeros of the derivative.
+\end{corollary}
+
+\subsubsection{The Mean Value Theorem}
+
+\begin{theorem}{Rolle's Theorem}{rolle_theo}
+	Let $f:[a,b] \to \mathbb{R}$ be continuous on $[a,b]$ and differentiable on $(a,b)$. If $f(a) = f(b)$, then there exists $\xi \in (a,b)$ with $f'(\xi) = 0$.
+\end{theorem}
+
+\begin{proof}
+	By Theorem \ref{theo*extreme_val_theo} $f$ attains both its maximum and minimum on $[a,b]$ at some points $x_0, x_1 \in [a,b]$. By Proposition \ref{prop*local_extrema_deriv} any interior extremum has zero derivative. Thus, we consider two cases:
+	\begin{enumerate}
+		\item[(i)] If either $x_0$ or $x_1$ lies in $(a,b)$ we are done.
+		\item[(ii)] If both $x_0$ and $x_1$ are endpoints, since $f(a) = f(b)$, then $\min f = \max f = f(a) = f(b)$, therefore $f$ is constant. In particular, $f'(x) = 0$ for all $x \in (a,b)$ and the result follows also in this case. \qedhere
+	\end{enumerate}
+\end{proof}
+
+\begin{corollary}{Non-Vanishing Derivative Implies Different Endpoint Values}{non_zero_deriv}
+	Let $f:[a,b] \to \mathbb{R}$ be continuous on $[a,b]$ and differentiable on $(a,b)$. If $f'(x) \neq 0$ for all $x \in (a,b)$, then $f(a) \neq f(b)$.
+\end{corollary}
+
+\begin{proof}
+	Assume, by contradiction, that $f(a) = f(b)$. Then by Rolle's Theorem, there would exists $\xi \in (a,b)$ such that $f'(\xi) = 0$, which would contradict the assumption that $f'$ never vanishes. \qedhere
+\end{proof}
+
+\begin{theorem}{Mean Value Theorem}{mean_val_theo}
+	Let $f:[a,b] \to \mathbb{R}$ be continuous on $[a,b]$ and differentiable on $(a,b)$. Then there exists $\xi \in (a,b)$ such that
+	\[
+		f'(\xi) = \frac{f(b) - f(a)}{b - a}.
+	\]
+\end{theorem}
+
+\begin{proof}
+	Define $g:[a,b] \to \mathbb{R}$ by
+	\[
+		g(x) = f(x) - \frac{f(b) - f(a)}{b - a} (x - a).
+	\]
+	Then $g$ is continuous on $[a,b]$ and differentiable on $(a,b)$, and satisfies
+	\[
+		g(a) = f(a), \qquad g(b) = f(b) - (f(b) - f(a)) = f(a).
+	\]
+	By Rolle's Theorem \ref{theo*rolle_theo}, there exists $\xi \in (a,b)$ such that
+	\[
+		0 = g'(\xi) = f'(\xi) - \frac{f(b) - f(a)}{b - a},
+	\]
+	proving the result. \qedhere
+\end{proof}
+
+\begin{corollary}{Lipschitz Continuity vs. Bounded Derivative}
+	Let $f:[a,b] \to \mathbb{R}$ be continuous on $[a,b]$ and differentiable on $(a,b)$. Then $f$ is Lipschitz continuous on $[a,b]$ if and only if $ f'$ is bounded on $(a,b)$.
+\end{corollary}
+
+\begin{proof}
+	Suppose first that $f$ is Lipschitz continuous on $[a,b]$ with constant $L$. This implies that given $x, x_0 \in (a,b)$ with $x \neq x_0$,
+	\[
+		\left|\frac{f(x) - f(x_0)}{x - x_0}\right| \leq L.
+	\]
+	Taking the limit as $x \to x_0$ gives $|f'(x_0)| \leq L$, so $f'$ is bounded on $(a,b)$.
+	
+	Conversely, suppose that $f'$ is bounded on $(a,b)$, say $f'(z) \leq M$ for all $z \in (a,b)$. Then given $x, y \in [a,b]$ with $x < y$, the Mean Value Theorem \ref{theo*mean_val_theo} applied on the interval $[x, y]$ yields $\xi \in (x,y) \subseteq (a,b)$ such that
+	\[
+		f(y) - f(x) = f'(\xi)(y - x),
+	\]
+	therefore
+	\[
+		|f(y) - f(x)| = |f'(\xi)| |y - x| \leq M |y - x|.
+	\]
+	Since $x, y \in [a,b]$ are arbitrary, this shows that $f$ is Lipschitz continuous on $[a,b]$ with Lipschitz constant $M$. \qedhere
+\end{proof}
+
+\begin{theorem}{Cauchy Mean Value Theroem}{cauchy_mean_val}
+	Let $f, g: [a,b] \to \mathbb{R}$ be continuous on $[a,b]$ and differentiable on $(a,b)$. Then there exists $\xi \in (a,b)$ such that
+	\begin{equation}
+		\label{eq:cauchy_mean_val}
+		g'(\xi)(f(b) - f(a)) = f'(\xi)(g(b) - g(a)).
+	\end{equation}
+	If, in addition $g'(x) \neq 0$ for all $x \in (a,b)$, then $g(a) \neq g(b)$ and
+	\[
+		\frac{f'(\xi)}{g'(\xi)} = \frac{f(b) - f(a)}{g(b) - g(a)}.
+	\]
+\end{theorem}
+
+\begin{proof}
+	Define the function $F:[a,b] \to \mathbb{R}$ as
+	\[
+		F(x) = g(x)(f(b) - f(a)) - f(x)(g(b) - g(a)).
+	\]
+	Then
+	\begin{align*}
+		F(a) &= g(a)(f(b) - f(a)) - f(a)(g(b) - g(a)) = g(a)f(b) - f(a)g(b)\\
+		F(b) &= g(b)(f(b) - f(a)) - f(b)(g(b) - g(a)) = g(a)f(b) - f(a)g(b).
+	\end{align*}
+	Thus, by Rolle's Theorem \ref{theo*rolle_theo}, there exists $\xi \in (a,b)$ such that
+	\[
+		F'(\xi) = 0 = g'(\xi)(f(b) - f(a)) - f'(\xi)(g(b) - g(a)),
+	\]
+	which is Equation \ref{eq:cauchy_mean_val}.
+	
+	If $g'(x) \neq 0$ for all $x \in (a,b)$, then Corollary \ref{cor*non_zero_deriv} yields $g(a) \neq g(b)$. Dividing Equation \ref{eq:cauchy_mean_val} accordingly gives the second formula. \qedhere
+\end{proof}
+
+\subsubsection{L'Hopital's Rule}
+\begin{theorem}{L'Hopital's Rule}{hopital}
+	Let $f, g: (a,b) \to \mathbb{R}$ be differentiable. Suppose:
+	\begin{enumerate}
+		\item $g(x) \neq 0$ and $g'(x) \neq 0$ for all $x \in (a,b)$,
+		\item $\lim_{x \to a^{+}} f(x) = \lim_{x \to a^{+}} g(x) = 0$,
+		\item the limit $L = \lim_{x \to a^{+}} \dfrac{f'(x)}{g'(x)}$ exists.
+	\end{enumerate}
+	Then $\lim_{x \to a^{+}} \dfrac{f(x)}{g(x)}$ exists and equals $L$.
+\end{theorem}
+
+\begin{proof}
+	By (2), we can extend $f$ and $g$ continuously to $[a, b)$ by setting $f(a) = g(a) = 0$. Fix $\varepsilon > 0$. By (3), there exists $\delta > 0$ such that
+	\[
+		\frac{f'(\xi)}{g'(\xi)} \in (L - \varepsilon, L + \varepsilon) \qquad \forall x \in (a, a + \delta).
+	\]
+	Now, for any $x \in (a, a + \delta)$, we can apply Cauchy's Mean Value Theorem \ref{theo*cauchy_mean_val} to $f$ and $g$ on $[a, x]$ to find some $\xi_x \in (a,x)$ with
+	\[
+		\frac{f(x)}{g(x)} = \frac{f(x) - f(a)}{g(x) - g(a)} = \frac{f'(\xi_x)}{g'(\xi_x)}.
+	\]
+	Since $\xi_x \in (a, x) \subseteq (a, a + \delta)$, it follows that
+	\[
+		\frac{f(x)}{g(x)} = \frac{f'(\xi_x)}{g'(\xi_x)} \in (L - \varepsilon, L + \varepsilon) \qquad \forall x \in (a, a + \delta).
+	\]
+	Because $\varepsilon > 0$ is arbitrary, this proves that $\lim_{x \to a^+} \dfrac{f(x)}{g(x)} = L$.
+\end{proof}
+
+\begin{theorem}{L'Hopital's Rule for Improper Limits}{hopital_improper_lim}
+	Let $f,g:(a,b) \to \mathbb{R}$ be differentiable. Suppose:
+	\begin{enumerate}
+		\item $g(x) \neq 0$ and $g'(x) \neq 0$ for all $x \in (a,b)$,
+		\item $\lim_{x \to a^+} |f(x)| = \lim_{x \to a^{+}} |g(x)| = \infty$,
+		\item the limit $L = \lim_{x \to a^{+}} \dfrac{f'(x)}{g'(x)}$ exists.
+	\end{enumerate}
+	Then $\lim_{x \to a^{+}} \dfrac{f(x)}{g(x)}$ exists and equals $L$.
+\end{theorem}
+
+\begin{theorem}{L'Hopital's Rule at Infinity}{hopital_infinity}
+	Let $R > 0$ and $f,g:(R, \infty) \to \mathbb{R}$ be differentiable. Suppose:
+	\begin{enumerate}
+		\item $g(x) \neq 0$ and $g'(x) \neq 0$ for all $x \in (R, \infty)$,
+		\item either $\lim_{x \to \infty} f(x) = \lim_{x \to \infty} g(x) = 0$ or $\lim_{x \to \infty} |f(x)| = \lim_{x \to \infty} |g(x)| = \infty$,
+		\item the limit $L = \lim_{x \to \infty} \dfrac{f'(x)}{g'(x)}$ exists.
+	\end{enumerate}
+	Then $\lim_{x \to \infty} \dfrac{f(x)}{g(x)}$ exists and equals $L$.
+\end{theorem}
+
+\subsubsection{Monotonicity and Convexity via Differential Calculus}
+Here $I$ always denotes a non-trivial interval (non-empty and not a single point).
+
+\begin{proposition}{Monotonicity vs. First Derivative}{mono_deriv}
+	Let $I \subseteq \mathbb{R}$ be an interval and let $f:I \to \mathbb{R}$ be differentiable. Then
+	\[
+		f' \geq 0 \quad \Leftrightarrow \quad f \text{ is increasing}.
+	\]
+\end{proposition}
+
+\begin{proof}
+	If $f$ is increasing $f(x + h) - f(x) \geq 0$ for $h > 0$, and $f(x + h) - f(x) \leq 0$ for $h < 0$. Hence, in both cases, $\frac{f(x+h) - f(x)}{h} \geq 0$, therefore
+	\[
+		f'(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h} \geq 0.
+	\]
+	Conversely, assume $f$ is not increasing. Then there exists $x_1 < x_2$ with $f(x_1) > f(x_2)$. By the Mean Value Theorem \ref{theo*mean_val_theo}, there exists $\xi \in (x_1, x_2)$ with
+	\[
+		f'(\xi) = \frac{f(x_2) - f(x_1)}{x_2 - x_1} < 0,
+	\]
+	so $f' \not \geq 0$ on $I$. \qedhere
+\end{proof}
+
+\begin{remark}
+	If $f' > 0$, the same argument shows that $f$ is strictly increasing. However, the converse fails: the function $f(x) = x^3$is strictly increasing but $f'(0) = 0$.
+\end{remark}
+
+\begin{corollary}{Constant Functions vs. First Derivative}{const_deriv}
+	Let $I \subseteq \mathbb{R}$ be an interval and $f:I \to \mathbb{R}$. Then $f$ is constant if and only if $f$ is differentiable and $f'(x) = 0$ for all $x \in I$.
+\end{corollary}
+
+\begin{proof}
+	The derivative of a constant function is 0.
+	
+	Conversely, if $f' = 0$, then $f' \geq 0$ and $-f' \geq 0$, so by Proposition \ref{prop*mono_deriv} both $f$ and $-f$ are increasing, hence $f$ is constant. \qedhere
+\end{proof}
+
+\begin{definition}{Convex Functions}{convex_func}
+	Let $I \subseteq \mathbb{R}$ and $f:I \to \mathbb{R}$. We call $f$ \textbf{convex}, if for all $a,b \in I$ with $a < b$ and all $t \in (0, 1)$, it holds that
+	\begin{equation}
+		\label{eq:convex_func}
+		f((1-t)a + tb) \leq (1-t)f(a) + tf(b).
+	\end{equation}
+	We call $f$ \textbf{strictly convex} if the inequality in \ref{eq:convex_func} is strict. A function $g:I \to \mathbb{R}$ is (\textbf{strictly}) \textbf{concave} if $-g$ is (strictly) convex.
+	
+	An equivalent definition of a convex function is the following: $f:I \to \mathbb{R}$ is convex if for all $a,b \in I$ with $a < b$ and all $x \in (a,b)$, we have
+	\begin{equation}
+		\label{eq:convex_func_2}
+		\frac{f(x) - f(a)}{x - a} \leq \frac{f(b) - f(x)}{b - x},
+	\end{equation}
+	and strictly convex if the inequality is strict.
+\end{definition}
+
+\begin{proposition}{Convexity vs. Monotonicity of the First Derivative}{convex_deriv}
+	Let $I \subseteq \mathbb{R}$ and let $f:I \to \mathbb{R}$ be differentiable. Then $f$ is convex if and only if $f'$ is increasing.
+\end{proposition}
+
+\begin{proof}
+	Assume $f'$ is increasing. Then, for $a < b$ and $x \in (a, b)$, the Mean Value Theorem \ref{theo*mean_val_theo} applied on the intervals $[a, x]$ and $[x, b]$ yields $\xi \in (a, x)$ and $\zeta \in (x, b)$ such that
+	\[
+		f'(\xi) = \frac{f(x) - f(a)}{x - a}, \qquad f'(\zeta) = \frac{f(b) - f(x)}{b - x}.
+	\]
+	Since $f'$ is increasing, we have $f'(\xi) \leq f'(\zeta)$, so Equation \ref{eq:convex_func_2} follows. Since $a < b \in I$ and $x \in (a, b)$ are arbitrary, $f$ is convex.
+	
+	Conversely, assume $f$ is convex. Given $a < b$, consider $h > 0$ small enough, such that $a + h < b - h$ and apply Equation \ref{eq:convex_func_2} twice: first, applying it on the interval $(a, b - h)$ with $x = a + h$ we get
+	\[
+		\frac{f(a + h) - f(a)}{h} \leq \frac{f(b - h) - f(a + h)}{(b- h) - (a + h)};
+	\]
+	then, applying it on the interval $(a + h, b)$ with $x = b - h$ we get
+	\[
+		\frac{f(b - h) - f(a + h)}{(b - h) - (a + h)} \leq \frac{f(b) - f(b - h)}{h}.
+	\]
+	Combining these two inequalities, we deduce that, for small $h > 0$,
+	\[
+		\frac{f(a + h) - f(a)}{h} \leq \frac{f(b) - f(b - h)}{h}.
+	\]
+	Letting $h \to 0^+$ gives $f'(a) \leq f'(b)$. Since $a < b$ are arbitrary, $f'$ is increasing. \qedhere
+\end{proof}
+
+\begin{corollary}{Convexity vs. Second Derivative}{convex_second_deriv}
+	Let $I \subseteq \mathbb{R}$ and let $f:I \to \mathbb{R}$ be twice differentiable. Then $f$ is convex if and only if $f'' \geq 0$.
+\end{corollary}
+
+\begin{proof}
+	By Proposition \ref{prop*convex_deriv} $f$ is convex if and only if $f'$ is increasing. Applying Proposition \ref{prop*mono_deriv} to $f'$, we have that $f'$ is increasing if and only if $f'' \geq 0$. \qedhere
+\end{proof}
+
+
+
+

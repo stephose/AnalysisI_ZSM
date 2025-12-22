@@ -607,3 +607,152 @@ Addition and multiplication are defined as in the real case.
 \end{theorem}
 
 \subsection{Exponential and Trigonometric Functions}
+
+\subsubsection{The Exponential Map as a Power Series}
+We now show that the exponential map can also be defined via the \textbf{exponential series}
+\begin{equation}
+	\label{eq:exp}
+	\exp(x) = e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!}.
+\end{equation}
+Since $\frac{n!}{(n+1)!} = \frac{1}{(n+1)} \to 0$ as $n \to \infty$, it follows directly from the quotient criterion that this series has infinite radius of convergence. Hence, Theorem \ref{theo*cont_pwr_series} implies that the right-hand side of Equation \ref{eq:exp} defines a continuous function on $\mathbb{R}$.
+
+\begin{proposition}{Exponential Map as a Power Series}{exp_pwr_series}
+	For every $x \in \mathbb{R}$,
+	\[
+		\sum_{k=0}^{\infty} \frac{x^k}{k!} = \lim_{n \to \infty} \left(1 + \frac{x}{n}\right)^n.
+	\]
+\end{proposition}
+
+\begin{definition}{The Complex Exponential Map}{cmplx_exp}
+	The \textbf{complex exponential map} is the function $\exp:\mathbb{C} \to \mathbb{C}$ defined by
+	\[
+		\exp(z) = e^z = \sum_{n=0}^{\infty} \frac{z^n}{n!}, \qquad z \in \mathbb{C}.
+	\]
+\end{definition}
+
+\begin{theorem}{Properties of the Complex Exponential}{prop_cmplx_exp}
+	The complex exponential map $\exp: \mathbb{C} \to \mathbb{C}$ is continuous, and for all $z, w \in \mathbb{C}$,
+	\[
+		e^{z + w} = e^z e^w, \quad |e^z| = e^{\operatorname{Re}(z)}.
+	\]
+	In particular, $|e^{ix}| = 1$ for all $x \in \mathbb{R}$.
+\end{theorem}
+
+\subsubsection{Sine and Cosine}
+Given $x \in \mathbb{R}$, we split the power series of $e^{ix}$ into its even and odd terms, i.e.,
+\[
+	e^{ix} = \sum_{n=0}^{\infty} \frac{i^n}{n!}x^n = \sum_{n = 0}^{\infty} \frac{i^{2n}}{(2n)!} x^{2n} + \sum_{n=0}^{\infty} \frac{i^{2n+1}}{(2n+1)!}x^{2n+1}.
+\]
+Since $i^{2n} = (-1)^n$ and $i^{2n+1} = i (-1)^n$, we obtain
+\[
+	e^{ix} = \sum_{n=0}^{\infty} \frac{(-1)^n}{(2n)!}x^{2n} + i \sum_{n=0}^{\infty} \frac{(-1)^{n}}{(2n + 1)!} x^{2n+1}.
+\]
+This motivates the following definition of the \textbf{sine} and \textbf{cosine functions}, i.e.,
+\begin{equation}
+	\label{eq:sin_cos}
+	\sin(x) := \sum_{n=0}^{\infty} \frac{(-1)^n}{(2n + 1)!}x^{2n+1}, \qquad \cos(x) := \sum_{n=0}^{\infty} \frac{(-1)^n}{(2n)!}x^{2n},
+\end{equation}
+so that the identity
+\[
+	e^{ix} = \cos(x) + i\sin(x)
+\]
+holds for all $x \in \mathbb{R}$.
+
+As for the exponential series, radius of convergence of the power series in Equation \ref{eq:sin_cos} is infinite. Therefore, by Theorems \ref{theo*conv_pwr_series} and \ref{theo*cont_pwr_series}, $\sin$ and $\cos$ are continuous on $\mathbb{R}$.
+
+Since $(-x)^{2n+1} = -x^{2n+1}$ and $(-x)^{2n} = x^{2n}$ for all $n \in \mathbb{N}$, it follows directly from Equation \ref{eq:sin_cos} that
+\begin{align*}
+	\sin(-x) &= -\sin(x) \text{ $\sin$ is an \textbf{odd} function},\\
+	 \cos(-x) &= \cos(x) \text{ $\cos$ is an \textbf{even} function}.
+\end{align*}
+
+\begin{theorem}{From the Complex Exponential to Sine and Cosine}{cmplx_exp_sin_cos}
+	For all $x \in \mathbb{R}$, the relations
+	\[
+		e^{ix} = \cos(x) + i\sin(x), \qquad \sin(x) = \frac{e^{ix} - e^{-ix}}{2i}, \qquad \cos(x) = \frac{e^{ix} + e^{-ix}}{2} 
+	\]
+	hold. For all $x, y \in \mathbb{R}$ the trigonometric addition formulas are
+	\begin{align*}
+		\sin(x + y) &= \sin(x)\cos(y) + \cos(x)\sin(y),\\
+		 \cos(x + y) &= \cos(x)\cos(y) - \sin(x)\sin(y).
+	\end{align*}
+\end{theorem}
+
+\subsubsection{The Circle Number}
+\begin{theorem}{Existence of $\pi$ as the First Zero of Sine}{exist_pi_sin}
+	There exists exactly one number $\pi \in (0, 4)$ such that $\sin(\pi) = 0$.
+	For this number it holds that
+	\[
+		e^{i\frac{\pi}{2}} = i, \qquad e^{i\pi} = -1, \qquad e^{i2\pi} = 1.
+	\]
+\end{theorem}
+
+\begin{corollary}{Periodicity of Sine and Cosine}{period_sin_cos}
+	\begin{align*}
+		\sin(x + \frac{\pi}{2}) &= \cos(x), \qquad \cos(x + \frac{\pi}{2}) = -\sin(x)\\
+		\sin(x + \pi) &= -\sin(x), \qquad \cos(x + \pi) = -\cos(x),\\
+		\sin(x + 2\pi) &= \sin(x), \qquad \cos(x + 2\pi) = \cos(x).
+	\end{align*}
+\end{corollary}
+
+\subsubsection{Polar Coordinates and Multiplication of Complex Numbers}
+Using the complex exponential function, we can express complex numbers in \textbf{polar coordinates}, i.e., in the form
+\[
+	z = re^{i\theta} = r \cos(\theta) + ir \sin(\theta),
+\]
+where $r = |z|$ is the distance of $z$ from the origin, and $\theta$ is the angle between the positive real axis $\mathbb{R}_{\geq0}$ and the segment from 0 to $z$. In other words, if $z = x + iy$, then
+\[
+	x = r\cos(\theta), \qquad y = r\sin(\theta), \qquad r = \sqrt{x^2 + y^2}.
+\]
+If $z \neq 0$, the angle $\theta$ is uniquely determined and is called the \textbf{argument} of $z$, denoted $\theta = \arg(z)$. The set of all complex numbers with absolute value 1 is
+\[
+	\mathbb{S}^1 = \{z \in \mathbb{C} \;|\; |z| = 1\} = \{e^{i\theta} \;|\; \theta \in [0, 2\pi)\},
+\]
+and is called the \textbf{unit circle} in $\mathbb{C}$.
+
+\begin{proposition}{Existence of Polar Coordinates}{exist_polar_coord}
+	For every $z \in \mathbb{C} \setminus \{0\}$, there exists uniquely determined real numbers $r > 0$ and $\theta \in [0, 2\pi)$ such that $z = r e^{i\theta}$.
+\end{proposition}
+
+In polar coordinates, multiplication of complex numbers takes a simple geometric form: if $z = re^{i\varphi}$ and $w = se^{i\psi}$, then
+\[
+	zw = rse^{i(\varphi + \psi)}.
+\]
+Thus, when multiplying two complex numbers, their magnitudes multiply and their arguments add.
+
+\subsubsection{Other Trigonometric and Hyperbolic Functions}
+In addition to sine and cosine functions, several related \textbf{trigonometric functions} are defined.
+
+The \textbf{tangent} and \textbf{cotangent} functions are defined by
+\[
+	\tan(x) = \frac{\sin(x)}{\cos(x)}, \qquad \cot(x) = \frac{\cos(x)}{\sin(x)},
+\]
+for all $x \in \mathbb{R}$ such that the denominator are non-zero.
+
+The \textbf{hyperbolic sine} and \textbf{hyperbolic cosine} are defined by the power series
+\[
+	\sinh(x) = \sum_{n=0}^{\infty} \frac{x^{2n+1}}{(2n+1)!}, \qquad \cosh(x) = \sum_{n=0}^{\infty} \frac{x^{2n}}{(2n)!}.
+\]
+Equivalently,
+\[
+	\sinh(x) = \frac{e^{ix} - e^{-ix}}{2}, \qquad \cosh(x) = \frac{e^{ix} + e^{-ix}}{2},
+\]
+and hence $e^{x} = \sinh(x) + \cosh(x)$ for all $x \in \mathbb{R}$.
+
+The \textbf{hyperbolic tangent} and \textbf{hyperbolic cotangent} are defined by
+\[
+	\tanh(x) = \frac{\sinh(x)}{\cosh(x)} = \frac{e^{ix} - e^{-ix}}{e^{ix} + e^{-ix}}, \qquad \coth(x) = \frac{\cosh(x)}{\sinh(x)} = \frac{e^{ix} + e^{-ix}}{e^{ix} - e^{-ix}},
+\]
+where $\coth(x)$ is defined for all $x \in \mathbb{R}\setminus \{0\}$ (since $\sinh(x) \neq 0$ for all $x \neq 0$)
+
+The functions $\sinh$ and $\tanh$ are odd, while $\cosh$ is even. Also, they satisfy the addition formulas
+\begin{align*}
+	\sinh(x+y) &= \sinh(x)  \cosh(y) + \cosh(x) \sinh(y),\\
+	\cosh(x+y) &= \cosh(x) \cosh(y) + \sinh(x) \sinh(y),
+\end{align*}
+and the \textbf{hyperbolic identity}
+\[
+	\cosh^2(x) - \sinh^2(x) = 1 \qquad \forall x \in \mathbb{R}.
+\]
+
+
