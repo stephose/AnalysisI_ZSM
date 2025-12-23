@@ -339,6 +339,14 @@ Thus $\inf \mathcal{U}(f) = 1$, and taking $u \equiv 1$ gives $\inf \mathcal{U}(
 	\]
 \end{proof}
 
+\begin{remark}
+	\label{rmk:int_seperate}
+	Let $a < b < c$. A function $f:[a,c] \to \mathbb{R}$ is integrable if and only if $f|_{[a,b]}$ and $f|_{[b,c]}$ are integrable, and
+	\[
+		\int_{a}^{c} f \, dx = \int_{a}^{b} f|_{[a,b]} \, dx + \int_{b}^{c} f|_{[b,c]} \, dx.
+	\]
+\end{remark}
+
 \subsection{Integrability Theorems}
 
 \subsubsection{Integrability of Monotone Functions}

@@ -1,0 +1,83 @@
+%
+% (c) 2025 Autor, ETH Zürich
+%
+% !TEX root = main.tex
+% !TEX encoding = UTF-8
+%
+
+\section{The Derivative and the Riemann Integral}
+
+\subsection{The Fundamental Theorem of Calculus}
+Throughout this section we fix a compact interval $I \subseteq\mathbb{R}$ that is non-emtpy and contains more than one point. For brevity, we write \textit{integrable} for \textit{Riemann integrable}.
+
+\subsubsection{The Fundamental Theorem}
+\begin{definition}{Primitive Function}{primitive_func}
+	Let $I \subseteq \mathbb{R}$ be an interval and $f:I \to \mathbb{R}$ a function. Any differentiable function $F : I \to \mathbb{R}$ such that $F' = f$ is called a \textbf{primitive} (or \textbf{antiderivative}) of $f$.
+\end{definition}
+
+\begin{remark}
+	A primitive may not always exist.
+\end{remark}
+
+The next result is known as the \textbf{Fundamental Theorem of (Integral and Differential) Calculus}, going back to Leibniz, Newton and Barrow.
+
+\begin{theorem}{Fundamental Theorem of Calculus}{fund_thm_calc}
+	Let $f:[a,b] \to \mathbb{R}$ be continuous. Then:
+	\begin{enumerate}
+		\item[(i)] For every $C \in \mathbb{R}$, the function $F:[a,b] \to \mathbb{R}$ defined by
+		\begin{equation}
+			\label{eq:primitive}
+			F(x) = \int_{a}^{x} f(t) \, dt + C
+		\end{equation}
+		is a primitive of $f$.
+		\item[(ii)] Every primitive $F:[a,b] \to \mathbb{R}$ of $f$ has the form \ref{eq:primitive} for some constant $C$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	By Theorem \ref{theo*cont_func_int}, $f$ is integrable.
+	
+	Let $F$ be defined as in Equation \ref{eq:primitive}. To prove (i), we fix $x_0 \in [a,b]$ and we want to show that $F'(x_0) = f(x_0)$. To this aim, fix $\varepsilon > 0$. By continuity, there exists $\delta > 0$ such that
+	\begin{equation}
+		\label{eq:fund_cont}
+		z \in [a,b], \quad |z - x_0| < \delta \quad \Rightarrow \quad |f(z) - f(x_0)| < \varepsilon.
+	\end{equation}
+	Now, given $x \in (x_0, x_0 + \delta) \cap [a,b]$, it follows from Remark \ref{rmk:int_seperate} that
+	\begin{align*}
+		\left|\frac{F(x) - F(x_0)}{x - x_0} - f(x_0)\right| &= \left|\frac{1}{x - x_0} \bigg(\int_{a}^{x} f(t) \, dt - \int_{a}^{x_0} f(t) \, dt\bigg) - f(x_0)\right|\\
+		&= \left|\frac{1}{x- x_0} \int_{x_0}^{x} f(t) \, dt - f(x_0)\right|.
+	\end{align*}
+	Also,
+	\[
+		f(x_0) = f(x_0) \frac{1}{x - x_0} \int_{x_0}^{x} \, dt = \frac{1}{x - x_0} \int_{x_0}^{x} f(x_0) \, dt.
+ 	\]
+ 	Combining these two equations and using Theorem \ref{theo*triangle_ineq_int}, we get
+ 	\begin{align*}
+ 		\left|\frac{F(x) - F(x_0)}{x - x_0} - f(x_0)\right| &= \left|\frac{1}{x - x_0} \int_{x_0}^{x} f(t) \, dt - \frac{1}{x - x_0} \int_{x_0}^{x} f(x_0)\, dt\right|\\
+ 		&= \left|\frac{1}{x - x_0} \int_{x_0}^{x} (f(t) - f(x_0)) \, dt\right| \\
+ 		&\leq \frac{1}{x - x_0} \int_{x_0}^{x} |f(t) - f(x_0)| \, dt.
+ 	\end{align*}
+ 	Note now that, in the last integral, $t \in [x_0, x] \subseteq [x_0, x_0 + \delta) \cap [a,b]$. Hence, it follows form Equation \ref{eq:fund_cont} that $|f(t) - f(x_0)| < \varepsilon$, therefore
+ 	\[
+ 		\left|\frac{F(x) - F(x_0)}{x - x_0} - f(x_0)\right| < \frac{1}{x - x_0} \int_{x_0}^{x} \varepsilon \, dt = \varepsilon. 
+ 	\]
+ 	Similarly, if $x \in (x_0 - \delta, x_0) \cap [a,b]$, then
+ 	\[
+ 		\left|\frac{F(x) - F(x_0)}{x - x_0} - f(x_0)\right| = \left|\frac{1}{x_0 - x} \int_{x}^{x_0} (f(t) - f(x_0)) \, dt\right| \leq \frac{1}{x_0 - x} \int_{x}^{x_0} |f(t) - f(x_0)| \, dt < \varepsilon.
+ 	\]
+ 	In summary, we proved that
+ 	\[
+ 		x \in [a,b], \quad |x - x_0| < \delta \quad \Rightarrow \quad \left|\frac{F(x) - F(x_0)}{x - x_0} - f(x_0)\right| < \varepsilon,
+ 	\]
+ 	therefore
+ 	\[
+ 		F'(x_0) = \lim_{x \to x_0} \frac{F(x) - F(x_0)}{x - x_0} = f(x_0),
+ 	\]
+ 	as desired.
+ 	
+ 	We now prove (ii). Let $F$ be a primitive of $f$. Then, since $\left(\int_{a}^{x} f(t) \, dt\right)' = f(x)$ (by (i)), we have that
+ 	\[
+ 		\left(F(x) - \int_{a}^{x} f(t)\, dt\right)' = F'(x) - f(x) = f(x) - f(x) = 0 \qquad  \forall x \in (a,b).
+ 	\]
+ 	By Corollary \ref{cor*const_deriv}, this implies that $F(x) - \int_{a}^{x} f(t)\, dt$ is constant on $[a,b]$, concluding the proof of (ii). \qedhere
+\end{proof}
