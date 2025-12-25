@@ -81,3 +81,96 @@ The next result is known as the \textbf{Fundamental Theorem of (Integral and Dif
  	\]
  	By Corollary \ref{cor*const_deriv}, this implies that $F(x) - \int_{a}^{x} f(t)\, dt$ is constant on $[a,b]$, concluding the proof of (ii). \qedhere
 \end{proof}
+
+\begin{corollary}{Integral vs. Derivative}{int_vs_deriv}
+	If $F:[a,b] \to \mathbb{R}$ is continuously differentiable, then for all $x \in [a,b]$,
+	\[
+		F(x) = F(a) + \int_{a}^{x} F'(t)\, dt.
+	\]
+\end{corollary}
+
+\begin{proof}
+	Since $F$ is a primitive of $F'$, Theorem \ref{theo*fund_thm_calc} yields $F(x) = \int_{a}^{x} F'(t)\, dt + C$. Evaluating at $x = a$ gives $C = F(a)$. \qedhere
+\end{proof}
+
+\begin{corollary}{Riemann Integral and Primitives}{int_primitive}
+	If $f:[a,b] \to \mathbb{R}$ is continuous and $F$ is a primitive of $f$, then
+	\[
+		\int_{a}^{b} f(t)\, dt = F(b) - F(a).
+	\]
+\end{corollary}
+
+\begin{proof}
+	Apply Corollary \ref{cor*int_vs_deriv} with $F' = f$ and $x = b$. \qedhere
+\end{proof}
+
+\subsubsection{Integration by Parts and Substitution}
+Given a Function $h:[a,b] \to \mathbb{R}$, we use the notation $\big[h(x)\big]_a^b := h(b) - h(a)$.
+
+\begin{theorem}{Integration by Parts}{int_parts}
+	If $f,g:[a,b] \to \mathbb{R}$ are continuously differentiable, then
+	\[
+		\int_{a}^{b} f(x) g'(x) \, dx = \big[f(x)g(x)\big]_a^b - \int_{a}^{b} f'(x)g(x)\, dx.
+	\]
+\end{theorem}
+
+\begin{proof}
+	By Proposition \ref{prop*prod_rule}, $(fg)' = f'g + fg'$. Rearranging and integrating, thanks to Corollary $\ref{cor*int_primitive}$, we get
+	\[
+		\int_{a}^{b} fg'\, dx = \int_{a}^{b} (fg)'\, dx - \int_{a}^{b}f g'\, dx = \big[fg\big]_a^b - \int_{a}^{b} fg'\, dx. \qedhere
+	\]
+\end{proof}
+
+As a convention, for any $h:[a,b] \to \mathbb{R}$,
+\begin{equation}
+	\label{eq:convention_int}
+	\int_{b}^{a} h(x)\, dx = -\int_{a}^{b} h(x)\, dx.
+\end{equation}
+
+\begin{theorem}{Integration by Substitution, 1st Form}{int_sub1}
+	Let $I,J \subseteq \mathbb{R}$ be intervals, $f:I \to J$ be continuously differentiable, and $g:J \to \mathbb{R}$ be continuous. For any $[a,b] \subseteq I$,
+	\[
+		\int_{a}^{b} g(f(x))f'(x) \, dx = \int_{f(a)}^{f(b)} g(y) \, dy.
+	\]
+\end{theorem}
+
+\begin{proof}
+	Fix $y_0 \in J$ and set $G(y) = \int_{y_0}^{y} g(t)\, dt$. Since $G' = g$, by the chain rule (Theorem \ref{theo*chain_rule}) we get $(G \circ f)' = G'(f)f' = g(f)f'$. Integrating this identity and using Corollary \ref{cor*int_primitive} yields
+	\begin{align*}
+		\int_{a}^{b} g(f(x))f'(x)\, dx &= \int_{a}^{b} (G\circ f)'(x)\, dx = G(f(b)) - G(f(a))\\
+		&= \int_{y_0}^{f(b)} g(t)\, dt - \int_{y_0}^{f(a)} g(t)\, dt = \int_{f(a)}^{f(b)} g(t)\, dt.\qedhere
+	\end{align*}
+\end{proof}
+
+Before stating the nect result, we note the following: If $h:[a,b]\to \mathbb{R}$ is continuously differentiable with $h' \neq 0$, then $h'$ has constant sign on $[a,b]$, so $h$ is strictly monotone and invertible ; $h^{-1}$ is continuous by Theorem \ref{theo*inv_func_theo} and differentiable on $(h(a), h(b))$ by Theorem \ref{theo*derivative_inv}. Furthermore, since$(h^{-1})' = \frac{1}{h'\circ h^{-1}}$, also $(h^{-1})'$ is continuous.
+
+\begin{theorem}{Integration by Substitution, 2nd Form}{int_sub2}
+	Let $I,J \subseteq \mathbb{R}$ be intervals, $f:I \to J$ be $C^1$, and $g:J \to \mathbb{R}$ be continuous. Let $[a,b] \subseteq I$ and assume $f'(x) \neq 0$ on $[a,b]$. If $f^{-1}:[f(a), f(b)] \to \mathbb{R}$ denotes the inverse of $f|_{[a,b]}$, then
+	\[
+		\int_{a}^{b} g(f(x))\, dx = \int_{f(a)}^{f(b)} g(y)(f^{-1})'(y) \, dy.
+	\]
+\end{theorem}
+
+\begin{proof}
+	In order to apply Theorem \ref{theo*int_sub1}, we first observe that
+	\[
+		\int_{a}^{b} g(f(x))\, dx = \int_{a}^{b} \frac{g(f(x))}{f'(x)}f'(x)\, dx = \int_{a}^{b}\frac{g(f(x))}{f' \circ f^{-1}(f(x))}f'(x)\, dx.	
+	\]
+	So we can apply Theorem \ref{theo*int_sub1} with $\frac{g}{f' \circ f^{-1}}$ in place of $g$ to get
+	\[
+		\int_{a}^{b} g(f(x)) \, dx = \int_{f(a)}^{f(b)} \frac{g(y)}{f'(f^{-1}(y))}\, dy.
+	\]
+	Since $\frac{1}{f'\circ f^{-1}} = (f^{-1})'$, the result follows. \qedhere
+\end{proof}
+
+\subsubsection{Improper Integrals}
+A function $f:I \to \mathbb{R}$ is \textbf{locally integrable} if $f|_{[a,b]}$ is integrable for every compact interval $[a,b]\subseteq I$.
+
+\begin{definition}{Improper Integrals}{improper_int}
+	Let $I \subseteq \mathbb{R}$ be a non-empty interval and $f:I \to \mathbb{R}$ be locally integrable. Set $c = \inf I \in \mathbb{R}\cup \{-\infty\}$ and $d = \sup I \in \mathbb{R}\cup \{\infty\}$, and fix $x_0 \in I$. We define the \textbf{improper integral} of $f$ on $I$ by
+	\[
+		\int_{c}^{d} f(x)\, dx := \lim_{a \to c^+}\int_{a}^{x_0}f(x) \, dx + \lim_{b \to d^-} \int_{x_0}^{b} f(x)\, dx,
+	\]
+	whenever both limits exist and the sum is well-defined (we do not allow the indeterminate form $\infty - \infty$). Here the first limit is taken over $a \in I$ with $c < a < x_0$ (interpreting $a \to -\infty$ if $c = -\infty$) and the second over $b \in I$ with $x_0 < b < d$ (interpreting $b \to +\infty$ if $d = \infty$). If the value is finite we say the integral \textit{converges}; if it is $\pm \infty$ we say it \textit{diverges to} $\pm \infty$; otherwise, it \textit{does not converge}. When defined, the value is independent of the choice of $x_0$. 
+\end{definition}
+

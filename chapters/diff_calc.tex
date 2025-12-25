@@ -515,6 +515,81 @@ Here $I$ always denotes a non-trivial interval (non-empty and not a single point
 	By Proposition \ref{prop*convex_deriv} $f$ is convex if and only if $f'$ is increasing. Applying Proposition \ref{prop*mono_deriv} to $f'$, we have that $f'$ is increasing if and only if $f'' \geq 0$. \qedhere
 \end{proof}
 
+\subsection{Example: Differentiation of Trigonometric Functions}
+In this section we will list the derivatives of various trigonometric functions that can be looked up, when solving integrals, in order to find a certain primitive.
+\subsubsection{Sine and Arc Sine}
+The function $\sin:[-\frac{\pi}{2}, \frac{\pi}{2}] \to [-1, 1]$ satisfies
+\[
+	\sin'(x) = \cos(x), \qquad \cos'(x) = -\sin(x).
+\]
+Its inverse function $\arcsin:[-1, 1]\to [-\frac{\pi}{2}, \frac{\pi}{2}]$ has the derivative
+\[
+	\arcsin'(x) = \frac{1}{\cos(\arcsin(x))} = \frac{1}{\sqrt{1 - \sin^2(\arcsin(x))}} = \frac{1}{\sqrt{1 - x^2}},
+\]
+where we used the derivative of the inverse (Theorem \ref{theo*derivative_inv}) to calculate the above derivative.
+
+\subsubsection{Cosine and Arc Cosine}
+Similarly the function $\cos:[0, \pi] \to [-1, 1]$ has the inverse function $\arccos:[-1, 1] \to [0, \pi]$, which has the derivative
+\[
+	\arccos'(x) = \frac{1}{-\sin(\arccos(x))} = -\frac{1}{\sqrt{1 - \cos^2(\arccos(x))}} = -\frac{1}{\sqrt{1 - x^2}}.
+\]
+
+\subsubsection{Tangent and Arc Tangent}
+The function $\tan:(-\frac{\pi}{2}, \frac{\pi}{2}) \to \mathbb{R}$ has the derivative
+\[
+	\tan'(x) = \left(\frac{\sin(x)}{\cos(x)}\right)' = \frac{\cos(x)\cos(x) - \sin(x)(-\sin(x))}{\cos^2(x)} = \frac{1}{\cos^2(x)}.
+\]
+Its inverse function $\arctan:\mathbb{R} \to (-\frac{\pi}{2}, \frac{\pi}{2})$ has the derivative
+\[
+	\arctan'(x) = \frac{1}{\dfrac{1}{\cos^2(\arctan(x))}} = \cos^2(\arctan(x)).
+\]
+Since 
+\[
+	\tan^2(x) = \frac{\sin^2(x)}{\cos^2(x)} = \frac{1 - \cos^2(x)}{\cos^2(x)} = \frac{1}{\cos^2(x)} - 1,
+\]
+it follows that
+\[
+	\arctan'(x) = \cos^2(\arctan(x)) = \frac{1}{1 + \tan^2(\arctan(x))} = \frac{1}{1 + x^2}.
+\]
+
+The cotangent and its inverse behave similarly, i.e. 
+\[
+	\cot'(x) = \left(\frac{\cos(x)}{\sin(x)}\right)' = \frac{-\sin(x)\sin(x) - \cos(x)\cos(x)}{\sin^2(x)} = \frac{-1}{\sin^2(x)},
+\]
+and
+\[
+	\operatorname{arccot}'(x) = -\frac{1}{1 + x^2}.
+\]
+
+\subsubsection{Hyperbolic Functions}
+We now perform the analogous analysis for the hyperbolic trigonometric functions
+\[
+	\sinh(x) = \frac{e^x - e^{-x}}{2}, \qquad \cosh(x) = \frac{e^x + e^{-x}}{2}, \qquad \tanh(x) = \frac{\sinh(x)}{\cosh(x)}.
+\]
+The function $\sinh: \mathbb{R} \to \mathbb{R}$ is bijective and satisfies
+\[
+	\sinh'(x) = \cosh(x), \qquad \sinh''(x) = \sinh(x).
+\] 
+Its inverse $\operatorname{arsinh}:\mathbb{R} \to \mathbb{R}$ is called the inverse hyperbolic sine. Its derivative is given by
+\[
+	\operatorname{arsinh}'(x) = \frac{1}{\cosh(\operatorname{arsinh}(x))} = \frac{1}{\sqrt{1 + \sinh^2(\operatorname{arsinh}(x))}} = \frac{1}{\sqrt{1 + x^2}}.
+\]
+
+The hyperbolic cosine satisfies
+\[
+	\cosh'(x) = \sinh(x), \qquad \cosh''(x) = \cosh(x).
+\]
+Its inverse $\operatorname{arcosh}:[1,\infty] \to [0, \infty]$ has the derivative
+\[
+	\operatorname{arcosh}'(x) = \frac{1}{\sinh(\operatorname{arcosh}(x))} = \frac{1}{\sqrt{\cosh^2(\operatorname{arcosh}(x)) - 1}} = \frac{1}{\sqrt{x^2 - 1}}.
+\]
+
+The inverse hyperbolic tangent $\operatorname{artanh}:(-1, 1) \to \mathbb{R}$ has the derivative
+\[
+	\operatorname{artanh}'(x) = \frac{1}{1 - x^2}.
+\]
+
+Notice that the derivatives containing the inverse functions of either the tangent or hyperbolic tangent do not have a root in the denominator. One can memorize this by the sentence: ''You can't get tan under a roof''.
 
 
 
