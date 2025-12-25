@@ -194,7 +194,7 @@ The proof of this Theorem is extra material.
 	\]
 	and because $a_{2n+2} \to 0$, we deduce that $A = B$.
 	
-	Also, Equation \ref{eq:leibniz_crit_ineq} yields that $s_{2n+1} \leq A = B \leq s_{2n}$, which corresponds exactly to Equation \ref{eq:leibniz_crit}. \qedhere
+	Also, Equation \eqref{eq:leibniz_crit_ineq} yields that $s_{2n+1} \leq A = B \leq s_{2n}$, which corresponds exactly to Equation \eqref{eq:leibniz_crit}. \qedhere
 \end{proof}
 
 \subsubsection*{Example (Alternating Harmonic Series)} 
@@ -378,7 +378,7 @@ We now establish two classical criteria guaranteeing absolute convergence. In th
 	\[
 	\sum_{\underset{\varphi(\ell) > N}{0 \leq \ell \leq n}} a_{\varphi(\ell)} \longrightarrow \sum_{k=0}^{\infty} a_k \quad \text{as } n\to \infty,
 	\]
-	which proves the identity \ref{eq:reordered_series}. Applying the same reasoning to $\sum_{n=0}^{\infty} |a_n|$ shows that $\sum_{\ell = 0}^{\infty} |a_{\varphi(\ell)}| = \sum_{n=0}^{\infty} |a_n| < \infty$, hence $\sum_{\ell = 0}^{\infty} a_{\varphi(\ell)}$ is absolutely convergent.
+	which proves the identity \eqref{eq:reordered_series}. Applying the same reasoning to $\sum_{n=0}^{\infty} |a_n|$ shows that $\sum_{\ell = 0}^{\infty} |a_{\varphi(\ell)}| = \sum_{n=0}^{\infty} |a_n| < \infty$, hence $\sum_{\ell = 0}^{\infty} a_{\varphi(\ell)}$ is absolutely convergent.
 	\qedhere
 \end{proof}
 
@@ -424,7 +424,7 @@ We now establish two classical criteria guaranteeing absolute convergence. In th
 		\sum_{k=0}^{\infty} a_{\alpha_1(k)} b_{\alpha_2(k)} &= \lim_{n \to \infty} \sum_{k=0}^{n^2 - 1} a_{\alpha_1(k)} b_{\alpha_2(k)} = \\
 		&= \left( \lim_{n \to \infty}\sum_{\ell = 0}^{n-1} a_{\ell}\right) \left( \lim_{n \to \infty} \sum_{m=0}^{n-1} b_m\right) = \left(\sum_{\ell = 0}^{\infty} a_{\ell}\right) \left(\sum_{m=0}^{\infty} b_m\right),
 	\end{align*}
-	which proves Equation \ref{eq:product_series} for this specific bijection $\alpha$.
+	which proves Equation \eqref{eq:product_series} for this specific bijection $\alpha$.
 	
 	For an arbitrary bijection $\beta: \mathbb{N} \to \mathbb{N} \times \mathbb{N}$, define $\varphi = \alpha^{-1} \circ \beta: \mathbb{N} \to \mathbb{N}$. Then $\beta = \alpha \circ \varphi$ and writing $\beta(n) = (\beta_1(n), \beta_2(n)) = (\alpha_1(\varphi(n)), \alpha_2(\varphi(n)))$, the rearrangement Theorem \ref{theo*rearr_abs_conv} yields
 	\[
@@ -614,7 +614,7 @@ We now show that the exponential map can also be defined via the \textbf{exponen
 	\label{eq:exp}
 	\exp(x) = e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!}.
 \end{equation}
-Since $\frac{n!}{(n+1)!} = \frac{1}{(n+1)} \to 0$ as $n \to \infty$, it follows directly from the quotient criterion that this series has infinite radius of convergence. Hence, Theorem \ref{theo*cont_pwr_series} implies that the right-hand side of Equation \ref{eq:exp} defines a continuous function on $\mathbb{R}$.
+Since $\frac{n!}{(n+1)!} = \frac{1}{(n+1)} \to 0$ as $n \to \infty$, it follows directly from the quotient criterion that this series has infinite radius of convergence. Hence, Theorem \ref{theo*cont_pwr_series} implies that the right-hand side of Equation \eqref{eq:exp} defines a continuous function on $\mathbb{R}$.
 
 \begin{proposition}{Exponential Map as a Power Series}{exp_pwr_series}
 	For every $x \in \mathbb{R}$,
@@ -658,9 +658,9 @@ so that the identity
 \]
 holds for all $x \in \mathbb{R}$.
 
-As for the exponential series, radius of convergence of the power series in Equation \ref{eq:sin_cos} is infinite. Therefore, by Theorems \ref{theo*conv_pwr_series} and \ref{theo*cont_pwr_series}, $\sin$ and $\cos$ are continuous on $\mathbb{R}$.
+As for the exponential series, radius of convergence of the power series in Equation \eqref{eq:sin_cos} is infinite. Therefore, by Theorems \ref{theo*conv_pwr_series} and \ref{theo*cont_pwr_series}, $\sin$ and $\cos$ are continuous on $\mathbb{R}$.
 
-Since $(-x)^{2n+1} = -x^{2n+1}$ and $(-x)^{2n} = x^{2n}$ for all $n \in \mathbb{N}$, it follows directly from Equation \ref{eq:sin_cos} that
+Since $(-x)^{2n+1} = -x^{2n+1}$ and $(-x)^{2n} = x^{2n}$ for all $n \in \mathbb{N}$, it follows directly from Equation \eqref{eq:sin_cos} that
 \begin{align*}
 	\sin(-x) &= -\sin(x) \text{ $\sin$ is an \textbf{odd} function},\\
 	 \cos(-x) &= \cos(x) \text{ $\cos$ is an \textbf{even} function}.

@@ -265,7 +265,7 @@ Note that, since $x_n \in X_{\geq n}$, we have that
 		\liminf_{n \to \infty} x_n = \lim_{n \to \infty} \big(\inf_{k \geq n}x_k\big)
 	\]
 	are called the \textbf{superior} and \textbf{inferior limit} of $(x_n)_{n=0}^{\infty}$ respectively.
-	From Equation \ref{eq:ineq_sup_inf} and Proposition \ref{prop*lim_ineq}, we have
+	From Equation \eqref{eq:ineq_sup_inf} and Proposition \ref{prop*lim_ineq}, we have
 	\[
 		\liminf_{n \to \infty} x_n \leq \limsup_{n \to \infty} x_n.
 	\]
@@ -288,7 +288,7 @@ Note that, since $x_n \in X_{\geq n}$, we have that
 		I = \lim_{n \to \infty} i_n = \liminf_{n \to \infty} x_n, \qquad S = \lim_{n \to \infty} s_n = \limsup_{n \to \infty} x_n.
 	\]
 	
-	First suppose that $I = S$. Since $i_n \leq x_n \leq s_n$ (see Equation \ref{eq:ineq_sup_inf}), the Sandwich Lemma \ref{lem*sandwich_seq} implies that the sequence $(x_n)_{n=0}^{\infty}$ converges, and its limit equals $I = S$.
+	First suppose that $I = S$. Since $i_n \leq x_n \leq s_n$ (see Equation \eqref{eq:ineq_sup_inf}), the Sandwich Lemma \ref{lem*sandwich_seq} implies that the sequence $(x_n)_{n=0}^{\infty}$ converges, and its limit equals $I = S$.
 	
 	Conversely, assume that $(x_n)_{n=0}^{\infty}$ converges to $A \in \mathbb{R}$. Given $\varepsilon > 0$, there exists $N \in \mathbb{N}$ such that
 	\[
@@ -327,14 +327,14 @@ Note that, since $x_n \in X_{\geq n}$, we have that
 	\[
 		s_{N_1} - \varepsilon < x_{n_1} \leq s_{N_1}.
 	\]
-	Thus, combining this bound with Equation \ref{eq:limsup} we obtain
+	Thus, combining this bound with Equation \eqref{eq:limsup} we obtain
 	\[
 		A - \varepsilon < s_{N_1} - \varepsilon < x_{n_1} \leq s_{N_1} < A + \varepsilon.
 	\]
 	This construct shows that for any $\varepsilon > 0$ and any $N \in \mathbb{N}$, there exists $n_1 \geq N$ such that $A - \varepsilon < x_{n_1} < A + \varepsilon$.
 	Thus $A$ is an accumulation point for $(x_n)_{n=0}^{\infty}$.
 	
-	We now prove$1.$ and $2.$. From Equation \ref{eq:limsup} we have $x_n < A + \varepsilon$ for all $n \geq N_0$, so only finitely many terms satisfy $x_n \geq A + \varepsilon$. This shows $1.$.
+	We now prove$1.$ and $2.$. From Equation \eqref{eq:limsup} we have $x_n < A + \varepsilon$ for all $n \geq N_0$, so only finitely many terms satisfy $x_n \geq A + \varepsilon$. This shows $1.$.
 	
 	Also since $A$ is an accumulation point, it follows from Corollary \ref{cor*inf_terms_acc_pt} that infinitely many terms of the sequence lie within any interval $(A - \varepsilon, A + \varepsilon)$. \qedhere
 \end{proof}

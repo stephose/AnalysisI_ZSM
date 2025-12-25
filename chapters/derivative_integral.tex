@@ -30,14 +30,14 @@ The next result is known as the \textbf{Fundamental Theorem of (Integral and Dif
 			F(x) = \int_{a}^{x} f(t) \, dt + C
 		\end{equation}
 		is a primitive of $f$.
-		\item[(ii)] Every primitive $F:[a,b] \to \mathbb{R}$ of $f$ has the form \ref{eq:primitive} for some constant $C$.
+		\item[(ii)] Every primitive $F:[a,b] \to \mathbb{R}$ of $f$ has the form \eqref{eq:primitive} for some constant $C$.
 	\end{enumerate}
 \end{theorem}
 
 \begin{proof}
 	By Theorem \ref{theo*cont_func_int}, $f$ is integrable.
 	
-	Let $F$ be defined as in Equation \ref{eq:primitive}. To prove (i), we fix $x_0 \in [a,b]$ and we want to show that $F'(x_0) = f(x_0)$. To this aim, fix $\varepsilon > 0$. By continuity, there exists $\delta > 0$ such that
+	Let $F$ be defined as in Equation \eqref{eq:primitive}. To prove (i), we fix $x_0 \in [a,b]$ and we want to show that $F'(x_0) = f(x_0)$. To this aim, fix $\varepsilon > 0$. By continuity, there exists $\delta > 0$ such that
 	\begin{equation}
 		\label{eq:fund_cont}
 		z \in [a,b], \quad |z - x_0| < \delta \quad \Rightarrow \quad |f(z) - f(x_0)| < \varepsilon.
@@ -57,7 +57,7 @@ The next result is known as the \textbf{Fundamental Theorem of (Integral and Dif
  		&= \left|\frac{1}{x - x_0} \int_{x_0}^{x} (f(t) - f(x_0)) \, dt\right| \\
  		&\leq \frac{1}{x - x_0} \int_{x_0}^{x} |f(t) - f(x_0)| \, dt.
  	\end{align*}
- 	Note now that, in the last integral, $t \in [x_0, x] \subseteq [x_0, x_0 + \delta) \cap [a,b]$. Hence, it follows form Equation \ref{eq:fund_cont} that $|f(t) - f(x_0)| < \varepsilon$, therefore
+ 	Note now that, in the last integral, $t \in [x_0, x] \subseteq [x_0, x_0 + \delta) \cap [a,b]$. Hence, it follows form Equation \eqref{eq:fund_cont} that $|f(t) - f(x_0)| < \varepsilon$, therefore
  	\[
  		\left|\frac{F(x) - F(x_0)}{x - x_0} - f(x_0)\right| < \frac{1}{x - x_0} \int_{x_0}^{x} \varepsilon \, dt = \varepsilon. 
  	\]
@@ -115,7 +115,7 @@ Given a Function $h:[a,b] \to \mathbb{R}$, we use the notation $\big[h(x)\big]_a
 \end{theorem}
 
 \begin{proof}
-	By Proposition \ref{prop*prod_rule}, $(fg)' = f'g + fg'$. Rearranging and integrating, thanks to Corollary $\ref{cor*int_primitive}$, we get
+	By Proposition \ref{prop*derivative_sum_prod}, $(fg)' = f'g + fg'$. Rearranging and integrating, thanks to Corollary $\ref{cor*int_primitive}$, we get
 	\[
 		\int_{a}^{b} fg'\, dx = \int_{a}^{b} (fg)'\, dx - \int_{a}^{b}f g'\, dx = \big[fg\big]_a^b - \int_{a}^{b} fg'\, dx. \qedhere
 	\]
@@ -173,4 +173,130 @@ A function $f:I \to \mathbb{R}$ is \textbf{locally integrable} if $f|_{[a,b]}$ i
 	\]
 	whenever both limits exist and the sum is well-defined (we do not allow the indeterminate form $\infty - \infty$). Here the first limit is taken over $a \in I$ with $c < a < x_0$ (interpreting $a \to -\infty$ if $c = -\infty$) and the second over $b \in I$ with $x_0 < b < d$ (interpreting $b \to +\infty$ if $d = \infty$). If the value is finite we say the integral \textit{converges}; if it is $\pm \infty$ we say it \textit{diverges to} $\pm \infty$; otherwise, it \textit{does not converge}. When defined, the value is independent of the choice of $x_0$. 
 \end{definition}
+
+\begin{lemma}{Improper Integrals of Non-negative Functions}{improper_int_non_neg}
+	Let $I \subseteq \mathbb{R}$ be a non-empty interval with $c = \inf I$ and $d = \sup I$, and let $f:I \to [0, \infty)$ be locally integrable. Fix any $x_0 \in I$. Then the one-sided limits
+	\[
+		L_- := \lim_{a \to c^+} \int_{a}^{x_0} f(x)\, dx, \qquad L_+ := \lim_{b \to d^-} \int_{x_0}^{b} f(x) \, dx
+	\]
+	exist in $[0,\infty]$, and
+	\[
+		\int_{c}^{d} f(x)\, dx = L_- + L_+ = \sup_{c < \alpha < \beta < d}\, \int_{\alpha}^{\beta} f(x)\, dx \in [0,\infty].
+	\]
+	In particular, the improper integral over $I$ always exists in the extended sense and equals $+\infty$ whenever the supremum is $+\infty$.
+\end{lemma}
+
+\begin{proof}
+	Fix $x_0 \in I$. Since $f \geq 0$, the maps $a \mapsto \int_{a}^{x_0}f\, dx$ (for $a < x_0$) and $b \mapsto \int_{x_0}^{b}f\, dx$ (for $b > x_0$) are monotone, hence the limits $L_-, L_+$ exist in $[0,\infty]$. Also, for any $c < a < x_0 < b < d$,
+	\[
+		\int_{a}^{b} f\, dx = \int_{a}^{x_0} f\, dx + \int_{x_0}^{b}f\, dx.
+	\]
+	(this is different from the skript. Idk if theres a typo in the skript.)
+	Taking suprema gives
+	\[
+		\sup_{c < \alpha < \beta < d}\, \int_{\alpha}^{\beta}f\, dx = \sup_{a < x_0} \int_{a}^{x_0} f\, dx + \sup_{b > x_0}\int_{x_0}^{b}f\, dx = L_- + L_+,
+	\]
+	which equals the definition of $\int_{c}^{d}f\, dx$ above.\qedhere
+\end{proof}
+
+\begin{theorem}{Integral Test for Series}{int_test_series}
+	Let $f:[0,\infty) \to [0,\infty)$ be monotone decreasing. Then for every $n \in \mathbb{N}$,
+	\[
+		\sum_{n=1}^{N+1} f(n)\leq \int_{0}^{N+1}f(x)\, dx \leq \sum_{n=0}^{N}f(n).
+	\]
+	In particular, 
+	\[
+		\sum_{n=0}^{\infty} f(n) \text{ converges}\qquad \Leftrightarrow \qquad \int_{0}^{\infty}f(x)\, dx \text{ converges.}
+	\]
+\end{theorem}
+
+\begin{proof}
+	By monotonicity, $f$ is locally integrable. Define step functions on $[0,\infty)$ by 
+	\[
+		u(x) = f(\lfloor x \rfloor),\qquad \ell(x) = f(\lceil x \rceil),
+	\]
+	where $\lfloor x \rfloor$ is the rounding function (,i.e., the largest integer $\leq x$), while $\lceil x \rceil$ denotes the smallest integer $\geq x$. Then $\ell \leq f \leq u$, and for $N \geq 1$,
+	\[
+		\sum_{n=1}^{N+1}f(n) = \int_{0}^{N+1}\ell(x)\ dx \leq \int_{0}^{N+1}f(x)\, dx \leq \int_{0}^{N+1}u(x) = \sum_{n=0}^{N}f(n).
+	\]
+	The result follows by taking the limit as $N \to \infty$.\qedhere
+\end{proof}
+
+\subsection{Integration and Differentiation of Power Series}
+We recall the limit
+\begin{equation}
+	\label{eq:lim_nroot_n}
+	\lim_{n\to \infty} \sqrt[n]{\frac{1}{n}} = 1.
+\end{equation}
+Also we shall use the following fact.
+
+\begin{remark}
+	\label{rmk:limsup_seq}
+	Let $(a_n)_{n=0}^{\infty}$ be a sequence of non-negative numbers with
+	\[
+		L = \limsup_{n \to \infty} a_n < \infty,
+	\]
+	and let $(b_n)_{n=0}^{\infty}$ and $(\gamma_n)_{n=0}^{\infty}$ satisfy $b_n \to 1$ and $\gamma_n \to 1$. Then
+	\[
+		\limsup_{n \to \infty} a_n^{\gamma_n}b_n = L.
+	\]
+	In other words, multiplying by a factor that tends to 1, or raising to an exponent that tends to 1, does not change the value of the lim sup.
+\end{remark}
+
+\begin{theorem}{Integration of Power Series}{int_pwr_series}
+	Let $f(x) = \sum_{n=0}^{\infty}a_nx^n$ have radius of convergence $R > 0$. Then 
+	\[
+		F(x) = \sum_{n=0}^{\infty}\frac{a_n}{n+1}x^{n+1}
+	\]
+	has the same radius of convergence $R$ and is a primitive of $f$ on $(-R,R)$.
+\end{theorem}
+
+\begin{proof}
+	Set $\rho = \limsup_{n \to \infty} \sqrt[n]{|a_n|}$, so that $R = \rho^{-1}$. Define $c_0 = 0$ and $c_n = \frac{a_{n-1}}{n}$ for $n\geq 1$, so $F(x) = \sum_{n=0}^{\infty}c_n x^n$. Noticing that
+	\[
+		\sqrt[n]{|c_n|} = \sqrt[n]{\frac{1}{n}}\left(\sqrt[n-1]{|a_{n-1}|}\right)^{\frac{n-1}{n}},
+	\]
+	it follows from Equation \eqref{eq:lim_nroot_n} and Remark \ref{rmk:limsup_seq} (applied with $b_n = \sqrt[n]{\frac{1}{n}}$ and $\gamma_n = \frac{n-1}{n}$) that
+	\[
+		\limsup_{n \to \infty} \sqrt[n]{|c_n|} = \limsup_{n \to \infty} \sqrt[n-1]{|a_{n-1}|} = \rho,
+	\]
+	hence also $F$ has radius of convergence $R$.
+	
+	We now want to prove that $F' = f$. Fix $[-r, r] \subseteq (-R, R)$ and define the polynomials $f_n(x) = \sum_{k=0}^{n} a_kx^k$. Then
+	\[
+		\int_{0}^{x} f_n(t)\, dt = \sum_{k=0}^{n}\frac{a_k}{k+1}x^{k+1}.
+	\]
+	By Theorem \ref{theo*cont_pwr_series}, the sequence of functions $(f_n)_{n=0}^{\infty}$ converge uniformly to $f$ on $[-r, r]$, so Theorem \ref{theo*unif_conv_int_commute} yields
+	\[
+		\int_{0}^{x} f(t)\, dt = \lim_{n \to \infty} \int_{0}^{x} f_n(t)\, dt \qquad \forall x\in [-r, r].
+	\]
+	On the other hand, again by Theorem \ref{theo*cont_pwr_series},
+	\[
+		\lim_{n \to \infty} \sum_{k=0}^{n} \frac{a_k}{k+1}x^{k+1} = F(x) \qquad \forall x \in [-r, r].
+	\]
+	This proves that $F(x) = \int_{0}^{x}f(t)\, dt$ on $[-r,r]$, so Theorem \ref{theo*fund_thm_calc} implies that $F'(x) = f(x)$ on $[-r, r]$. Since $[-r, r]\subseteq (-R, R)$ is arbitrary, we proved that $F'=f$ on $(-R, R)$.\qedhere
+\end{proof}
+
+\begin{corollary}{Differentiation of Power Series}{diff_pwr_series}
+	Let $f(x) = \sum_{n=0}^{\infty}a_nx^n$ have radius of convergence $R > 0$. Then $f$ is differentiable on $(-R,R)$ with
+	\[
+		f'(x) = \sum_{n=1}^{\infty}na_nx^{n-1}\qquad \forall x \in (-R,R),
+	\]
+	and the series on the right has radius of convergence $R$.
+\end{corollary}
+
+\begin{proof}
+	Let $c_n = (n+1) a_{n+1}$ and $g(x) = \sum_{n=1}^{\infty} na_n x^{n-1} = \sum_{n=0}^{\infty}c_n$. Let $\bar{R}$ be the radius of convergence of $g$. Then Theorem \ref{theo*int_pwr_series} implies that the power series
+	\[
+		G(x) = \sum_{n=0}^{\infty} \frac{c_n}{n+1}x^{n+1}
+	\]
+	has radius $\bar{R}$ and is a primitive of $g$. But
+	\[
+		G(x) = \sum_{n=0}^{\infty}\frac{(n+1)a_{n+1}}{n+1}x^{n+1} = \sum_{n=0}^{\infty} a_{n+1}x^{n+1} = \sum_{n=1}^{\infty}a_nx^n = f(x) - a_0.
+	\]
+	This implies that $G$ and $f$ have the same radius of convergence (so $\bar{R} = R$) and that $g = G' = (f - a_0)' = f'$.\qedhere
+\end{proof}
+
+\subsection{Integration Methods}
+
 

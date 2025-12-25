@@ -158,11 +158,11 @@ If $f$ is bounded, then these sets are non-empty. Indeed, if $|f| \leq M$, then 
 \]
 satisfy $\ell \in \mathcal{L}(f)$ and $u \in \mathcal{U}(f)$.
 
-For $\ell, u \in \mathcal{SF}$ with $\ell \leq f \leq u$, Proposition \ref{mono_int_step_func} gives
+For $\ell, u \in \mathcal{SF}$ with $\ell \leq f \leq u$, Proposition \ref{prop*mono_int_step_func} gives
 \[
 	\int_{a}^{b} \ell \, dx \leq \int_{a}^{b } u \, dx.
 \]
-This implies that $s \leq t$ for all $s \in \mathcal{L}(f)$ and $t \in \mathcal{U}(f)$, so Equation \ref{eq:relation_sup_inf} yields
+This implies that $s \leq t$ for all $s \in \mathcal{L}(f)$ and $t \in \mathcal{U}(f)$, so Equation \eqref{eq:relation_sup_inf} yields
 \[
 	\sup \mathcal{L}(f) \leq \inf \mathcal{U}(f).
 \]
@@ -190,7 +190,7 @@ This implies that $s \leq t$ for all $s \in \mathcal{L}(f)$ and $t \in \mathcal{
 \end{proposition}
 
 \begin{proof}
-	By Equation \ref{eq:relation_sup_inf_2} applied with $A = \sup \mathcal{L}(f)$ and $B = \inf \mathcal{U}(f)$ we obtain
+	By Equation \eqref{eq:relation_sup_inf_2} applied with $A = \sup \mathcal{L}(f)$ and $B = \inf \mathcal{U}(f)$ we obtain
 	\begin{align*}
 		f \text{ is Riemann integrable} \quad &\Leftrightarrow \quad \sup \mathcal{L}(f) = \mathcal{U}(f)\\
 		&\Leftrightarrow \quad \forall \varepsilon > 0 \; \exists s \in \mathcal{L}(f) \, \exists t \in \mathcal{U}(f):\; t - s < \varepsilon\\
@@ -312,7 +312,7 @@ Thus $\inf \mathcal{U}(f) = 1$, and taking $u \equiv 1$ gives $\inf \mathcal{U}(
 	\[
 		z_1^+ = \max\{z_1, 0\} \leq (z_1 - z_2)^+ + z_2^+,
 	\]
-	which yields Equation \ref{eq:ineq_pos_part} after rearranging.
+	which yields Equation \eqref{eq:ineq_pos_part} after rearranging.
 \end{remark}
 
 \begin{theorem}{Triangle Inequality for the Riemann Integral}{triangle_ineq_int}
@@ -325,7 +325,7 @@ Thus $\inf \mathcal{U}(f) = 1$, and taking $u \equiv 1$ gives $\inf \mathcal{U}(
 \begin{proof}
 	Fix $\varepsilon > 0$. Since $f$ is integrable, there exists step functions $\ell \leq f \leq u$ with $\int_{a}^{b}(u - \ell)\, dx < \varepsilon$. Then $\ell^+$ and $u^+$ are step functions with $\ell^+ \leq f^+ \leq u^+$.
 	
-	Since $u - \ell \geq 0$, we have $(u - \ell) = (u - \ell)^+$. Moreover, applying Equation \ref{eq:ineq_pos_part} with $z_1 = u(x)$ and $z_2 = \ell(x)$, we obtain
+	Since $u - \ell \geq 0$, we have $(u - \ell) = (u - \ell)^+$. Moreover, applying Equation \eqref{eq:ineq_pos_part} with $z_1 = u(x)$ and $z_2 = \ell(x)$, we obtain
 	\[
 		(u(x) - \ell(x))^+ \geq u(x)^+ - \ell(x)^+ \qquad \forall x \in [a,b].
 	\]
@@ -405,7 +405,7 @@ Using boundedness and uniform continuity on compact intervals (Theorems \ref{the
 	\[
 		c_k = \min\{f(x) \;|\; x_{k-1} \leq x \leq x_k\}, \qquad d_k = \max\{f(x) \,|\; x_{k-1} \leq x \leq x_k\},
 	\]
-	which exists by Theorem \ref{theo*extreme_val_theo}, and let $y_k, z_k \in [x_{k-1}, x_k]$ satisfy $f(y_k) = c_k$ and $f(z_k) = d_k$. Then since, $|y_k - z_k| \leq x_k - x_{k-1} < \delta$, Equation \ref{eq:unif_cont} yields $d_k - c_k < \varepsilon$.
+	which exists by Theorem \ref{theo*extreme_val_theo}, and let $y_k, z_k \in [x_{k-1}, x_k]$ satisfy $f(y_k) = c_k$ and $f(z_k) = d_k$. Then since, $|y_k - z_k| \leq x_k - x_{k-1} < \delta$, Equation \eqref{eq:unif_cont} yields $d_k - c_k < \varepsilon$.
 	
 	Define now the step functions $\ell, u:[a,b] \to \mathbb{R}$ as
 	\begin{align*}
@@ -485,5 +485,5 @@ On the other hand, as the next result shows, uniform convergence is sufficient f
 	\[
 		\left|\int_{a}^{b}f \, dx - \int_{a}^{b}f_n \, dx\right| = \left|\int_{a}^{b} (f - f_n) \, dx\right| \leq \int_{a}^{b} |f - f_n|\, dx \leq \varepsilon (b-a) \qquad \forall n \geq N,
 	\]
-	proving Equation \ref{eq:unif_conv_int}. \qedhere
+	proving Equation \eqref{eq:unif_conv_int}. \qedhere
 \end{proof}

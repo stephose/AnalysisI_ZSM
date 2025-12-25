@@ -143,11 +143,11 @@ As with continuous functions, we rarely reprove differentiability from first pri
 		(x)' = \lim_{x \to x_0} \frac{x - x_0}{x - x_0} = 1.
 	\]
 	
-	For $n > 1$, assume $(x^n)' = nx^{n-1}$. Then by Equation \ref{eq:prod_rule}, since $x^{n+1} = x\cdot x^n$, we have
+	For $n > 1$, assume $(x^n)' = nx^{n-1}$. Then by Equation \eqref{eq:prod_rule}, since $x^{n+1} = x\cdot x^n$, we have
 	\[
 		(x^{n+1})' = (x \cdot x^n)' = 1 \cdot x^n + x \cdot n x^{n-1} = (n + 1)x^n.
 	\]
-	This proves the inductive step and establishes the result. Finally, the linearity of the derivative (see Equation \ref{eq:sum_rule}) yields the differentiability of any polynomial. \qedhere
+	This proves the inductive step and establishes the result. Finally, the linearity of the derivative (see Equation \eqref{eq:sum_rule}) yields the differentiability of any polynomial. \qedhere
 \end{proof}
 
 \subsubsection*{Example}
@@ -471,7 +471,7 @@ Here $I$ always denotes a non-trivial interval (non-empty and not a single point
 		\label{eq:convex_func}
 		f((1-t)a + tb) \leq (1-t)f(a) + tf(b).
 	\end{equation}
-	We call $f$ \textbf{strictly convex} if the inequality in \ref{eq:convex_func} is strict. A function $g:I \to \mathbb{R}$ is (\textbf{strictly}) \textbf{concave} if $-g$ is (strictly) convex.
+	We call $f$ \textbf{strictly convex} if the inequality in \eqref{eq:convex_func} is strict. A function $g:I \to \mathbb{R}$ is (\textbf{strictly}) \textbf{concave} if $-g$ is (strictly) convex.
 	
 	An equivalent definition of a convex function is the following: $f:I \to \mathbb{R}$ is convex if for all $a,b \in I$ with $a < b$ and all $x \in (a,b)$, we have
 	\begin{equation}
@@ -490,9 +490,9 @@ Here $I$ always denotes a non-trivial interval (non-empty and not a single point
 	\[
 		f'(\xi) = \frac{f(x) - f(a)}{x - a}, \qquad f'(\zeta) = \frac{f(b) - f(x)}{b - x}.
 	\]
-	Since $f'$ is increasing, we have $f'(\xi) \leq f'(\zeta)$, so Equation \ref{eq:convex_func_2} follows. Since $a < b \in I$ and $x \in (a, b)$ are arbitrary, $f$ is convex.
+	Since $f'$ is increasing, we have $f'(\xi) \leq f'(\zeta)$, so Equation \eqref{eq:convex_func_2} follows. Since $a < b \in I$ and $x \in (a, b)$ are arbitrary, $f$ is convex.
 	
-	Conversely, assume $f$ is convex. Given $a < b$, consider $h > 0$ small enough, such that $a + h < b - h$ and apply Equation \ref{eq:convex_func_2} twice: first, applying it on the interval $(a, b - h)$ with $x = a + h$ we get
+	Conversely, assume $f$ is convex. Given $a < b$, consider $h > 0$ small enough, such that $a + h < b - h$ and apply Equation \eqref{eq:convex_func_2} twice: first, applying it on the interval $(a, b - h)$ with $x = a + h$ we get
 	\[
 		\frac{f(a + h) - f(a)}{h} \leq \frac{f(b - h) - f(a + h)}{(b- h) - (a + h)};
 	\]

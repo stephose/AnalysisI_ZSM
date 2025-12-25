@@ -290,7 +290,7 @@ In this section we prove a fundamental theorem that formalizes the idea that the
 	\]
 	Thus, $g$ is strictly increasing.
 	
-	To show that $J$ is an interval, $y_1, y_2 \in J$, and assume w.l.o.g that $y_ 1 < y_2$. Since, $J = f(I)$, Equation \ref{eq:f_strict_incr} implies that $y_1 = f(x_1), y_2 = f(x_2)$ for some $x_1, x_2 \in I$ with $x_1 < x_2$.
+	To show that $J$ is an interval, $y_1, y_2 \in J$, and assume w.l.o.g that $y_ 1 < y_2$. Since, $J = f(I)$, Equation \eqref{eq:f_strict_incr} implies that $y_1 = f(x_1), y_2 = f(x_2)$ for some $x_1, x_2 \in I$ with $x_1 < x_2$.
 	Now by the Intermediate Value Theorem \ref{theo*int_val_theo} applied to $f:[x_1, x_2] \to \mathbb{R}$, we have that all values $c \in [y_1, y_2]$ are in the image of $f:[x_1, x_2] \to \mathbb{R}$, i.e.,
 	\[
 		[y_1, y_2] \subseteq f([x_1, x_2]) \subseteq J.
@@ -310,7 +310,7 @@ In this section we prove a fundamental theorem that formalizes the idea that the
 	\[
 		y_{n_k} = f(x_{n_k}) \leq f(\bar{x} - \varepsilon) < f(\bar{x}) = \bar{y}.	
 	\]
-	Then Proposition \ref{prop*lim_ineq} gives (recall $y_n \longrightarrow \bar{y}$, see \ref{eq:g_not_cont})
+	Then Proposition \ref{prop*lim_ineq} gives (recall $y_n \longrightarrow \bar{y}$, see \eqref{eq:g_not_cont})
 	\[
 		\bar{y} = \lim_{k \to \infty} y_{n_k} \leq f(\bar{x} - \varepsilon) < f(\bar{x}) = \bar{y},
 	\]
@@ -440,7 +440,7 @@ In this section we show that continuous functions on \textbf{bounded closed} int
 	\[
 		|f(x_{n_k}) - f(y_{n_k})| \leq |f(x_{n_k}) - f(\bar{x})| + |f(\bar{x}) - f(y_{n_k})| \underset{k \to \infty}{\longrightarrow} 0,
 	\]
-	which contradicts Equation \ref{eq:contra_unif_cont}. Hence, $f$ is uniformly continuous on $[a, b]$. \qedhere
+	which contradicts Equation \eqref{eq:contra_unif_cont}. Hence, $f$ is uniformly continuous on $[a, b]$. \qedhere
 \end{proof}
 
 \begin{definition}{Lipschitz Continuity}{lip_cont}
@@ -575,7 +575,7 @@ Let $D \subseteq \mathbb{R}$ be non-empty, and let $x_0 \in \mathbb{R}$ be such 
 	\label{eq:acc_pt}
 	D \cap (x_0 - \delta, x_0  + \delta) \neq \emptyset
 \end{equation}
-for all $\delta > 0$. Whenever this holds, we say that $x_0$ is an \textbf{accumulation point} of $D$. Note that if $x_0 \in D$, then Equation \ref{eq:acc_pt} is automatically satisfied.
+for all $\delta > 0$. Whenever this holds, we say that $x_0$ is an \textbf{accumulation point} of $D$. Note that if $x_0 \in D$, then Equation \eqref{eq:acc_pt} is automatically satisfied.
 
 Condition \ref{eq:acc_pt} ensures that there exists a sequence of points in $D$ converging to $x_0$.
 
@@ -625,7 +625,7 @@ If we now define
 \end{equation}
 then $\tilde{f}$ is continuous at $x_0$. In other words, we can remove the discontinuity of $f$ by redefining its value at $x_0$ to be $L$.
 
-If instead $x_0 \notin D$ but the limit in Equation \ref{eq:limit_neq_x} exists, we call the function $\tilde{f}$ defined in Equation \ref{eq:cont_ext} the \textbf{continuous extension} of $f$ to $D \cup \{x_0\}$.
+If instead $x_0 \notin D$ but the limit in Equation \eqref{eq:limit_neq_x} exists, we call the function $\tilde{f}$ defined in Equation \eqref{eq:cont_ext} the \textbf{continuous extension} of $f$ to $D \cup \{x_0\}$.
 
 Arguing as in the proof of Theorem \ref{theo*cont_seq_cont}, we obtain the following result.
 
