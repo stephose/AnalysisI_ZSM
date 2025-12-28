@@ -298,5 +298,204 @@ Also we shall use the following fact.
 \end{proof}
 
 \subsection{Integration Methods}
+Let $I \subseteq \mathbb{R}$ be an interval, and $f:I \to \mathbb{R}$ a function. The notation
+\[
+	\int f(x)\, dx = F(x) + C
+\]
+means that $F$ is a primitive function (antiderivative) of $f$. In the expression $F(x) + C$, $C$ is read as an indefinite constant, usually called \textbf{integration constant}. Since the domain $I$ of $f$ is an interval, two primitive functions of $f$ differ by a constant, which makes the notation meaningful. One calls $F(x) + C$ the \textbf{indefinite integral} of $f$. In this section we summarize general methods to determine indefinite integrals.
+
+Throughout this section, $I \subseteq \mathbb{R}$ denotes a non-empty interval that is not a single point. Also, all functions in this section are real-valued functions with domain $I$ that are integrable on any compact interval $[a,b] \subseteq I$.
+
+\subsubsection{Integration by Parts and by Substitution in Leibniz Notation}
+We recall the derivative of a function $h$ is denoted by $h'$ or by $\frac{dh}{dx}$.
+\subsubsection*{Integration by Parts}
+Let $f$ and $g$ be functions with primitives $F$ and $G$, respectively. Recall the Theorem \ref{theo*int_parts} (Integration by Parts), which is in the Leibniz notation
+\[
+	\int F(x)g(x)\, dx = F(x)G(x) - \int f(x)G(x)\, dx + C.
+\]
+In Leibniz notation, $f = \frac{dF}{dx}$ and $g = \frac{dG}{dx}$. This leads to the notation $f\, dx = dF$ and $g\, dx = dG$, and integration by parts is sometimes written as
+\[
+	\int F\, dG = FG - \int G\, dF + C.
+\]
+
+\subsubsection*{Integration by Substitution}
+Let $J$ be an interval and let $f:I \to J$ be a differentiable function. If $G: J \to \mathbb{R}$ is a primitie of $g$, then by the chain rule in Theorem \ref{theo*chain_rule}, $[G(f(x))]' = g(f(x)) f'(x)$ for all $x \in I$. From this it follows that
+\[
+	\int g(f(x)) f'(x)\, dx = G(f(x)) + C = \int g(u)\, du + C,
+\]
+where we used the change of variables $u = f(x)$. The substitution rule is also called \textbf{change of variable}, as one has replaced the variable $u$ in $\int g(u)\, du$ by $u=f(x)$. In Leibniz notation this is very natural: if $u = f(x)$, then $du = f'(x)\,dx$.
+
+We also recall the second form of the substitution rule (Theorem \ref{theo*int_sub2}): if $f'\neq 0$ we can set $x = f^{-1}(u)$ so that $\frac{dx}{du} = (f^{-1})'(u)$, and obtain
+\[
+	\int g(f(x))\, dx = \int g(u)\frac{dx}{du}\, du + C.
+\]
+
+\subsubsection{Integration by Parts: Example}
+\begin{itemize}
+	\item[$\bullet$] We calculate the integral $\int \log(x)\, dx$:
+	\begin{align*}
+		\int \log(x)\, dx &= \int \log(x)\cdot 1\, dx\\
+		&= \log(x)\cdot x - \int (\log(x))'\cdot x\, dx + C\\
+		&= \log(x)\cdot x - \int \frac{1}{x}\cdot x\, dx + C\\
+		&= \log(x)\cdot x - \int 1\, dx + C = \log(x)\cdot x - x + C.
+	\end{align*}
+	\textit{Suggestion:} To ensure that the final result is correct, one can always differentiate the result and check whether you obtain the original function. For instance, in this case, one can easily check that
+	\[
+	(x\log(x) - x + C)' = \log(x).
+	\]
+	\item[$\bullet$] We calculate the integral $\int \cos^2(x)\, dx$:
+	\begin{align*}
+		\int \cos^2(x)\, dx &= \cos(x)\sin(x) - \int (-\sin(x))\sin(x)\, dx + C\\
+		&= \cos(x)\sin(x) + \int \underbrace{\sin^2(x)}_{\displaystyle= 1 - \cos^2(x)}\, dx + C\\
+		&= \cos(x)\sin(x) + \int 1\, dx - \int\cos^2(x)\, dx + C\\
+		&= \cos(x)\sin(x) + x - \int \cos^2(x)\, dx + C\\
+		\Rightarrow \qquad 2\int \cos^2(x)\, dx &= \cos(x)\sin(x) + x + C\\
+		\Rightarrow \qquad \int \cos^2(x) &= \frac{1}{2}(\cos(x)\sin(x) + x) + C.
+	\end{align*}
+\end{itemize}
+
+\subsubsection{Integration by Substitution: Examples}
+\subsubsection*{Example}
+We want to compute $\int \frac{x}{1 + x^2}\, dx$. Let $u = 1 + x^2$, so that $du = 2x,\,dx$. Then we find
+\[
+	\int \frac{x}{1 + x^2}\, dx = \int \frac{x}{1 + x^2}\cdot \frac{du}{2x} =\frac{1}{2} \int \frac{1}{u}\, du = \frac{1}{2}\log|u| + C = \frac{1}{2}\log(1 + x^2) + C.
+\]
+
+Whenever we see the a scalar multiple of the derivative of the denominator in the numerator, we can substitute for the denominator in order to obtain a primitive of the form as above. In the above example, the numerator $x$ is a multiple of the derivative of the denominator $1 + x^2$, so we substitute for the denominator.
+
+\subsubsection*{More Examples}
+Now, we will list various examples, that require different substitutions. Note that the listed substitutions do not cover all the examples from the skript:
+\begin{itemize}
+	\item[$\bullet$] Let $r > 0$. For the integral $\int \sqrt{r^2 - x^2}\, dx$, we use the substitution $x = r\sin(\theta)$, $\theta \in (-\frac{\pi}{2}, \frac{\pi}{2})$. With this choice, we have $dx = r\cos(\theta) \,d\theta$, therefore
+	\[
+		\int\sqrt{r^2 - x^2}\, dx = \int\sqrt{r^2 - r^2\sin^2(\theta)} \cos(\theta)\, d\theta = r^2 \int \cos^2(\theta)\, d\theta.
+	\]
+	We can compute this integral by using integration by parts.
+	\item[$\bullet$] In general, for integrals of the form $\int (a^2 - x^2)^{\frac{n}{2}}\, dx$ for $a > 0$ and $n \in \mathbb{Z}$, one uses the substitution $x = a\sin(\theta)$ with $\theta \in (-\frac{\pi}{2}, \frac{\pi}{2})$, giving $dx = a \cos(\theta)\, d\theta$ and $(a^2 - x^2)^{\frac{1}{2}} = a \cos(\theta)$.
+	\item[$\bullet$] For integrals of the form $\int (a^2 + x^2)^{\frac{n}{2}}\, dx$ for $a > 0$ and $n \in \mathbb{Z}$, the substitution $x = a \tan(\theta)$ with $\theta \in (-\frac{\pi}{2}, \frac{\pi}{2})$ yields $dx = \frac{a}{\cos^2(\theta)}\,d\theta$ and $(a^2 + x^2)^{\frac{n}{2}} = \left(\frac{a}{\cos(\theta)}\right)^n$.
+	\item[$\bullet$] For integrals of the form $\int x(a^2 - x^2)^{\frac{n}{2}}\, dx$ or $\int x(a^2 + x^2)^{\frac{n}{2}}\, dx$, the substitutions $u = a^2 - x^2$ or $u = a^2 + x^2$, respectively, allow us to compute the indefinite integrals.
+	\item[$\bullet$] For integrals of the form $\int \sqrt{x^2 - 1}\, dx$, the substitution $x = \cosh(u)$ yields $dx = \sinh(u)\,du$ and 
+	\[
+		\int \sqrt{x^2 - 1}\, dx = \int \sqrt{\cosh^2(u) - 1} \sinh(u)\, du = \int \sinh^2(u)\, du.
+	\]
+	This indefinite integral can again be computed using integration by parts.
+	\item[$\bullet$] For the integral $\int \frac{1}{\sin(x)}\, dx$, we consider the substitution $u = \tan(\frac{x}{2})$. This yields, by the doubling angle formulas for sine and cosine, that $\sin(x) = \frac{2u}{1 + u^2}$ and $dx = \frac{2}{1 + u^2}\, du$.
+	\item[$\bullet$] For integrals of the form $\int\frac{1}{a^2 + x^2}\, dx$, for $a \in \mathbb{R}$, one uses the substitution $u = \frac{x}{a}$. This yields
+	\begin{align*}
+		\int \frac{1}{a^2 + x^2}\, dx = \int \frac{1}{a^2}\cdot\frac{1}{1 + u^2}\cdot a\, du = \frac{1}{a}\int \frac{1}{1 + u^2}\, du = \frac{1}{a}\arctan(u) + C = \frac{1}{a}\arctan\left(\frac{x}{a}\right) + C.
+	\end{align*}
+\end{itemize}
+
+\subsubsection{The Gamma Function}
+The \textbf{Gamma-function} $\Gamma$ is defined, for $s \in (0, \infty)$, by the improper integral
+\begin{equation}
+	\label{eq:gamma_func}
+	\Gamma(s) = \int_{0}^{\infty}x^{s-1}e^{-x}\, dx.
+\end{equation}
+To verify that this improper integral indeed converges, we examine the integration limits 0 and $\infty$ separately. For $0 < a <b$ we find, using integration by parts,
+\begin{equation}
+	\label{eq:gamma_func_lim}
+	\int_{a}^{b}x^{s-1}e^{-x}\, dx = \frac{1}{s}\big[x^se^{-x}\big]_a^b + \frac{1}{s}\int_{a}^{b} x^se^{-x}\ dx.
+\end{equation}
+We obtain
+\begin{align*}
+	\int_{0}^{b}x^{s-1}e^{-x}\, dx &= \lim_{a \to 0}\bigg(\frac{1}{s}\big[x^se^{-x}\big]_a^b + \frac{1}{s}\int_{a}^{b} x^se^{-x}\ dx\bigg)\\
+	&= \frac{1}{s}b^s e^{-b} + \frac{1}{s}\int_{0}^{b}x^se^{-x}\, dx,
+\end{align*}
+where the integral on the right is an actual Riemann integral since the function $x^se^{-x}$ is continuous on $[0,b]$. To investigate the upper limit of integration, we note that there exists $R > 0$ such that $e^x > x^{s+2}$ holds for all $x > R$. Thus
+\[
+	\int_{0}^{\infty} x^se^{-x}\, dx \leq \int_{0}^{R}x^se^{-x}\, dx + \int_{R}^{\infty} x^{-2}\, dx < \infty,
+\]
+which shows that \eqref{eq:gamma_func_lim} converges as $b \to \infty$. Specifically, we obtain
+\[
+	\int_{0}^{\infty}x^{s-1}e^{-x}\, dx = \lim_{b \to \infty} \bigg(\frac{1}{s}b^s e^{-b} + \frac{1}{s}\int_{0}^{b}x^se^{-x}\, dx\bigg) = \frac{1}{s}\int_{0}^{\infty}x^se^{-x}\, dx.
+\]
+This shows that the gamma function satisfies the relation
+\begin{equation}
+	\label{eq:gamma_func_relation}
+	\Gamma(s+1) = s\Gamma(s)
+\end{equation}
+for all $s \in (0, \infty)$, from which one can deduce that the Gamma function extends the factorial function from $\mathbb{N}$ to $(0, \infty)$. In fact
+\[
+	\Gamma(1) = \int_{0}^{\infty}x^0e^{-x}\, dx = \int_{0}^{\infty} e^{-x}\, dx = \big[e^{-x}\big]_0^{\infty} = e^0 = 1,
+\]
+therefore \eqref{eq:gamma_func_relation} implies that
+\[
+	\Gamma(n+1) = n\Gamma(n) = n(n-1)\Gamma(n-1) = \hdots = n!\Gamma(1) = n!\qquad \forall n \in \mathbb{N}.
+\]
+
+\subsection{Taylor Series}
+As we have seen in Chapter \ref{sec:diff_calc}, given a differentiable function $f:D \to \mathbb{R}$, the derivative $f'(x_0)$ gives the slope of the tangent to the graph of $f$ at $x_0$. Moreover, the corresponding affine function
+\[
+	x \mapsto f(x_0) + f'(x_0)(x-x_0)
+\]
+approximates the function $f$ within an error $o(|x-x_0|)$ as $x \to x_0$, see Equation \eqref{eq:derivative_lil_o}. The idea behind Taylor's theorem is that the ''quality'' of the approximation can be increased by considering higher-order polynomials instead of affine approximations.
+
+In this section, it will be convenient to use the following abuse of notation: given $a, b \in \mathbb{R}$, irrespective of the order between $a$ and $b$, $[a,b]$ denotes the interval between them. In other words, for all $a,b \in \mathbb{R}$, $[a,b]$ and $[b,a]$ denote the same interval.
+
+We also recall that, if $a < b$, then
+\[
+	\bigg|\int_{a}^{b}f(x)\, dx\bigg|\leq \int_{a}^{b}|f(x)|\, dx,
+\]
+see Theorem \ref{theo*triangle_ineq_int}. If instead $b < a$, then a minus sign appears (recall Equation \eqref{eq:convention_int}) and we get
+\[
+	\bigg|\int_{a}^{b}f(x)\, dx\bigg| = \bigg|\int_{b}^{a}f(x)\, dx\bigg| \leq \int_{b}^{a}|f(x)|\, dx = -\int_{a}^{b}|f(x)|\, dx = \bigg|\int_{a}^{b}|f(x)|\, dx\bigg|.
+\]
+In conclusion, independently of the order of $a$ and $b$, we always have
+\[
+	\bigg|\int_{a}^{b}f(x)\, dx\bigg|\leq \bigg|\int_{a}^{b}|f(x)|\, dx\bigg|.
+\]
+
+Let $I \subseteq \mathbb{R}$ be an open interval, and $f:I\to \mathbb{R}$ be an $n$-times differentiable function. The $n$-th \textbf{Taylor approximation} of $f$ around a point $x_0 \in I$ is the polynomial function
+\begin{equation}
+	\label{eq:taylor_poly}
+	P_n(x) = \sum_{k=0}^{n}\frac{f^{(k)}(x_0)}{k!}(x- x_0)^k.
+\end{equation} 
+Note that, with this choice of the coefficients, $P^{(k)}(x_0) = f^{(k)}(x_0)$ for $k \in \{0,\hdots, n\}$.
+
+We will state and prove different versions of Taylor's Theorem. We begin with this first version:
+
+\begin{theorem}{Taylor Expansion to Order $n$ with Integral Remainder}{taylor_int_remainder}
+	Let $n \geq 1$, $f:[a,b]\to \mathbb{R}$ be an $n$-times continuously differentiable function, and fix $x_0\in [a,b]$. Then, for all $x \in [a,b]$,
+	\begin{equation}
+		\label{eq:taylor_int_remainder}
+		f(x) = P_{n-1}(x) + \int_{x_0}^{x}f^{(n)}(t)\frac{(x-t)^{n-1}}{(n-1)!}\, dt,
+	\end{equation}
+	where $P_{n-1}$ is the $(n-1)$-th Taylor approximation of $f$ defined in Equation \eqref{eq:taylor_poly}.
+\end{theorem}
+\begin{remark}
+	In the above theorem, the assumption that $f$ is an $n$-times continuously differentiable function guarantees that the integral of the continuous function $t \mapsto f^{(n)}(t)\frac{(x-t)^{n-1}}{(n-1)!}$ exists.
+\end{remark}
+
+\begin{proof}
+	The proof follows by induction on $n$ and integration by parts.
+	
+	If $n=1$ then $f:[a,b]\to \mathbb{R}$ is continuously differentiable and, by Corollary \ref{cor*int_vs_deriv}, we get
+	\[
+		f(x) = f(x_0) + \int_{x_0}^{x}f'(t)\, dt = P_0(x) + \int_{x_0}^{x} f^{(1)}(t)\frac{(x-t)^0}{0!}\, dt,
+	\]
+	as desired.
+	
+	To explain the idea behind the inductive step, assume first $n=2$ (so $f$ is twice continuously differentiable). Then, in the integral above, we can apply integration by parts to the functions $f'(t)$ and $g(t) = t-x$. Indeed, since $g' = 1$ and $g(x) = 0$, we get
+	\begin{align*}
+		f(x) &= f(x_0) + \int_{x_0}^{x}f'(t)g'(t)\, dt\\
+		&= f(x_0) + \big[f'(t)g(t)\big]_{x_0}^x - \int_{x_0}^{x}f''t(t)g(t)\, dt\\
+		&= f(x_0) + f'(x_0)(x-x_0) + \int_{x_0}^{x}f''(t)(x-t)\, dt\\
+		&= P_1(x) + \int_{x_0}^{x}f^{(2)}(t)\frac{(x-t)^1}{1!}\, dt.
+	\end{align*}
+	This proves the case $n=2$.
+	
+	More generally, assume that the statement of the theorem is true for some $n \geq 1$ and that $f:[a,b]\to \mathbb{R}$ is an $(n+1)$-times continuously differentiable function. Then, by induction hypothesis,
+	\[
+		f(x) = \sum_{k=0}^{n-1}\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k + \int_{x_0}^{x}f^{(n)}(t)\frac{(x-t)^{n-1}}{(n-1)!}\, dt
+	\]
+	for all $x \in [a,b]$. If we set $g(t) = -\frac{(x-t)^n}{n!}$, then $g'(t) = \frac{(x-t)^{n-1}}{(n-1)!}$ and it follows from integration by parts that
+	\begin{align*}
+		f(x) &= \sum_{k=0}^{n-1}\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k + \bigg[f^{(n)}(t)g(t)\bigg]_{x_0}^x - \int_{x_0}^{x}f^{(n+1)}(t)g(t)\, dt\\
+		&= \sum_{k=0}^{n-1}\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k + f^{(n)}(x_0)\frac{(x-x_0)^{n}}{n!} + \int_{x_0}^{x}f^{(n+1)}(t)\frac{(x-t)^n}{n!}\, dt\\
+		&= \sum_{k=0}^{n}\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k + \int_{x_0}^{x}f^{(n+1)}(t)\frac{(x-t)^n}{n!}\, dt.
+ 	\end{align*}
+ 	This proves the induction step, and the result.\qedhere
+\end{proof}
 
 
