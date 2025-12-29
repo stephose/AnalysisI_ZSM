@@ -89,4 +89,490 @@ We start with the homogeneous case $g \equiv 0$.
 	so $u$ solves the ODE.
 	
 	Conversely, let $u \in C^1(I)$ solve Equation \eqref{eq:homo_lin_1order_ode} and set $v(x) = e^{F(x)}u(x)$. Then
+	\[
+		v'(x) = \big(e^{F(x)}\big)'u(x) = e^{F(x)}u'(x) = e^{F(x)}\left(f(x)u(x) - f(x)u(x)\right) = 0 \qquad \forall x \in I.
+	\]
+	By Corollary \ref{cor*const_deriv}, we deduce that $v(x) = A$ for some $A \in \mathbb{R}$, hence $u(x) = Ae^{-F(x)}$. \qedhere
 \end{proof}
+
+\begin{remark}
+	In the previous result, solutions are written using a primitive $F$ of $f$. Since primitives are defined up to an additive constant, we can replace $F$ by $F + C$ for any $C \in \mathbb{R}$. This amounts to replacing $Ae^{-F(x)}$ by $Ae^{-C}e^{-F(x)}$, and since $A \in \mathbb{R}$ is arbitrary, this does not change the set of solutions.
+\end{remark}
+
+Next, we consider the non-homogeneous linear first-order ODE
+\begin{equation}
+	\label{eq:non_homo_lin_1order_ode}
+	u'(x) + f(x)u(x) = g(x) \qquad \forall x \in I,
+\end{equation}
+where $f,g:I \to \mathbb{R}$ are given continuous functions.
+
+To motivate the solution formula, we use the method of \textbf{variation of constants}. For the homogeneous equation we know that every solution has the form $Ae^{-F(x)}$ with $A \in \mathbb{R}$. The idea is to \textit{replace this constant by a function} and look for a solution of the non-homogeneous equation of the form
+\[
+	u(x) = H(x)e^{-F(x)},
+\]
+for some function $H \in C^1(I)$. With this choice,
+\[
+	u'(x) = H'(x)e^{-F(x)} - F'(x)H(x)e^{-F(x)} = H'(x)e^{-F(x)} - f(x)u(x).
+\]
+Thus, $u$ solves Equation \eqref{eq:non_homo_lin_1order_ode} if and only if
+\[
+	H'(x)e^{-F(x)} = g(x),
+\]
+which means that $H$ must be a primitive of the function $g(x)e^{F(x)}$.
+
+This motivates the general solution formula:
+
+\begin{theorem}{Non-Homogeneous Linear 1st Order ODEs}{non_homo_lin_1order_ode}
+	Let $f,g:I \to \mathbb{R}$ be continuous, and consider the non-homogeneous first-order linear ODE \eqref{eq:non_homo_lin_1order_ode}. Let $F:I \to \mathbb{R}$ be a primitive of $f$, and let $H:I \to \mathbb{R}$ be a primitive of $ge^F$. Then every $C^1$ solution $u:I \to \mathbb{R}$ of Equation \eqref{eq:non_homo_lin_1order_ode} is of the form
+	\[
+		u(x) = H(x)e^{-F(x)} + Ae^{-F(x)}, \qquad A \in \mathbb{R}.
+	\]
+	In particular, the set of solutions of Equation \eqref{eq:non_homo_lin_1order_ode} is a one-dimensional affine subspace of $C^1(I)$.
+\end{theorem}
+
+\begin{proof}
+	If $H$ is a primitive of $ge^F$, then $H + A$ is also a primitive for any constant $A$. Hence, by the same computation as the one performed above, it follows that
+	\[
+		u(x) = (H(x) + A)e^{-F(x)}
+	\]
+	solves Equation \eqref{eq:non_homo_lin_1order_ode}. Indeed
+	\begin{align*}
+		u'(x) &= (H(x) + A)'e^{-F(x)} - F'(x)(H(x) + A)e^{-F(x)}\\
+		&= H'(x)e^{-F(x)} - f(x)u(x) = g(x) - f(x)u(x).
+	\end{align*}
+	
+	Conversely, let $u$ be any solution of Equation \eqref{eq:non_homo_lin_1order_ode}, and set $v(x) = u(x) - H(x)e^{-F(x)}$. Then,
+	\begin{align*}
+		v'(x) &= u'(x) - H'(x)e^{-F(x)} + F'(x)H(x)e^{-F(x)}\\
+		&= -f(x)u(x) + g(x) - g(x)e^{F(x)}e^{-F(x)} + f(x)H(x)e^{-F(x)}\\
+		&= -f(x)u(x) + g(x) - g(x) + f(x)(u(x) - v(x)) = -f(x)v(x).
+	\end{align*}
+	Thus $v$ solves the homogeneous Equation \eqref{eq:homo_lin_1order_ode}. By Theorem \ref{theo*homo_lin_1order_ode}, we have $v(x) = Ae^{-F(x)}$ for some constant $A$. Therefore,
+	\[
+		u(x) = v(x) + H(x)e^{-F(x)} = Ae^{-F(x)} + H(x)e^{-F(x)},
+	\]
+	which proves the result.\qedhere
+\end{proof}
+
+The previous results give explicit formulas to solve every linear first-order ODE of the form $u' + fu = g$. In concrete situations, the difficulty lies in computing a primitive $F$ of $f$ and the a primitive of $g(x)e^{F(x)}$.
+
+As we have seen, solutions depend on a free parameter $A \in \mathbb{R}$. This allows us to impose an initial condition of the form $u(x_0) = u_0$, which uniquely determines $A$.
+
+\subsubsection*{Example}
+We solve the ODE
+\begin{equation}
+	\label{eq:example_ode}
+	u'(x) - 2x\, u(x) = e^{x^2}, \qquad u(0) = 1,
+\end{equation}
+on $\mathbb{R}$. Here $u$ is the unknown, and $f(x) = -2x$, $g(x) = e^{x^2}$ are given. According to Theorem \ref{theo*non_homo_lin_1order_ode}, we first find a primitive of $f$, i.e.,
+\[
+	F(x) = -x^2.
+\]
+Then we consider
+\[
+	g(x)e^{F(x)} = e^{x^2}e^{-x^2} = 1,
+\]
+whose primitive is $H(x) = x$. Thus $u$ must be of the form
+\[
+	u(x) = (x + A)e^{x^2}.
+\]
+Imposing the condition $u(0) = 1$ gives $A = 1$, hence
+\begin{equation}
+	\label{eq:example_ode_sol}
+	u(x) = (x + 1)e^{x^2}.
+\end{equation}
+
+\begin{remark}
+	If one forgets the formula form Theorem \ref{theo*non_homo_lin_1order_ode}, it is enough to remember the following procedure for solving $\eqref{eq:non_homo_lin_1order_ode}$. We start from
+	\[
+		u'(x) + f(x)u(x) = g(x),
+	\]
+	and multiply both sides by a function $e^{w(x)}$, i.e.,
+	\[
+		u'(x)e^{w(x)} + f(x)u(x)e^{w(x)} = g(x)e^{w(x)}.
+	\]
+	We look for $w$ such that the left-hand side is the derivative of $u(x)e^{w(x)}$, i.e.,
+	\[
+		\big(u(x)e^{w(x)}\big)' = u'(x)e^{w(x)} + w^(x)u(x)e^{w(x)}.
+	\]
+	So we require
+	\[
+		w'(x) = f(x).
+	\]
+	If we choose $w = F$ to be any primitive of $f$ (the additive constant does not matter), then
+	\[
+		\big(u(x)e^{F(x)}\big)' = g(x)e^{F(x)},
+	\]
+	and therefore
+	\[
+		u(x)e^{F(x)} = \int ge^F + A,
+	\]
+	for some $A \in \mathbb{R}$. Thus, if $H$ is a primitive of $ge^F$, this reads
+	\[
+		u(x)e^{F(x)} = H(x) + A \qquad \Rightarrow \qquad u(x) = H(x)e^{-F(x)} + Ae^{-F(x)}.
+	\]
+\end{remark}
+
+\subsubsection{Autonomous First Order ODEs}
+We next study \textit{autonomous} first-order ODEs, where the rate of change of the unknown depends only on its current value, and not explicitly on $x$, i.e.,
+\begin{equation}
+	\label{eq:auto_1order_ode}
+	u'(x) = f(u(x)),
+\end{equation}
+where $f:\mathbb{R} \to \mathbb{R}$ is a given continuous function, and $u$ is the unknown. The function $f$ tells us how $u$ should change depending on its current value.
+
+A standard way to solve such equations is the method of \textbf{separation of variables}. If $u(x) = C \in \mathbb{R}$ for some $C$ such that $f(C) = 0$, then the constant function $u = C$ is a solution of the ODE. Otherwise, if $f(u(x)) \neq 0$, we can divide both sides by $f(u(x))$ and get
+\[
+	\frac{u'(x)}{f(u(x))} = 1.
+\]
+Integrating and using the substitution formula, we obtain
+\begin{equation}
+	\label{eq:auto_1order_ode2}
+	\int \frac{1}{f(u)}\, du = \int \frac{1}{f(u(x))}u'(x)\, dx = \int 1\, dx = x + A,
+\end{equation}
+where $A$ is a constant of integration.
+
+If $H$ is a primitive of $1/f$, this reads
+\[
+	H(u(x)) = x + A \qquad \Rightarrow \qquad u(x) = H^{-1}(x + A).
+\]
+Since we assumed $f(u(x)) \neq 0$ on the interval under consideration, we have $H' = \frac{1}{f} \neq 0$ there, so $H$ is strictly monotone and therefore invertible on that interval.
+
+The method of separation of variables applies also to equations of the form
+\[
+	u'(x) = f(u(x))g(x), 
+\]
+where $f,g:\mathbb{R} \to \mathbb{R}$ are continuous. Assuming $f(u(x))\neq 0$ on a suitable interval, we divide and get
+\[
+	\frac{u'(x)}{f(u(x))} = g(x).
+\]
+Integrating gives
+\[
+	\int \frac{1}{f(u)}\, du = \int g(x) \, dx + A.
+\]
+If $H$ is a primitive of $1/f$ and $G$ is a primitive of $g$, then
+\[
+	H(u(x)) = G(x) + A \qquad \Rightarrow \qquad u(x) = H^{-1}(G(x) + A).
+\]
+We summarize this discussion in the next theorem:
+
+\begin{theorem}{Separable Equations}{sep_eq}
+	Let $I,J \subseteq \mathbb{R}$ be intervals, let $f:J \to \mathbb{R}$ and $g:I \to \mathbb{R}$ be continuous, and assume $f(y)\neq 0$ for all $y \in J$. Let $H$ be a primitive of $1/f$ on $J$, and let $G$ be a primitive of $g$ on $I$. Then every $C^1$ solution $u:I \to J$ of 
+	\begin{equation}
+		\label{eq:sep_eq}
+		u'(x) = f(u(x))g(x)
+	\end{equation}
+	is of the form
+	\[
+		u(x) = H^{-1}(G(x) + A), \qquad A \in \mathbb{R}.
+	\]
+\end{theorem}
+
+\begin{proof}
+	Since $f$ never vanishes, $H' = 1 /f$ has constant sign. Hence, $H$ is strictly monotone and therefore invertible.
+	
+	If $u(x) = H^{-1}(G(x) + A)$, then by the chain rule (Theorem \ref{theo*chain_rule}) and the formula for the derivative of the inverse (Theorem \ref{theo*derivative_inv}), we get
+	\[
+		u'(x) = (H^{-1})'(G(x) + A)G'(x) = \frac{1}{H'\circ H^{-1}(G(x) + A)}g(x) = \frac{1}{H'(u(x))}g(x) = f(u(x))g(x),
+	\]
+	so $u$ solves Equation \eqref{eq:sep_eq}.
+	
+	Conversely, suppose $u$ solves Equation \eqref{eq:sep_eq}. Then
+	\[
+		(H \circ u(x))' = H'(u(x))u'(x) = \frac{1}{f(u(x))}f(u(x))g(x) = g(x) = G'(x).
+	\]
+	Thus, $H(u(x)) - G(x)$ has derivative zero, and is therefore constant, i.e.,
+	\[
+		H(u(x)) = G(x) + A, \qquad A \in \mathbb{R}.
+	\]
+	Applying $H^{-1}$ gives
+	\[
+		u(x) = H^{1}(G(x) + A),
+	\]
+	which completes the proof.\qedhere
+\end{proof}
+
+\subsubsection{Homogeneous Linear Second Order ODEs with Constant Coefficients}
+\label{sec:homo_lin_2order_ode}
+We now move to second-order linear ODEs. These are considerably more difficult to solve than first-order ones in general, so we start with the simplest case: homogeneous equations with constant coefficients,
+\begin{equation}
+	\label{eq:homo_lin_2order_ode}
+	u''(x) + a_1u'(x) + a_0u(x) = 0,
+\end{equation}
+where $a_0, a_1 \in \mathbb{R}$ are given constants and $u$ is the unknown. Such equations already cover many important applications (for instance, oscillations and damped vibrations).
+
+We choose the \textit{Ansatz} that the solutions of Equation \eqref{eq:homo_lin_2order_ode} is of the form
+\[
+	u(x) = e^{\alpha x},\qquad \alpha \in \mathbb{C}.
+\]
+With this choice, 
+\[
+	u''(x) + a_1u(x) + a_0u(x) = (\alpha^2 + a_2\alpha + a_0)u(x) = 0,
+\]
+so $u$ is a solution if and only if
+\[
+	\alpha^2 + a_1\alpha + a_0 = 0.
+\]
+The quadratic polynomial
+\[
+	p(t) = t^2 + a_1t + a_0
+\]
+is called the \textbf{characteristic polynomial}. Its roots determine the shape of the solutions. We distinguish three cases according to the discriminant $\Delta = a_1^2 - 4a_0$.
+\begin{itemize}
+	\item[$\bullet$] $\underline{\text{Case 1: } \Delta > 0.}$ The polynomial $p(t)$ has two distinct roots
+	\begin{equation}
+		\label{eq:root_case1}
+		\alpha = \frac{-a_1 + \sqrt{\Delta}}{2}, \qquad \beta = \frac{-a_1 - \sqrt{\Delta}}{2}.
+	\end{equation}
+	Then $x \mapsto e^{\alpha x}$ and $x \mapsto e^{\beta x}$ are two linearly independent solutions, and therefore
+	\[
+		u(x) = Ae^{\alpha x} + Be^{\beta x}, \qquad A,B\in \mathbb{R},
+	\]
+	is a solutions of Equation \eqref{eq:homo_lin_2order_ode}
+	\item[$\bullet$] $\underline{\text{Case 2: } \Delta < 0}.$ Then $p(t)$ has two complex-conjugate roots
+	\begin{equation}
+		\label{eq:roots_case2}
+		\alpha + i \beta = -\frac{a_1}{2} + i \frac{\sqrt{-\Delta}}{2}, \qquad \alpha - i \beta = -\frac{a_1}{2} - i \frac{\sqrt{-\Delta}}{2},
+	\end{equation}
+	with $\beta > 0$. The complex-valued functions $x \mapsto e^{(\alpha \pm i\beta)x}$ solve Equation \eqref{eq:homo_lin_2order_ode}, and hence their real and imaginary parts are solutions. This gives
+	\[
+		u(x) = Ae^{\alpha x} \sin(\beta x) + Be^{\alpha x}\cos(\beta x), \qquad A,B\in \mathbb{R}.
+	\]
+	\item[$\bullet$] $\underline{\text{Case 3: }\Delta = 0}.$ Then $p(t)$ has a double root
+	\begin{equation}
+		\label{eq:root_case3}
+		\alpha = -\frac{a_1}{2},
+	\end{equation}
+	so $x \mapsto e^{\alpha x}$ is a solution of Equation \eqref{eq:homo_lin_2order_ode}. To find another independent solution, recall the special case $u'' = 0$, where two linearly independent solutions are 1 and $x$, which can be written as $e^{\gamma x}$ and $xe^{\gamma x}$ with $\gamma = 0$. This suggests that $x \mapsto xe^{\alpha x}$ might be a solution. Indeed,
+	\[
+		\big(xe^{\alpha x}\big)'' + a_1 \big(xe^{\alpha x}\big)' + a_0xe^{\alpha x} = (\underbrace{\alpha^2 + a_1\alpha + a_0}_{\displaystyle =0})xe^{\alpha x} + (\underbrace{2\alpha + a_1}_{\displaystyle =0})e^{\alpha x} = 0,
+ 	\]
+ 	where the first term vanishes because $\alpha$ is a root of $p$, and the second vanishes by \eqref{eq:root_case3}. Hence
+ 	\[
+ 		u(x) = Ae^{\alpha x} + Bxe^{\alpha x}, \qquad A,B\in \mathbb{R},
+ 	\]
+ 	solves Equation \eqref{eq:homo_lin_2order_ode}.
+\end{itemize}
+
+For second-order ODEs it is customary to prescribe both the value of $u$ and the value of its derivative at some point (for instance, $u(0) = 1$ and $u'(0) = 0$). The two constants $A,B$ in the formulas above are precisely what we need in order to satisfy two such conditions.
+
+\begin{theorem}{Existence and Uniqueness: The Homogeneous Case}{exist_unique_homo}
+	Given $a_0, a_1 \in \mathbb{R}$. let $\Delta = a_1^2 - 4a_0$ and consider the following solutions of Equation \eqref{eq:homo_lin_2order_ode}:
+	\begin{align*}
+		\underline{\Delta > 0:} \qquad &u_1(x) = e^{\alpha x}, \qquad &u_2(x) = e^{\beta x}, \qquad &\alpha, \beta \text{ as in \eqref{eq:root_case1}}\\
+		\underline{\Delta < 0:} \qquad &u_1(x) = e^{\alpha x}\sin(\beta x), \qquad &u_2(x) = e^{\alpha x}\cos(\beta x), \qquad &\alpha,\beta \text{ as in \eqref{eq:roots_case2}}\\
+		\underline{\Delta = 0:} \qquad &u_1(x) = e^{\alpha x}, \qquad  &u_2(x) = xe^{\alpha x}, \qquad &\alpha,\beta \text{ as in \eqref{eq:root_case3}}.
+	\end{align*}
+	If $u \in C^2(I)$ solves Equation \eqref{eq:homo_lin_2order_ode}, then there exists $A,B \in \mathbb{R}$ such that
+	\[
+		u = Au_1 + Bu_2.
+	\]
+	In other words, the set of solutions of Equation \eqref{eq:homo_lin_2order_ode} forms a two-dimensional linear subspace of $C^2(I)$.
+\end{theorem}
+We will skip the proof of this theorem. (It's in the skript)
+
+\begin{corollary}{Wronskian and Linear Dependence}{wronskian_lin_dep}
+	Let $v_1, v_2 \in C^2(I)$ be solutions of Equation \eqref{eq:homo_lin_2order_ode} on an interval $I \subseteq \mathbb{R}$, and let
+	\[
+		W(x) = v_1(x)v_2'(x) - v_1'(x)v_2(x)
+	\]
+	be their Wronskian. If $W(x_0) = 0$ for some $x_0 \in I$, then $v_1$ and $v_2$ are linearly dependent on $I$.
+\end{corollary}
+\begin{proof}
+	Consider the $2 \times 2$ matrix
+	\[
+		M(x_0) = \begin{pmatrix}
+			v_1(x_0) & v_2(x_0)\\
+			v_1'(x_0) & v_2'(x_0)
+		\end{pmatrix}.
+	\]
+	The condition $W(x_0) = 0$ means precisely that $\det M(x_0) = 0$, so there exists a non-zero vector $(A,B) \in \mathbb{R}^2$ such that
+	\[
+		Av_1(x_0) + Bv_2(x_0) = 0,\qquad Av_1'(x_0) + Bv_2'(x_0) = 0.
+	\]
+	Define
+	\[
+		w(x) = Av_1(x) + Bv_2(x).
+	\]
+	Then $w$ solves Equation \eqref{eq:homo_lin_2order_ode} and satisfies
+	\[
+		w(x_0) = 0, \qquad w'(x_0) = 0.
+	\]
+	The only solution with these initial data is the trivial one, so $w = 0$ on $I$. This proves that $Av_1 + Bv_2 = 0$, thus $v_1$ and $v_2$ are linearly dependent on $I$.\qedhere
+\end{proof}
+
+\subsubsection{Non-Homogeneous Linear Second Order ODEs with Constant Coefficients}
+We now add a forcing term and consider the non-homogeneous linear second-order ODE with constant coefficients
+\begin{equation}
+	\label{eq:non_homo_lin_2order_ode}
+	u''(x) + a_1u'(x) + a_0u(x) = g(x),
+\end{equation}
+where $a_0, a_1 \in \mathbb{R}$ are constants and $g \in C^0(I)$ is a given function. The unknown is again $u$.
+
+With the notation of Paragraph \ref{sec:homo_lin_2order_ode}, let $u_1,u_2$ be two linearly independent solutions of the homogeneous Equation \eqref{eq:homo_lin_2order_ode}:
+\begin{align*}
+	\underline{\Delta > 0:} \qquad &u_1(x) = e^{\alpha x}, \qquad &u_2(x) = e^{\beta x}, \qquad &\alpha, \beta \text{ as in \eqref{eq:root_case1}}\\
+	\underline{\Delta < 0:} \qquad &u_1(x) = e^{\alpha x}\sin(\beta x), \qquad &u_2(x) = e^{\alpha x}\cos(\beta x), \qquad &\alpha,\beta \text{ as in \eqref{eq:roots_case2}}\\
+	\underline{\Delta = 0:} \qquad &u_1(x) = e^{\alpha x}, \qquad  &u_2(x) = xe^{\alpha x}, \qquad &\alpha,\beta \text{ as in \eqref{eq:root_case3}}.
+\end{align*}
+We look for a solution $u$ of Equation \eqref{eq:non_homo_lin_2order_ode} of the form
+\[
+	u(x) = H_1(x)u_1(x) + H_2(x)u_2(x),
+\]
+where $H_1, H_2$ are unknown functions. This is the method of \textbf{variation of constants} in the second-order setting. We will spare you the details of the computation and state the theorem directly:
+
+\begin{theorem}{Existence and Uniqueness: The Non-Homogeneous Case}{exist_unique_non_homo}
+	Given $a_0, a_1 \in \mathbb{R}$, let $\Delta = a_1^2 - 4a_0$ and consider the following solutions of Equation \eqref{eq:homo_lin_2order_ode}:
+	\begin{align*}
+		\underline{\Delta > 0:} \qquad &u_1(x) = e^{\alpha x}, \qquad &u_2(x) = e^{\beta x}, \qquad &\alpha, \beta \text{ as in \eqref{eq:root_case1}}\\
+		\underline{\Delta < 0:} \qquad &u_1(x) = e^{\alpha x}\sin(\beta x), \qquad &u_2(x) = e^{\alpha x}\cos(\beta x), \qquad &\alpha,\beta \text{ as in \eqref{eq:roots_case2}}\\
+		\underline{\Delta = 0:} \qquad &u_1(x) = e^{\alpha x}, \qquad  &u_2(x) = xe^{\alpha x}, \qquad &\alpha,\beta \text{ as in \eqref{eq:root_case3}}.
+	\end{align*}
+	Let $H_1$ and $H_2$ be primitives of $\dfrac{u_2g}{u_1'u_2 - u_2'u_1}$ and $\dfrac{u_1g}{u_2'u_1 - u_1'u_2}$, respectively. If $u \in C^2(I)$ solves Equation \eqref{eq:non_homo_lin_2order_ode}, then there exists $A,B \in \mathbb{R}$ such that
+	\[
+		u = Au_1 + Bu_2 + H_1u_1 + H_2u_2.
+	\]
+	In other words, the set of solutions of Equation \eqref{eq:non_homo_lin_2order_ode} forms a two-dimensional affine subspace of $C^2(I)$.
+\end{theorem}
+\begin{proof}
+	First we show existence. By the computation above, that was skipped (but is in the skript), if $H_1$ and $H_2$ are primitives of 
+	\[
+		\frac{u_2g}{u_1'u_2 - u_2'u_1} \quad \text{and} \quad \frac{u_1g}{u_2'u_1 - u_1'u_2},
+	\]
+	then the function
+	\[
+		u_p = H_1u_1 + H_2u_2
+	\]
+	satisfies
+	\[
+		u_p'' + a_1u_p' + a_0u_p = g,
+	\]
+	so $u_p$ is a particular solution of Equation \eqref{eq:non_homo_lin_2order_ode}. Since the equation is linear, for any $A,B \in \mathbb{R}$ the function
+	\[
+		u = Au_1+ Bu_2 + u_p
+	\]
+	also solves Equation \eqref{eq:non_homo_lin_2order_ode}. This proves the existence of solutions of the stated form.
+	
+	For uniqueness, let $u \in C^2(I)$ be any solution of Equation \eqref{eq:homo_lin_2order_ode}, and define
+	\[
+		v= u - u_p = u - (H_1u_1 + H_2u_2).
+	\]
+	Then $v$ solves the homogeneous Equation \eqref{eq:homo_lin_2order_ode} and therefore, by Theorem \ref{theo*exist_unique_homo}, there exist $A,B \in \mathbb{R}$ such that
+	\[
+		v= Au_1 + Bu_2.
+	\]
+	Hence, $u = v + u_p = Au_1 + Bu_2 + H_1u_1 + H_2u_2$, as desired.\qedhere
+\end{proof}
+
+\subsection{Existence and Uniqueness for ODEs}
+\subsubsection{Existence and Uniqueness for First Order ODEs}
+Our goal now is to present the general theory of first-order ODEs for real-valued functions on the real line. In general, a first-order ODE is an equation relating $x, u(x), u'(x)$, i.e.,
+\[
+	G(x, u(x), u'(x)) = 0.
+\]
+In this section we restrict to equations for which one can ''isolate'' $u'$, so that one can write the ODE in \textit{normal form}, i.e.,
+\[
+	u'(x) = f(x, u(x)).
+\]
+
+\begin{definition}{First-Order ODEs in Normal Form}
+	A first-order ODE in \textbf{normal form} is an equation of the type
+	\[
+		u'(x) = f(x, u(x)),
+	\]
+	where $f:\mathbb{R}^2 \to \mathbb{R}$ is a given function and $u:\mathbb{R} \to \mathbb{R}$ is the unknown.
+\end{definition}
+
+The Cauchy-Lipschitz Theorem, also known as Picard-Lindelöf Theorem, is a fundamental result in the theory of ODEs. It ensures the existence and uniqueness of solutions under suitable conditions on $f$.
+
+In the next theorem we need to assume that $f$ is continuous as a function of the two variables $x$ and $y$. This means that, for any point $(x_0,y_0)$ in the domain and for any $\varepsilon > 0$, there exists $\delta > 0$ such that
+\[
+	|x-x_0| < \delta \quad \text{and} \quad |y-y_0| < \delta \qquad \Rightarrow \qquad |f(x,y) - f(x_0,y_0)| < \varepsilon.
+\]
+
+\begin{theorem}{Cauchy-Lipschitz: Global Version}{cauchy_lipschitz_global}
+	Let $f:\mathbb{R}\times \mathbb{R} \to \mathbb{R}$ satisfy the following conditions:
+	\begin{enumerate}
+		\item $f$ is continuous in $\mathbb{R}\times \mathbb{R}$;
+		\item $f$ is Lipschitz continuous with respect to the second variable, i.e., there exists a constant $L > 0$ such that
+		\[
+			|f(x,y_1) - f(x,y_2)| \leq L|y_1 - y_2| \qquad \forall x,y_1,y_2\in \mathbb{R}.
+		\]
+		Then, for any point $(x_0,y_0) \in \mathbb{R}\times \mathbb{R}$ there exists a unique $C^1$ function $u:\mathbb{R}\to \mathbb{R}$ such that
+		\begin{equation}
+			\begin{cases}
+				u'(x) = f(x,u(x)) \qquad \forall x \in\mathbb{R},\\
+				u(x_0) = y_0.
+			\end{cases}
+		\end{equation}
+	\end{enumerate}
+\end{theorem}
+
+\begin{theorem}{Cauchy-Lipschitz: Local Version}{cauchy_lipschitz_local}
+	Let $I \subseteq \mathbb{R}$ be an interval, and let $f:I \times \mathbb{R} \to \mathbb{R}$ satisfy the following conditions:
+	\begin{enumerate}
+		\item $f$ is continuous in $I \times \mathbb{R}$;
+		\item $f$ is locally Lipschitz continuous with respect to the second variable, i.e., for every pair of compact intervals $[a,b]\subseteq I$ and $[c,d]\subseteq \mathbb{R}$ there exists a constant such that
+		\[
+			|f(x,y_1) - f(x,y_2)| \leq L|y_1 - y_2| \qquad \forall x \in [a,b], \;\forall y_1,y_2 \in [c,d].
+		\]
+	\end{enumerate}
+	Then, for any point $(x_0,y_0) \in I \times \mathbb{R}$ there exists an interval $I' \subseteq I$ containing $x_0$ and a unique function $u:I' \to \mathbb{R}$ such that
+	\begin{equation}
+		\begin{cases}
+			u'(x) = f(x,u(x)) \qquad \forall x \in I',\\
+			u(x_0) = y_0.
+		\end{cases}
+	\end{equation}
+\end{theorem}
+
+In other words, under a local Lipschitz assumption, one can only guarantee the existence and uniqueness of a solution on some interval around $x_0$. Moreover, as long as the solution $u(x)$ remains bounded within $I'$, one can continue applying Theorem \ref{theo*cauchy_lipschitz_local} to extend the interval $I'$ as much as possible.
+
+\subsubsection{Higher Order ODEs}
+Suppose we are given an $n$-th order ODE of the form
+\[
+	G(x, u'(x), u''(x), \hdots , u^{(n)}(x)) = 0,
+\]
+and assume that the highest derivative can be isolated and written as
+\begin{equation}
+	\label{eq:norder_iso}
+	u^{(n)}(x) = f(x, u(x), u'(x), \hdots , u^{(n-1)}(x)),
+\end{equation}
+where $f:\mathbb{R}\times \mathbb{R}^n \to \mathbb{R}$ is a given function
+
+We introduce the variables
+\[
+	U_1 = u, \qquad U_2 = u', \qquad U_3 = u'', \;\hdots \;, U_n = u^{(n-1)}.
+\]
+By definition, we have
+\[
+	U_1' = U_2, \qquad U_2' = U_3, \;\hdots \;, U_{n-1}' = U_n,
+\]
+and Equation \eqref{eq:norder_iso} becomes
+\[
+	U_n' = u^{(n)} = f(x, U_1, U_2,\hdots, U_n).
+\]
+Therefore, the $n$-th order Equation \eqref{eq:norder_iso} is equivalent to the first-order system
+\[
+	\begin{cases}
+		U_1' &= U_2,\\
+		U_2' &= U_3,\\
+		&\vdots \\
+		U_{n-1}' &= U_n,\\
+		U_n' &= f(x,U_1, U_2,\hdots, U_n).
+	\end{cases}
+\]
+The Cauchy-Lipschitz Theorem (both its global and local versions) extends to systems of first-order ODEs and ensures existence and uniqueness of solutions whenever the right-hand side is continuous and (locally) Lipschitz continuous with respect to the variable $(U_1, \hdots , U_n)$. In particular, once the initial conditions
+\[
+	U_1(X_0) = u(x_0), \qquad U_2(x_0) = u'(x_0), \;\hdots \;, U_n(x_0) = u^{(n-1)}(x_0)
+\]
+are prescribed at some $x_0 \in I$, there exists a unique (local) solution to the system, and hence a unique solution to the original $n$-th order ODE.
+
+\begin{theorem}{Existence and Uniqueness For Linear Second-Order ODEs}{exist_unique_2order_ode}
+	Let $a_0, a_1: I \to \mathbb{R}$ be continuous and bounded functions. Then the set of solutions of the linear homogeneous equation
+	\[
+		u''(x) + a_1(x)u'(x) + a_0(x)u(x) = 0\qquad \forall x \in I
+	\]
+	is a two-dimensional linear subspace of $C^2(I)$.
+\end{theorem}
+proof can be found in the skript.
