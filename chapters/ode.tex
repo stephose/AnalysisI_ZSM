@@ -1,0 +1,92 @@
+%
+% (c) 2025 Autor, ETH Zürich
+%
+% !TEX root = main.tex
+% !TEX encoding = UTF-8
+%
+
+\section{Ordinary Differential Equations}
+
+\subsection{Ordinary Differential Equations (ODEs)}
+In this section we study \textit{ordinary differential equations} (ODEs). They describe how an unknown quantity depends on one real variable (often denoted by $x$ or $t$) and how this dependence is constrained by relations involving derivatives.
+
+It is convenient to fix some notation from the beginning:
+\begin{itemize}
+	\item[$\bullet$] we usually denote the \textit{unknown function} by $u$;
+	\item[$\bullet$] the independent variable is denoted by $x$ (or by $t$ when it represents time);
+	\item[$\bullet$] letters like $f$, $g$, $a_0$, $a_1$ will typically denote given functions or constants appearing in the equation (data of the problem).
+\end{itemize}
+Although derivatives are usually denoted using $'$ (so $u'$, $u''$, etc.), it is common to use a dot to denote derivatives with respect to time (so $\dot{u}$, $\ddot{u}$, etc.).
+
+\begin{definition}{ODEs}
+	An \textbf{ordinary differential equation (ODE)} is a relation involving a function $u:\mathbb{R}\to \mathbb{R}$ of a real variable $x \in \mathbb{R}$ and its derivatives. The general form of an $n$-th order ODE is
+	\begin{equation}
+		\label{eq:ode}
+		G(x, u(x), u'(x), u''(x), \hdots , u^{(n)}(x)) = 0,
+	\end{equation}
+	where $G:\mathbb{R}^{n+2} \to \mathbb{R}$ is a given function.
+\end{definition}
+
+In many examples the independent variable is time $t$ and the equation describes the evolution of a system, but we keep the generic notation $x$ unless we want to stress the time interpretation.
+
+ODEs can be classified according to several criteria:
+\begin{enumerate}
+	\item \textit{Order:} An ODE is of order $n$ if $u^{(n)}$ is the highest derivative appearing in the equation. For instance:
+	\begin{enumerate}
+		\item $u'' + u = 0 \; \rightsquigarrow$ second order.
+		\item $u^{(3)} = x^2u + x \; \rightsquigarrow$ third order.
+		\item $(u')^2 + u - x^3 = 0 \; \rightsquigarrow$ first order.
+	\end{enumerate}
+	\item \textit{Linearity:} An ODE is \textit{linear} if it is linear in $u$ and its derivatives. Otherwise, it is \textit{nonlinear}. Here ''linear'' means that $u, u', u'', \hdots$ appears only to the first power and are not multiplied with each other.
+	\begin{enumerate}
+		\item $u'' + u = 0\; \rightsquigarrow$ linear.
+		\item $u'' + u^2 = 0\; \rightsquigarrow$ nonlinear (because of $u^2$).
+		\item $u'' + u' u = 0\; \rightsquigarrow$ nonlinear (because of the product $u' u$).
+		\item $u^{(3)} = x^2 u + x \; \rightsquigarrow$ linear.
+		\item $(u')^2 + u - x^3 = 0\; \rightsquigarrow$ nonlinear (because of $(u')^2$).
+	\end{enumerate}
+	\item \textit{Homogeneity (for linear ODEs):} For a linear ODE, we say it is \textit{homogeneous} if all terms involve the function or its derivatives. Equivalently, if $u$ is a solution then $Au$ is a solution for alll $A \in \mathbb{R}$. If there is an additional term that does not depend on $u$ (a ''forcing term''), the equation is \textit{non-homogeneous}.
+	\begin{enumerate}
+		\item $u'' + u = 0\; \rightsquigarrow$ homogeneous.
+		\item $u^{(3)} = x^2u + x\; \rightsquigarrow$ non-homogeneous (because of the term $+x$).
+		\item $u^{(3)} = x^2u\; \rightsquigarrow$ homogeneous.
+	\end{enumerate}
+\end{enumerate}
+
+So far, we have only considered single equations, but one can also study \textit{systems} of ODEs with several unknown functions $u_1, \hdots, u_n$. We will not go into this now, but many ideas are similar.
+
+In addition, solutions are often required to satisfy extra conditions such as $u(0) = 0$ (prescribed position at time 0) and/or $u'(0) = 1$ (prescribed velocity at time 0). When these conditions are imposed at a single time (typically $t = 0$), they are called \textbf{initial conditions}. More general conditions (for instance at two different points, such as $u(0) = 0$ and $u(1) = 1$) are called \textbf{boundary conditions}.
+
+Later we shall see that, under suitable assumptions on the data (for example on a function $f$ appearing in the equation), prescribing initial conditions often leads to a unique solution. This is the content of the Cauchy-Lipschitz (or Picard-Lindelöf) theorem.
+
+\subsubsection{Linear First Order ODEs}
+We now consider linear first-order ODEs. Throughout this subsection we fix a non-empty interval $I \subseteq \mathbb{R}$ that is not a single point, and we study equations of the form
+\[
+	u'(x) + f(x)u(x) = g(x),
+\]
+where $f$ and $g$ are given continuous functions on $I$, and $u$ is the unknown.
+
+We start with the homogeneous case $g \equiv 0$.
+
+\begin{theorem}{Homogeneous Linear 1st Order ODEs}{homo_lin_1order_ode}
+	Let $f:I \to \mathbb{R}$ be continuous and consider the homogeneous first-order linear ODE
+	\begin{equation}
+		\label{eq:homo_lin_1order_ode}
+		u'(x) + f(x)u(x) = 0 \qquad \forall x \in I.
+	\end{equation}
+	Let $F:I \to \mathbb{R}$ be a primitive of $f$. Then all $C^1$ solutions $u:I \to \mathbb{R}$ of Equation \eqref{eq:homo_lin_1order_ode} are of the form
+	\[
+		u(x) = Ae^{-F(x)}, \qquad A \in \mathbb{R}.
+	\]
+	In other words, the set of solutions of Equation \eqref{eq:homo_lin_1order_ode} form a one-dimensional linear subspace of $C^1(I)$.
+\end{theorem}
+
+\begin{proof}
+	Given $A \in \mathbb{R}$, define $u(x) = Ae^{-F(x)}$. Then
+	\[
+		u'(x) = -F'(x)Ae^{-F(x)} = -f(x)Ae^{-F(x)} = -f(x)u(x) \qquad \forall x \in I,
+	\]
+	so $u$ solves the ODE.
+	
+	Conversely, let $u \in C^1(I)$ solve Equation \eqref{eq:homo_lin_1order_ode} and set $v(x) = e^{F(x)}u(x)$. Then
+\end{proof}

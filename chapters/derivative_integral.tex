@@ -495,7 +495,269 @@ We will state and prove different versions of Taylor's Theorem. We begin with th
 		&= \sum_{k=0}^{n-1}\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k + f^{(n)}(x_0)\frac{(x-x_0)^{n}}{n!} + \int_{x_0}^{x}f^{(n+1)}(t)\frac{(x-t)^n}{n!}\, dt\\
 		&= \sum_{k=0}^{n}\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k + \int_{x_0}^{x}f^{(n+1)}(t)\frac{(x-t)^n}{n!}\, dt.
  	\end{align*}
- 	This proves the induction step, and the result.\qedhere
+ 	This proves the induction step, and hence the result.\qedhere
 \end{proof}
 
+Next, we prove the following alternative version of Taylor's Theorem. Here, we do not require $f^{(n)}$ to be continuous, but only to exist. Note that in the case $n=1$, this result corresponds to the Mean Value Theorem \ref{theo*mean_val_theo}.
 
+\begin{theorem}{Taylor Expansion to Order $n$ with Lagrange Remainder}{taylor_lagrange_remainder}
+	Let $n\geq 1$, $f:[a,b]\to \mathbb{R}$ be $n$-times differentiable function, and fix $x_0 \in [a,b]$. Then, for all $x \in [a,b]$ with $x\neq x_0$ there exists $\xi_L\in(x_0,x)$ such that
+	\begin{equation}
+		\label{eq:taylor_lagrange_remainder}
+		f(x) = P_{n-1}(x) + \frac{f^{(n)}(\xi_L)}{n!}(x-x_0)^n.
+	\end{equation}
+\end{theorem}
+\begin{remark}
+	If $x = x_0$, the formula holds trivially: one may take $\xi_L = x_0$, since 
+	\[
+		f(x_0) = P_{n-1}(x_0) \qquad \text{and} \qquad \frac{f^{(n)}(\xi_L)}{n!}(x-x_0)^n = 0.
+	\]
+\end{remark}
+
+\begin{proof}
+	Fix $x \in [a,b]$ (in the skript it's the open interval $(a,b)$, while in the lecture we used the closed interval $[a,b]$). W.l.o.g, assume $x > x_0$ (the case $x < x_0$ is analogous) and consider the function $g:(a,b)\to \mathbb{R}$ defined as
+	\begin{equation}
+		\label{eq:lagrange_remainder_help_func}
+		g(t) = f(t) + f^{(1)}(t)(x-t) + \; \hdots \; + \frac{f^{(n-1)}(t)}{(n-1)!}(x-t)^{n-1} = \sum_{k=0}^{n-1}\frac{f^{(k)}(t)}{k!}(x-t)^k.
+	\end{equation}
+	Then $g(x) = f(x)$ and $g(x_0) = P_{n-1}(x_0)$. Also, its derivative is given by
+	\begin{align*}
+		g'(t) &= \sum_{k=0}^{n-1} \frac{f^{(k+1)}(t)}{k!}(x-t)^k - \sum_{k=0}^{n-1}\frac{f^{(k)}(t)}{k!}k(x-t)^{k-1}\\
+		&= \sum_{k=0}^{n-1} \frac{f^{(k+1)}(t)}{k!}(x-t)^k - \sum_{k=0}^{n-1}\frac{f^{(k)}(t)}{(k-1)!}(x-t)^{k-1}\\
+		&= \sum_{k=0}^{n-1} \frac{f^{(k+1)}(t)}{k!}(x-t)^k - \sum_{k=0}^{n-2}\frac{f^{(k+1)}(t)}{k!}(x-t)^{k} = \frac{f^{(n)}(t)}{(n-1)!}(x-t)^{n-1}.
+	\end{align*}
+	Hence, applying the Cauchy Mean Value Theorem \ref{theo*cauchy_mean_val} in the interval $[x_0, x]$ to the functions $g(t)$ and $h(t) = -(x-t)^n$, we deduce the existence of a point $\xi_L \in (x_0, x)$ such that
+	\[
+		\frac{f(x) - P_{n-1}(x)}{(x-x_0)^n} = \frac{g(x) - g(x_0)}{h(x) - h(x_0)} = \frac{g'(\xi_L)}{h'(\xi_L)} = \frac{\frac{f^{(n)}(\xi_L)}{(n-1)!}(x-\xi_L)^{n-1}}{n(x-\xi_L)^{n-1}} = \frac{f^{(n)}(\xi_L)}{n!}.
+	\]
+	This implies Equation \eqref{eq:taylor_lagrange_remainder} and conclude the proof. \qedhere
+\end{proof}
+
+We can now state out two versions of Taylor's approximation, using the little-o and the big-O notation.
+
+\begin{corollary}{Taylor Approximation with Little-o}{taylor_lil_o}
+	Let $n\geq 1$, $f:[a,b]\to \mathbb{R}$ be an $n$-times continuously differentiable function, and fix $x_0\in [a,b]$. Then, for all $x \in [a,b]$,
+	\begin{equation}
+		\label{eq:taylor_lil_o}
+		f(x) = P_n(x) + o(|x-x_0|^n) \qquad \text{as }x\to x_0.
+	\end{equation}
+\end{corollary}
+
+\begin{proof}
+	Thanks to Theorem \ref{theo*taylor_int_remainder}, we have that
+	\begin{align*}
+		f(x) &= P_{n-1}(x) + \int_{x_0}^{x}f^{(n)}(t) \frac{(x-t)^{n-1}}{(n-1)!}\, dt\\
+		&= P_{n-1}(x) + \int_{x_0}^{x}f^{(n)}(x_0)\frac{(x-t)^{n-1}}{(n-1)!} \, dt + \int_{x_0}^{x}(f^{(n)}(t) - f^{(n)}(x_0))\frac{(x-t)^{n-1}}{(n-1)!}\, dt.
+	\end{align*}
+	Also, using the change of variable $s = x-t$, we note that
+	\begin{equation}
+		\label{eq:int_taylor_lil_o}
+		\int_{x_0}^{x}\frac{(x-t)^{n-1}}{(n-1)!}\, dt = \frac{1}{(n-1)!}\int_{0}^{x -x_0} s^{n-1}\, ds = \frac{1}{(n-1)!}\frac{(x-x_0)^n}{n} = \frac{(x-x_0)^n}{n!},
+	\end{equation}
+	therefore
+	\[
+		\int_{x_0}^{x} f^{(n)}(x_0)\frac{(x-t)^{n-1}}{(n-1)!} \, dt = f^{(n)}(x_0)\frac{(x-x_0)^n}{n!}.
+	\]
+	Hence, we can write
+	\begin{equation}
+		\label{eq:taylor_lil_o2}
+		\begin{aligned}
+			f(x) &= P_{n-1}(x) + f^{(n)}(x_0)\frac{(x-x_0)^n}{n!} + \int_{x_0}^{x}(f^{(n)}(t) - f^{(n)}(x_0))\frac{(x-t)^{n-1}}{(n-1)!}\, dt\\
+			&= P_n(x) + \int_{x_0}^{x}(f^{(n)}(t) - f^{(n)}(x_0))\frac{(x-t)^{n-1}}{(n-1)!}\, dt.
+		\end{aligned}
+	\end{equation}
+	Now, given $\varepsilon > 0$, it follows from the continuity of $f^{(n)}$ at $x_0$ that there exists $\delta > 0$ such that $|f^{(n)}(x) - f^{(n)}(x_0)| < \varepsilon$ for all $x \in (x_0 - \delta, x_0 + \delta) \cap [a,b]$. Therefore, if $x \in (x_0 - \delta, x_0 + \delta) \cap [a,b]$, we can bound the integrand in the last integral by
+	\begin{align*}
+				\bigg|(f^{(n)}(t) - f^{(n)}(x_0))\frac{(x-t)^{n-1}}{(n-1)!}\bigg| &\leq |f^{(n)}(t) - f^{(n)}(x_0)|\frac{|x-t|^{n-1}}{(n-1)!}\\
+				&< \varepsilon \frac{|x-t|^{n-1}}{(n-1)!} \qquad \forall t \in [x_0,x].
+	\end{align*}
+	Hence, using Equation \eqref{eq:int_taylor_lil_o} again, we get
+	\begin{align*}
+		|f(x) - P_n(x)| &\leq \bigg|\int_{x_0}^{x}(f^{(n)}(t) - f^{(n)}(x_0))\frac{(x-t)^{n-1}}{(n-1)!}\, dt \bigg|\\
+		&< \varepsilon \bigg|\int_{x_0}^{x} \frac{|x-t|^{n-1}}{(n-1)!}\, dt\bigg| = \varepsilon\frac{|x-x_0|^n}{n!} \leq \varepsilon |x-x_0|^n,
+	\end{align*}
+	which shows that $f(x) - P_n(x) = o(|x-x_0|^n)$ as $x\to x_0$.\qedhere
+\end{proof}
+
+\begin{corollary}{Taylor Approximation with Big-O}{taylor_big_o}
+	Let $n \geq 1$, $f:[a,b]\to \mathbb{R}$ be an $n$-times differentiable function, and fix $x_0 \in [a,b]$. Assume that there exists $M > 0$ such that $|f^{(n)}(x)| \leq M$ for all $x \in [a,b]$. Then
+	\begin{equation}
+		\label{eq:taylor_big_o}
+		f(x) = P_{n-1}(x) + O(|x-x_0|^n)\qquad \text{as }x\to x_0.
+	\end{equation}
+\end{corollary}
+
+\begin{proof}
+	Given $x \in [a,b]$, we apply Equation \eqref{eq:taylor_lagrange_remainder} to find a point $\xi_L \in [x_0,x]$ such that
+	\[
+		f(x) - P_{n-1}(x) = \frac{f^{(n)}(\xi_L)}{n!}(x-x_0)^n.
+	\]
+	Since $|f^{(n)}(\xi_L)| \leq M$, this implies that
+	\[
+		|f(x) - P_{n-1}(x)| \leq \frac{M}{n!}|x-x_0|^n \leq M |x-x_0|^n,
+	\]
+	therefore $f(x) - P_{n-1}(x) = O(|x-x_0|^n)$ as $x \to x_0$, as desired.\qedhere
+\end{proof}
+
+\subsubsection*{Example}
+As mentioned earlier, if $f$ is differentiable at $x_0$, then
+\[
+	f(x) = f(x_0) + f'(x_0)(x-x_0) + o(|x-x_0|) \qquad \text{as }x \to x_0.
+\]
+Taylor's Theorem allows us to obtain more accurate approximations when $f$ has higher regularity.
+\begin{enumerate}
+	\item If $f$ is twice differentiable and $f''$ is bounded in a neighborhood of $x_0$, then Corollary \ref{cor*taylor_big_o} (with $n=2$) gives
+	\[
+		f(x) = f(x_0) + f'(x_0)(x-x_0) + O(|x-x_0|^2) \qquad \text{as }x \to x_0.
+	\]
+	If in addition $f''$ is continuous (equivalently , $f \in C^2$), then Corollary \ref{cor*taylor_lil_o} yields
+	\[
+		f(x) = f(x_0) + f'(x_0)(x-x_0) + \frac{1}{2}f''(x_0)(x-x_0)^2 + o(|x-x_0|^2) \qquad \text{as }x \to x_0.
+	\]
+	\item If $f$ is smooth, then Corollary \ref{cor*taylor_lil_o} yields
+	\[
+		f(x) = P_n(x) + o(|x-x_0|^n) \qquad \text{as }x \to x_0,
+	\]
+	while Corollary \ref{cor*taylor_big_o} applied with $n+1$ in place of $n$ gives
+	\[
+		f(x) = P_n(x) + O(|x-x_0|^{n+1}) \qquad \text{as }x \to x_0.
+	\]
+	Hence, in the case when $f$ is smooth, the bound on $f - P_n$ provided by Corollary \ref{cor*taylor_big_o} is often more convenient.
+\end{enumerate}
+
+\subsubsection*{Example}
+We illustrate how Taylor expansions can be used to compute limits of more complicated functions
+
+To compute the limit $\lim_{x \to 0} \frac{\sin(x) - x}{x^3}$, we consider the Taylor polynomial of $\sin$ at 0 of degree 3. Since
+\[
+	\sin(0) = 0, \qquad \sin'(0) = 1, \qquad \sin''(0) = 0,\qquad \sin^{(3)}(0) = -1,
+\]
+the Taylor polynomial of degree 3 at 0 is
+\[
+	P_3(x) = 0 + 1\cdot x + \frac{0}{2}\cdot x^2 + \frac{-1}{6}\cdot x^3 = x - \frac{x^3}{6}.
+\]
+Taylor's theorem gives
+\[
+	\sin(x) = P_3(x) + O(x^4) = x - \frac{x^3}{6} + O(x^4) \qquad \text{as }x \to 0.
+\]
+We stop the expansion at order 3 because the limit involves $x^3$ in the denominator; any term of order $\geq 4$ will disappear in the limit.
+Then
+\[
+	\sin(x) - x = \big(x - \frac{x^3}{6} + O(x^4)\big) - x = -\frac{x^3}{6} + O(x^4) \qquad \text{as }x \to 0,
+\]
+and thus
+\[
+	\frac{\sin(x) - x}{x^3} = \frac{-\frac{x^3}{6} + O(x^4)}{x^3} = -\frac{1}{6} + O(x^4) \qquad \text{as }x \to 0.
+\]
+Hence,
+\[
+	\lim_{x \to 0} \frac{\sin(x) - x}{x^3} = -\frac{1}{6}.
+\]
+
+
+\begin{remark}
+	In the previous example we showed that
+	\[
+		\sin(x) = x - \frac{x^3}{6} + O(x^4) \qquad \text{as }x \to 0.
+	\]
+	These coefficients agree with those appearing in the power series expansion of $\sin$. In Section \ref{sec:analytic_func} below, we will see that $\sin$ is an \textit{analytic} function, meaning that its Taylor series around 0 actually converges to $\sin(x)$. For such functions, the Taylor polynomial of degree $n$ is simply the truncation of an infinite series that represents the function itself.
+\end{remark}
+
+\subsubsection*{Example}
+We can use the Taylor approximation to refine the discussion in Section \ref{sec:local_extrema}. Let $f:(a,b) \to \mathbb{R}$ be an $n$-times continuously differentiable function. Suppose $x_0 \in (a,b)$ satisfies
+\[
+	f'(x_0) = \; \hdots \; = f^{(n-1)}(x_0) = 0.
+\]
+Then the following implications hold:
+\begin{itemize}
+	\item[$\bullet$] if $f^{(n)}(x_0) < 0$ and $n$ is even, then $f$ has an isolated local maximum at $x_0$.
+	\item[$\bullet$] if $f^{(n)}(x_0) > 0$ and $n$ is even, then $f$ has an isolated local minimum at $x_0$.
+	\item[$\bullet$] if $f^{(n)}(x_0) \neq 0$ and $n$ is odd, then $x_0$ is not a local extremum of $f$.
+\end{itemize}
+All three statements follow from Equation \eqref{eq:taylor_lagrange_remainder}, which, in this case, takes the form
+\[
+	f(x) = f(x_0) + \frac{f^{(n)}(\xi_L)}{n!}(x-x_0)^n, \qquad \xi_L \in (x_0,x).
+\]
+Indeed, if $f^{(n)}(x_0) > 0$, by continuity there exists $\delta > 0$ such that $f^{(n)}(\xi_L) > 0$ for $\xi_L \in (x_0,x) \subseteq (x_0-\delta, x_0+\delta)$. If $n$ is even, then $(x-x_0)^n > 0$ for $x \neq x_0$ and we deduce that $f(x) > f(x_0)$ for $x \in (x_0 - \delta, x_0 + \delta)$ with $x \neq x_0$. When $n$ is odd, then $(x-x_0)^n$ changes sign when considering $x > x_0$ and $x < x_0$, so $x_0$ is not a local extremum of $f$.
+
+On the other hand, if $f^{(n)}(x_0) < 0$ and $n$ is even, the same argument as above shows that $f(x) < f(x_0)$ for $x \in (x_0-\delta, x_0+\delta)$ with $x \neq x_0$, while the case $n$ odd yields that $x_0$ is not a local extremum of $f$.
+
+
+\subsubsection{Analytic Functions}
+\label{sec:analytic_func}
+Motivated by Taylor's theorem, one might expect that if $f$ is smooth and we replace the finite Taylor polynomial $P_n$ by the full \textbf{Taylor series}
+\[
+	\sum_{k=0}^{\infty}\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k,
+\]
+then this infinite series should converge to $f(x)$. Unfortunately, this is not true in general. Only rather special smooth functions enjoy this property.
+
+Note that the Taylor series is centered at $x_0$ instead of 0 (i.e., $x^n$ is replaced with $(x-x_0)^n$). Hence, all theorems about power series from Section \ref{sec:pwr_series} still hold, but taking into account that now $x_0$ plays the role of the center. In particular, if the series has radius of convergence $R > 0$, then it converges for all $x \in (x_0 - R, x_0 + R)$, while it diverges for $|x-x_0| > R$.
+
+\begin{definition}{Analytic Functions}{analytic_func}
+	Let $I \subseteq \mathbb{R}$ be an interval and $x_0 \in I$. A smooth function $f:I \to \mathbb{R}$ is called \textbf{analytic} at $x_0$ if the Taylor series of $f$ around $x_0$ has radius of convergence $R > 0$ and there exists $\delta \in (0, R)$ such that
+	\[
+		f(x) = \sum_{n=0}^{\infty}\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n \qquad \forall x \in (x_0 - \delta, x_0 + \delta) \cap I.
+	\]
+	We say $f$ is analytic in $I$ if $f$ is analytic at all points in $I$.
+\end{definition}
+
+In other words, analytic functions $f:I \to \mathbb{R}$ are characterized by the fact that, for every point $x_0 \in I$, there exists a power series that converges to $f$ in a neighborhood of $x_0$.
+
+As the next example shows, there are smooth functions $f$ whole Taylor series converges to a function different form $f$.
+
+\subsubsection*{Example}
+Consider the function $\psi:\mathbb{R} \to \mathbb{R}$ defined by
+\[
+	\psi:x\in \mathbb{R} \mapsto \begin{cases}
+		\exp\bigg(-\dfrac{1}{x}\bigg) \quad &\text{if }x > 0,\\
+		0 \quad &\text{if } x \leq 0
+	\end{cases}.
+\]
+We note that $\psi$ is smooth on $\mathbb{R}$ and satisfies $\psi^{(n)}(0) = 0$ for all $n \in \mathbb{N}$. Hence, the Taylor series of the function $\psi$ at the point $x_0 = 0$ is the zero series, i.e.,
+\[
+	\sum_{n=0}^{\infty}\frac{\psi^{(n)}(0)}{n!}x^n = \sum_{n=0}^{\infty}\frac{0}{n!}x^n = 0.
+\]
+The series has an infinite radius of convergence and converges to the function 0. Since $\psi(x) > 0$ holds for all $x > 0$, the Taylor series does not converge to $\psi$ in a neighborhood of $x_0 = 0$, and so $\psi$ is not analytic at the point $x_0 = 0$.
+
+The next result provides a criterion that guarantees that the Taylor series of $f$ converges to $f$ in a neighborhood of $x_0$.
+
+\begin{theorem}{A Criterion for Analyticity at $x_0$}{crit_analytic}
+	Let $I \subseteq \mathbb{R}$ be an interval and $f:I \to \mathbb{R}$ a smooth function. Given $x_0 \in I$, assume that there exists constants $r, C_0, A > 0$ such that
+	\[
+		|f^{(n)}(x)| \leq C_0 A^n n! \qquad \forall x \in (x_0 - r, x_0 + r)\cap I, \; \forall n \in \mathbb{N}.
+	\]
+	Then $f$ is analytic at $x_0$.
+\end{theorem}
+
+\begin{proof}
+	Let $I \subseteq \mathbb{R}$ and fix $x_0 \in I$. We first estimate the radius of convergence $R$ of the Taylor series. If we define $a_n = \frac{f^{(n)}(x_0)}{n!}$, then the Taylor series is equal to $\sum_{n=0}^{\infty} a_n (x-x_0)^n$. Thus, thanks to our assumption on the size of $|f^{(n)}|$, it follows that
+	\[
+		|a_n| \leq \frac{C_0 A^n n!}{n!} = C_0 A^n.
+	\]
+	This implies that
+	\[
+		\limsup_{n \to \infty} \sqrt[n]{|a_n|} \leq \limsup_{n \to \infty}\sqrt[n]{C_0A^n} = \underbrace{\limsup_{n \to \infty} \sqrt[n]{C_0}}_{\displaystyle = 1} A = A,
+	\]
+	therefore, by the definition of radius of convergence (see Definition \ref{def*radius_conv}), $R \geq \frac{1}{A}$.
+	
+	Now, we want to show that there exists a $\delta \in (0, R)$ such that every the Taylor series of $f(x)$ at $x_0$ converges to $f(x)$ for every $x \in (x_0 - \delta, x_0 + \delta) \cap I$.
+	So, fix $\delta < \min\{r, \frac{1}{A}\}$. Given $x \in (x_0 - \delta, x_0 + \delta) \cap I$, we apply Equation \eqref{eq:taylor_lagrange_remainder} to find $\xi_L \in (x_0, x)$, and our assumption on the size of $|f^{(n)}|$ to deduce that
+	\[
+		|f(x) - P_{n-1}(x)| \leq \frac{|f^{(n)}(\xi_L)|}{n!}|x-x_0|^n \leq C_0 A^n |x-x_0|^n \leq C_0 (A\delta)^n.
+	\]
+	Since $A\delta < 1$ (because $\delta < \frac{1}{A}$), letting $n \to \infty$ we conclude that
+	\[
+		f(x) = \lim_{n \to \infty} P_{n-1}(x) = \sum_{n=0}^{\infty}\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n \qquad \forall x \in (x_0- \delta, x_0+\delta)\cap I,
+	\]
+	as desired.\qedhere
+\end{proof}
+
+As a direct consequence of Theorem \ref{theo*crit_analytic}, we immediately deduce the following:
+
+\begin{corollary}{A Criterion for Analyticity}{crit_analytic2}
+	Let $f:[a,b] \to \mathbb{R}$ be a smooth function, and assume there exists constants $C_0,A > 0$ such that
+	\[
+		|f^{(n)}(x)| \leq C_0 A^n n! \qquad \forall x \in [a,b], \;\forall n \in \mathbb{N}.
+	\]
+	Then $f$ is analytic on $[a,b]$.
+\end{corollary}
