@@ -236,12 +236,12 @@ In this section we prove a fundamental theorem that formalizes the idea that the
 	\]
 	Since $a \in X$ and $X \subseteq [a, b]$, the set is non-empty and bounded from above. By Theorem \ref{theo*sup_exist}, its supremum
 	\[
-		\bar{x} = sup(X) \in [a, b]
+		\bar{x} = \sup(X) \in [a, b]
 	\]
 	exists.
-	We now use the continuity of $f$ at $x_0$ to show that $f(\bar{x}) = c$.
+	We now use the continuity of $f$ at $\bar{x}$ to show that $f(\bar{x}) = c$.
 	
-	Since $\bar{x}$ is the supremum of $X$, for each $n \geq 0$, we can find a point $x_n \in [\bar{x} - 2^{-n}, \bar{x}]$.
+	Since $\bar{x}$ is the supremum of $X$, for each $n \geq 0$, we can find a point $x_n \in X \cap [\bar{x} - 2^{-n}, \bar{x}]$.
 	Then $|x_n - \bar{x}| \leq 2^{-n}$, hence $x_n \longrightarrow \bar{x}$.
 	Also, by the definition of $X$, we have $f(x_n) \leq c$. Thus, by Theorem \ref{theo*cont_seq_cont} (continuity of $f$ along sequences),
 	\[
