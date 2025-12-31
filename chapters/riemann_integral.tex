@@ -396,7 +396,7 @@ Using boundedness and uniform continuity on compact intervals (Theorems \ref{the
 \end{theorem}
 
 \begin{proof}
-	Let $f:[a,b] \to \mathbb{R}$ be continuous and fix $\varepsilon > 0$. By uniform continuity \ref{unif_cont_compact_int}, there exists $\delta >0$ such that
+	Let $f:[a,b] \to \mathbb{R}$ be continuous and fix $\varepsilon > 0$. By uniform continuity \ref{theo*unif_cont_compact_int}, there exists $\delta >0$ such that
 	\begin{equation}
 		\label{eq:unif_cont}
 		|x - y| < \delta \quad \Rightarrow \quad |f(x) - f(y)|< \varepsilon \qquad \forall x,y \in [a,b].
@@ -460,7 +460,7 @@ Moreover, $f_n(0) = 0$ for all $n$, and for every $x > 0$ we have $f_n(x) = 0$ f
 
 On the other hand, as the next result shows, uniform convergence is sufficient for both integrability of the limit and interchange of limit and integral.
 
-\begin{theorem}{Uniform Convergence and Riemann Integral Commute}{unif_conv_int_commute}
+\begin{theorem}{Uniform Convergence and Riemann Integrals Commute}{unif_conv_int_commute}
 	Let $(f_n)_{n=0}^{\infty}$, with $f_n:[a,b] \to \mathbb{R}$, be a sequence of integrable functions converging uniformly to $f:[a,b] \to \mathbb{R}$. Then $f$ is integrable and
 	\begin{equation}
 		\label{eq:unif_conv_int}
@@ -469,9 +469,9 @@ On the other hand, as the next result shows, uniform convergence is sufficient f
 \end{theorem}
 
 \begin{proof}
-	Fix $\varepsilon > 0$. By uniform convergence, there exists $N \in \mathbb{N}$ such that $|f_n - f| < \varepsilon$ for all $n \geq N$.
+	Fix $\varepsilon > 0$. By uniform convergence, there exists $N \in \mathbb{N}$ such that $|f_n - f| < \varepsilon$ on $[a,b]$ for all $n \geq N$.
 	
-	Since $f_N$ is integrable, there exists step functions $\ell, u \in \mathcal{SF}$ with $\ell \leq f \leq u$ and $\int_{a}^{b} (u - \ell) \, dx < \varepsilon$. Set $\hat{\ell} = \ell - \varepsilon$ and $\hat{u} = u + \varepsilon$. Then $\hat{\ell}, \hat{u} \in \mathcal{SF}$. Also, since $|f_N - f| < \varepsilon$,
+	Since $f_N$ is integrable, there exists step functions $\ell, u \in \mathcal{SF}$ with $\ell \leq f_N \leq u$ and $\int_{a}^{b} (u - \ell) \, dx < \varepsilon$. Set $\hat{\ell} = \ell - \varepsilon$ and $\hat{u} = u + \varepsilon$. Then $\hat{\ell}, \hat{u} \in \mathcal{SF}$. Also, since $|f_N - f| < \varepsilon$,
 	\[
 	\hat{\ell} = \ell - \varepsilon \leq f_N - \varepsilon \leq f \leq f_N + \varepsilon \leq u + \varepsilon = \hat{u}
 	\]

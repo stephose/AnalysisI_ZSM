@@ -170,9 +170,9 @@ and analogously, $\cos'(x) = -\sin(x)$. Similarly $\sinh'(x) = \cosh(x)$ and $\c
 \end{theorem}
 
 \begin{proof}
-	Observer that we can write
+	Observe that we can write
 	\begin{align*}
-		g(y) &= g(y_0) [g(y) - g(y_0)]\\
+		g(y) &= g(y_0) + [g(y) - g(y_0)]\\
 		&= g(y_0) + g'(y_0)(y - y_0) + [g(y) - g(y_0) - g'(y_0)(y - y_0)]\\
 		&= g(y_0) + g'(y_0)(y - y_0) + \omega(y)(y - y_0),
 	\end{align*}
@@ -189,10 +189,10 @@ and analogously, $\cos'(x) = -\sin(x)$. Similarly $\sinh'(x) = \cosh(x)$ and $\c
 	\]
 	therefore
 	\begin{align*}
-		 \lim_{x \to x_0} \frac{g(g(x)) - g(f(x_0))}{x - x_0} &= \lim_{x \to x_0} \bigg( g'(f(x_0))\frac{f(x) - f(x_0)}{x - x_0} + \omega(f(x)) \frac{f(x) - f(x_0)}{x - x_0} \bigg)\\
+		 \lim_{x \to x_0} \frac{g(f(x)) - g(f(x_0))}{x - x_0} &= \lim_{x \to x_0} \bigg( g'(f(x_0))\frac{f(x) - f(x_0)}{x - x_0} + \omega(f(x)) \frac{f(x) - f(x_0)}{x - x_0} \bigg)\\
 		 &= g'(f(x_0)) f'(x_0) + \underbrace{\omega(f(x_0))}_{= 0} f'(x_0) = g'(f(x_0)) f'(x_0),
 	\end{align*}
-	where we used the continuity of $\omega$ at $y_0 = f(x_0)$ to deduce that $\omega(f(x)) \to \omega(f(x_0))$ as $x \to x_0$. \qedhere
+	where we used the continuity of $\omega$ at $y_0 = f(x_0)$ to deduce that $\omega(f(x)) \to \omega(f(x_0)) = 0$ as $x \to x_0$. \qedhere
 \end{proof}
 
 \begin{corollary}{Quotient Rule}{quot_rule}
@@ -225,7 +225,7 @@ and analogously, $\cos'(x) = -\sin(x)$. Similarly $\sinh'(x) = \cosh(x)$ and $\c
 	\[
 		\frac{f^{-1}(y_n) - f^{-1}(\bar{y})}{y_n - \bar{y}} = \frac{x_n - \bar{x}}{f(x_n) - f(\bar{x})} = \left(\frac{f(x_n) - f(\bar{x})}{x_n - \bar{x}}\right)^{-1}.
 	\]
-	By the continuity of $f^{-1}$ we have $f^{-1}(y_n) = x_n \to \bar{x} = f^{-1}(\bar{y})$ as $y_n \to \bar{y}$. Thus, since $f$ is differentiable at $\bar{x}$ with $f'(\bar{x}) \neq 0$, Proposition \ref{prop*lim_op}(4) implies
+	By the continuity of $f^{-1}$ we have $f^{-1}(y_n) = x_n \to \bar{x} = f^{-1}(\bar{y})$. Thus, since $f$ is differentiable at $\bar{x}$ with $f'(\bar{x}) \neq 0$, Proposition \ref{prop*lim_op}(4) implies
 	\[
 		\left(\frac{f(x_n) - f(\bar{x})}{x_n - \bar{x}}\right)^{-1} \longrightarrow \frac{1}{f'(\bar{x})},
 	\]
