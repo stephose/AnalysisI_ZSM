@@ -722,7 +722,7 @@ The series has an infinite radius of convergence and converges to the function 0
 The next result provides a criterion that guarantees that the Taylor series of $f$ converges to $f$ in a neighborhood of $x_0$.
 
 \begin{theorem}{A Criterion for Analyticity at $x_0$}{crit_analytic}
-	Let $I \subseteq \mathbb{R}$ be an interval and $f:I \to \mathbb{R}$ a smooth function. Given $x_0 \in I$, assume that there exists constants $r, C_0, A > 0$ such that
+	Let $I \subseteq \mathbb{R}$ be an interval and $f:I \to \mathbb{R}$ a smooth function. Given $x_0 \in I$, assume that there exist constants $r, C_0, A > 0$ such that
 	\[
 		|f^{(n)}(x)| \leq C_0 A^n n! \qquad \forall x \in (x_0 - r, x_0 + r)\cap I, \; \forall n \in \mathbb{N}.
 	\]
@@ -740,7 +740,7 @@ The next result provides a criterion that guarantees that the Taylor series of $
 	\]
 	therefore, by the definition of radius of convergence (see Definition \ref{def*radius_conv}), $R \geq \frac{1}{A}$.
 	
-	Now, we want to show that there exists a $\delta \in (0, R)$ such that every the Taylor series of $f(x)$ at $x_0$ converges to $f(x)$ for every $x \in (x_0 - \delta, x_0 + \delta) \cap I$.
+	Now, we want to show that there exists a $\delta \in (0, R)$ such that every Taylor series of $f(x)$ at $x_0$ converges to $f(x)$ for every $x \in (x_0 - \delta, x_0 + \delta) \cap I$.
 	So, fix $\delta < \min\{r, \frac{1}{A}\}$. Given $x \in (x_0 - \delta, x_0 + \delta) \cap I$, we apply Equation \eqref{eq:taylor_lagrange_remainder} to find $\xi_L \in (x_0, x)$, and our assumption on the size of $|f^{(n)}|$ to deduce that
 	\[
 		|f(x) - P_{n-1}(x)| \leq \frac{|f^{(n)}(\xi_L)|}{n!}|x-x_0|^n \leq C_0 A^n |x-x_0|^n \leq C_0 (A\delta)^n.
