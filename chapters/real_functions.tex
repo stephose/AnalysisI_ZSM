@@ -42,7 +42,7 @@ We say that $f \in \mathcal{F}(D)$ is \textbf{non-negative} if $f \geq 0$, and \
 	\[
 		f(x) \geq -M \qquad \forall x \in D.
 	\]
-	We say that $f$ is \textbf{bounded} if it is both bounded from above and from below. Equivalently, $f$ if bounded if there exists $M > 0$ such that
+	We say that $f$ is \textbf{bounded} if it is both bounded from above and from below. Equivalently, $f$ is bounded if there exists $M > 0$ such that
 	\[
 		|f(x)| \leq M \qquad \forall x \in D.
 	\]
@@ -135,7 +135,7 @@ We say that $f \in \mathcal{F}(D)$ is \textbf{non-negative} if $f \geq 0$, and \
 \begin{definition}{Sum and Product Notation}{sum_prod_notation}
 	Let $n \in \mathbb{N}$ and $a_0, a_1, \hdots , a_n \in \mathbb{R}$. We use the notation
 	\[
-		\sum_{j=0}^{n} a_j = a_0 + a_1 + \hdots + a_n, \qquad \prod_{j=0}^{n} a_0 \cdot a_1 \cdot \hdots \cdot a_n.
+		\sum_{j=0}^{n} a_j = a_0 + a_1 + \hdots + a_n, \qquad \prod_{j=0}^{n}a_j =  a_0 \cdot a_1 \cdot \hdots \cdot a_n.
 	\]
 	Here $a_j$ is a \textbf{summand} in the sum and a \textbf{factor} in the product; $j$ is the \textbf{index} (or \textbf{running variable}).
 	If $J$ is a finite set and numbers $(a_j)_{j\in J}$ are given, we write
@@ -834,10 +834,10 @@ Polynomial division gives, as $x \to +\infty$,
 \subsubsection{Pointwise Convergence}
 
 \begin{definition}{Sequences of Functions}{seq_func}
-	A \textbf{sequence} of real-valued on a subset $D \subseteq \mathbb{R}$ is a family of functions $f_n: D \to \mathbb{R}$ indexed by $\mathbb{N}$. The function $f_n$ is called the n-th \textbf{element} of the sequence. One often writes $(f_n)_{n \in \mathbb{N}}$, $(f_n)_{n=0}^{\infty}$, or $(f_n){n\geq 0}$ for a sequence of functions.
+	A \textbf{sequence} of real-valued on a subset $D \subseteq \mathbb{R}$ is a family of functions $f_n: D \to \mathbb{R}$ indexed by $\mathbb{N}$. The function $f_n$ is called the n-th \textbf{element} of the sequence. One often writes $(f_n)_{n \in \mathbb{N}}$, $(f_n)_{n=0}^{\infty}$, or $(f_n)_{n\geq 0}$ for a sequence of functions.
 \end{definition}
 
-\begin{definition}{Pointwise Convergence}
+\begin{definition}{Pointwise Convergence}{ptwise_conv}
 	Let $D \subseteq \mathbb{R}$, and let $(f_n)_{n=0}^{\infty}$ be a sequence of functions $f_n:D \to \mathbb{R}$. Let $f:D \to \mathbb{R}$ be another function. We say that $(f_n)_{n=0}^{\infty}$ \textbf{converges pointwise} to $f$, if for every $x \in D$, the sequence of real numbers $(f_n(x))_{n=0}^{\infty}$ converges to $f(x)$, i.e., for every $x \in D$ and for every $\varepsilon > 0$, there exists $n \in \mathbb{N}$ such that
 	\[
 		|f_n(x) - f(x)| < \varepsilon \qquad \forall n \geq N.

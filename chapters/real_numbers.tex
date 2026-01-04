@@ -171,7 +171,7 @@ Groups capture the idea of combining elements with a single operation. But to de
 	Let $(F, \leq)$ be and ordered field, and let $x, y, z, w \in F$. Then:
 	\begin{enumerate}
 		\item[(a)] (Trichotomy) Either $x < y$, or $x = y$, or $x > y$.
-		\item[(b)] If $x < y$ and $y \leq z$, then $x < z$. (Analogously, $x \leq y and y < z imply x < z$.)
+		\item[(b)] If $x < y$ and $y \leq z$, then $x < z$. (Analogously, $x \leq y \text{ and } y < z \text{ imply } x < z$.)
 		\item[(c)] (Addition of inequalities) If $x \leq y$ and $z \leq w$, then $x + z \leq y + w$. (Analogously, $x < z$ and $z \leq w$ imply $x + z < y + w$.)
 		\item[(d)] $x \leq y$ if and only if $0 \leq y - x$.
 		\item[(e)] $x \leq 0$ if and only if $0 \leq -x$.
@@ -238,7 +238,7 @@ Groups capture the idea of combining elements with a single operation. But to de
 	Let $(F, \leq)$ be an ordered field and let $x,y \in F$. Then:
 	\begin{enumerate}
 		\item[(a)] $x = \operatorname{sgn}(x) |x|, \quad |-x| = |x|, \quad \operatorname{sgn}(-x) = - \operatorname{sgn}(x)$.
-		\item[(b)] $|x| \geq 0$, and $|x| = 0$ if and only if $x = 0$ (by Trichotomy Lemma \ref{lem*consequences_ordred_field}).
+		\item[(b)] $|x| \geq 0$, and $|x| = 0$ if and only if $x = 0$ (by Trichotomy Lemma \ref{lem*consequences_ordered_field}).
 		\item[(c)] (Multiplicativity) $\operatorname{sgn}(xy) = \operatorname{sgn}(x) \operatorname{sgn}(y)$ and $|x y| = |x||y|$.
 		\item[(d)] If $x \neq 0$, then $|x^{-1}| = |x|^{-1}$.
 		\item[(e)] $|x| \leq y$ iff $-y \leq x \leq y$.
@@ -259,7 +259,7 @@ Groups capture the idea of combining elements with a single operation. But to de
 	\[
 		|x| - |y| \leq |x - y|.
 	\]
-	Exchanging the roles of $x$ and $y$, we also have $|y| - |x| leq |y - x| = |x - y|$. Combining these two inequalities yields
+	Exchanging the roles of $x$ and $y$, we also have $|y| - |x| \leq |y - x| = |x - y|$. Combining these two inequalities yields
 	\[
 		-|x - y| \leq |x| - |y| \leq |x -y|,
 	\]
@@ -321,7 +321,7 @@ Groups capture the idea of combining elements with a single operation. But to de
 \begin{definition}{Union and Intersection of several Sets}{union_int_sets}
 	Let $\mathcal{A}$ be a family of sets (i.e., a set whose elements are sets). We define the \textbf{union} and \textbf{intersection} of the sets in $\mathcal{A}$ as
 	\[
-		\bigcup_{A \in \mathcal{A}} A = \{x \;|\; \exists A \in A : x \in A\}, \quad \bigcap_{A \in \mathcal{A}} A = \{x \;|\; \forall A \in \mathcal{A} : x \in A\}.
+		\bigcup_{A \in \mathcal{A}} A = \{x \;|\; \exists A \in \mathcal{A} : x \in A\}, \quad \bigcap_{A \in \mathcal{A}} A = \{x \;|\; \forall A \in \mathcal{A} : x \in A\}.
 	\]
 	If $\mathcal{A} = \{A_1, A_2, \hdots \}$, we also write
 	\[
@@ -471,7 +471,7 @@ In other words, the open disk $B(z, r)$ is the set of points at distance strictl
 \subsection{Maximum and Supremum}
 \subsubsection{Existence of the Supremum}
 
-\begin{definition}{Bounded Sets, Maxima and Minima}
+\begin{definition}{Bounded Sets, Maxima and Minima}{bound_min_max}
 	Let $X \subseteq \mathbb{R}$ be a subset of real numbers.
 	\begin{itemize}
 		\item[$\bullet$] $X$ is \textbf{bounded from above} if there exists $s \in \mathbb{R}$ such that $x \leq s$ for all $x \in X$. Such a number $s$ is called an \textbf{upper bound} of $X$. If $s$ is an upper bound and also an element of $X$, we say that $s$ is the \textbf{maximum} of $X$ and write
