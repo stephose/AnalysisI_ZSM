@@ -18,7 +18,7 @@ It is convenient to fix some notation from the beginning:
 \end{itemize}
 Although derivatives are usually denoted using $'$ (so $u'$, $u''$, etc.), it is common to use a dot to denote derivatives with respect to time (so $\dot{u}$, $\ddot{u}$, etc.).
 
-\begin{definition}{ODEs}
+\begin{definition}{ODEs}{ode}
 	An \textbf{ordinary differential equation (ODE)} is a relation involving a function $u:\mathbb{R}\to \mathbb{R}$ of a real variable $x \in \mathbb{R}$ and its derivatives. The general form of an $n$-th order ODE is
 	\begin{equation}
 		\label{eq:ode}
@@ -193,7 +193,7 @@ Imposing the condition $u(0) = 1$ gives $A = 1$, hence
 	\]
 	We look for $w$ such that the left-hand side is the derivative of $u(x)e^{w(x)}$, i.e.,
 	\[
-		\big(u(x)e^{w(x)}\big)' = u'(x)e^{w(x)} + w^(x)u(x)e^{w(x)}.
+		\big(u(x)e^{w(x)}\big)' = u'(x)e^{w(x)} + w(x)u(x)e^{w(x)}.
 	\]
 	So we require
 	\[
